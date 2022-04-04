@@ -1,0 +1,41 @@
+{
+  "name": "dolan-admin-semi",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "vite --port=3333",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
+  },
+  "dependencies": {
+    "@dolan-x/shared": "^0.0.19",
+    "@douyinfe/semi-ui": "^2.7.1",
+    "@iconify-json/carbon": "^1.1.2",
+    "@unocss/reset": "^0.30.11",
+    "axios": "^0.26.1",
+    "i18next": "^21.6.14",
+    "i18next-browser-languagedetector": "^6.1.4",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0",
+    "react-i18next": "^11.16.2",
+    "react-router-dom": "6",
+    "sodayo": "^0.2.3",
+    "swr": "^1.2.2"
+  },
+  "devDependencies": {
+    "@rollup/plugin-yaml": "^3.1.0",
+    "@so1ve/eslint-config": "^0.18.11",
+    "@types/node": "^17.0.23",
+    "@types/react": "^17.0.43",
+    "@types/react-dom": "^17.0.14",
+    "@vitejs/plugin-react": "^1.3.0",
+    "eslint": "^8.12.0",
+    "typescript": "^4.6.3",
+    "unocss": "^0.30.11",
+    "unplugin-auto-import": "^0.6.9",
+    "vite": "^2.9.1",
+    "vite-plugin-pages": "^0.22.0"
+  }
+}

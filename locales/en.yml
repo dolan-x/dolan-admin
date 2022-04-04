@@ -1,0 +1,58 @@
+dark-mode:
+  light: Light
+  dark: Dark
+pages:
+  home:
+    label: Home
+  login:
+    label: Login
+  signup:
+    label: Sign up
+  posts:
+    label: Posts
+    failed: Failed to load posts!
+    status: Status
+    search: Search
+    reset: Reset
+    filter-published: Published
+    filter-draft: Draft
+    new-post: Write new post
+    post-title: Title
+    post-status: Status
+    post-tags: Tags
+    post-created: Created At
+    no-title: (No Title)
+  config:
+    label: Config
+    config-site: Site Config
+    config-posts: Posts Config
+    config-tags: Tags Config
+    config-categories: Categories Config
+    config-pages: Pages Config
+    config-authors: Authors Config
+    config-functions: Functions Config
+    config-custom: Custom Config
+sidebar:
+  hide: Hide Sidebar
+  posts-management: Posts
+  pages-management: Pages
+  categories-management: Categories
+  tags-management: Tags
+  config-management: Config
+login:
+  login: Login
+  signup: Sign Up
+  logout: Logout
+  username: Username
+  password: Password
+  username-missing: Please input username
+  password-missing: Please input password
+  extras: Extra Settings
+  displayName: Display Name
+  login-success: Login successfully!
+  login-failed: Login failed!
+  signup-success: Signup successfully!
+  signup-failed: Signup failed!
+not-found:
+  not-found: Not found
+  back: Back
