@@ -1,5 +1,4 @@
 {
-  "prettier.enable": false,
   "typescript.tsdk": "node_modules/typescript/lib",
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true,
@@ -11,6 +10,5 @@
     "locales"
   ],
   "i18n-ally.keystyle": "nested",
-  "vite.port": 3333,
   "i18n-ally.sourceLanguage": "zh-CN"
 }

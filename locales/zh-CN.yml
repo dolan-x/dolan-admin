@@ -22,6 +22,7 @@ pages:
     post-tags: 标签
     post-created: 创建日期
     no-title: (无标题)
+    no-tags: (无标签)
   config:
     label: 配置管理
     config-site: 站点配置
@@ -51,8 +52,9 @@ login:
   displayName: 显示的名称
   login-success: 登录成功!
   login-failed: 登录失败!
-  signup-success: 注册成功!
+  signup-success: 注册成功! 请登录。
   signup-failed: 注册失败!
+  logout-success: 退出成功!
 not-found:
   not-found: 未找到页面
   back: 返回上一页

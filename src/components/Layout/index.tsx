@@ -1,10 +1,10 @@
-import type { FC } from "react";
+import type { FC, PropsWithChildren } from "react";
 import { Layout } from "@douyinfe/semi-ui";
 
 import Sidebar from "./Sidebar";
 import Header from "./Header";
 
-const DolanLayout: FC = ({ children }) => {
+const DolanLayout: FC<PropsWithChildren<{}>> = ({ children }) => {
   return (
     <Layout className="min-h-100vh">
       <Sidebar />

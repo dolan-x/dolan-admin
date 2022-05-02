@@ -22,6 +22,7 @@ pages:
     post-tags: Tags
     post-created: Created At
     no-title: (No Title)
+    no-tags: (No Tags)
   config:
     label: Config
     config-site: Site Config
@@ -51,8 +52,9 @@ login:
   displayName: Display Name
   login-success: Login successfully!
   login-failed: Login failed!
-  signup-success: Signup successfully!
+  signup-success: Signup successfully! Please Login.
   signup-failed: Signup failed!
+  logout-success: Logout successfully!
 not-found:
   not-found: Not found
   back: Back

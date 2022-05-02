@@ -2,10 +2,9 @@ import type { FC } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Button, Form, Toast } from "@douyinfe/semi-ui";
 
-import { useLoginStore } from "~/stores";
 import { fetchApi } from "~/lib";
 
-interface LoginData {
+interface SignupData {
   username: string
   password: string
 }
@@ -13,31 +12,27 @@ interface LoginData {
 const Login: FC = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const loginStore = useLoginStore();
 
-  if (loginStore.token)
-    navigate("/dash");
-
-  const onLogin = async(data: LoginData) => {
+  const onSignup = async(data: SignupData) => {
     let resp;
     try {
-      resp = await fetchApi("users/login", {
+      resp = await fetchApi("users/signup", {
         method: "POST",
         body: JSON.stringify(data),
       });
     } catch (e) {
-      Toast.error(`${t("login.login-failed")} ${e}`);
+      Toast.error(`${t("login.signup-failed")} ${e}`);
       return;
     }
     if (resp.success) {
-      loginStore.setToken(resp.data.token);
-      Toast.success(t("login.login-success"));
-    } else { Toast.error(t("login.login-failed")); }
+      Toast.success(t("login.signup-success"));
+      navigate("/login");
+    } else { Toast.error(t("login.signup-failed")); }
   };
 
   return (
     <div className="flex justify-center">
-      <Form className="w-350px" onSubmit={data => onLogin(data as LoginData)}>
+      <Form className="w-350px" onSubmit={data => onSignup(data as SignupData)}>
         <Form.Input field="username" label={t("login.username")} className="w-full" rules={[
           { required: true, message: t("login.username-missing") },
         ]}
@@ -47,13 +42,13 @@ const Login: FC = () => {
         ]}
         />
         <div className="flex justify-between">
-          <Link to="/signup">
+          <Link to="/login">
             <Button>
-              {t("login.signup")}
+              {t("login.login")}
             </Button>
           </Link>
           <Button theme="solid" htmlType="submit" type="primary">
-            {t("login.login")}
+            {t("login.signup")}
           </Button>
         </div>
       </Form>

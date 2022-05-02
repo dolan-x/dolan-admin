@@ -1,16 +1,15 @@
-import { defineStore, useAtom } from "sodayo";
+import { atom, defineStore } from "sodayo";
 
-export const useLoginStore = () => {
-  const useDefine = () => {
-    const token = useAtom(localStorage.getItem("token") ?? "");
-    const setToken = (value: string) => {
-      token.value = value;
-      localStorage.setItem("token", value);
-    };
-    return {
-      token,
-      setToken,
-    };
+import { DOLAN_TOKEN } from "~/constants";
+
+export const useLoginStore = defineStore(() => {
+  const token = atom(localStorage.getItem(DOLAN_TOKEN) ?? "");
+  const setToken = (value: string) => {
+    token.value = value;
+    localStorage.setItem(DOLAN_TOKEN, value);
   };
-  return defineStore(useDefine);
-};
+  return {
+    token,
+    setToken,
+  };
+});
