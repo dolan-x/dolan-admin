@@ -51,6 +51,8 @@ export default defineConfig({
     Yaml(),
   ],
   optimizeDeps: {
-    include: ["@douyinfe/semi-ui"],
+    include: [
+      "@douyinfe/semi-ui",
+    ],
   },
 });

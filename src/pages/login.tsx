@@ -17,13 +17,12 @@ const Login: FC = () => {
 
   if (loginStore.token)
     navigate("/dash");
-
-  const onLogin = async(data: LoginData) => {
+  async function onLogin(data: LoginData) {
     let resp;
     try {
       resp = await fetchApi("users/login", {
         method: "POST",
-        body: JSON.stringify(data),
+        body: data,
       });
     } catch (e) {
       Toast.error(`${t("login.login-failed")} ${e}`);
@@ -33,7 +32,7 @@ const Login: FC = () => {
       loginStore.setToken(resp.data.token);
       Toast.success(t("login.login-success"));
     } else { Toast.error(t("login.login-failed")); }
-  };
+  }
 
   return (
     <div className="flex justify-center">

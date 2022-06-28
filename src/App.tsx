@@ -4,7 +4,7 @@ import { Spin } from "@douyinfe/semi-ui";
 
 import routes from "virtual:generated-pages-react";
 
-function App() {
+function App () {
   const Loading = <Spin size="large" />;
 
   return (

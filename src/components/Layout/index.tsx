@@ -6,7 +6,7 @@ import Header from "./Header";
 
 const DolanLayout: FC<PropsWithChildren<{}>> = ({ children }) => {
   return (
-    <Layout className="min-h-100vh">
+    <Layout className="min-h-100vh bg-#f0f2f5">
       <Sidebar />
       <Layout>
         <Header />

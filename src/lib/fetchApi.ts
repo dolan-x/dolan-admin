@@ -10,12 +10,17 @@ export type DolanResponseP<T> = Promise<DolanResponse<T>>;
 const f = $fetch.create({
   baseURL: import.meta.env.VITE_DOLAN_API_URL,
 });
-export async function fetchApi<T=any>(url: Parameters<typeof f>[0], args?: Parameters<typeof f>[1]): DolanResponseP<T> {
-  return f(url, {
+
+type URLArg = Parameters<typeof f>[0];
+type RestArgs = Parameters<typeof f>[1];
+export async function fetchApi<T = any> (url: URLArg, args?: RestArgs): DolanResponseP<T> {
+  const res = await f(url, {
     ...args,
     headers: {
       Authorization: localStorage.getItem(DOLAN_TOKEN) ? `Bearer ${localStorage.getItem(DOLAN_TOKEN)}` : "",
       ...(args?.headers || {}),
     },
   });
+  res.success = res.data !== undefined;
+  return res;
 }

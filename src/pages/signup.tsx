@@ -13,7 +13,7 @@ const Login: FC = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
 
-  const onSignup = async(data: SignupData) => {
+  async function onSignup(data: SignupData) {
     let resp;
     try {
       resp = await fetchApi("users/signup", {
@@ -28,7 +28,7 @@ const Login: FC = () => {
       Toast.success(t("login.signup-success"));
       navigate("/login");
     } else { Toast.error(t("login.signup-failed")); }
-  };
+  }
 
   return (
     <div className="flex justify-center">

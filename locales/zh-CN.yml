@@ -11,18 +11,29 @@ pages:
   posts:
     label: 文章管理
     failed: 加载文章列表失败!
-    status: 状态
     search: 搜索
     reset: 重置
     filter-published: 已发布
     filter-draft: 草稿
-    new-post: 写文章
+    new-post: 新建文章
     post-title: 标题
     post-status: 状态
     post-tags: 标签
     post-created: 创建日期
     no-title: (无标题)
     no-tags: (无标签)
+    title: 标题
+    status:
+      label: 状态
+      published: 已发布
+      draft: 草稿
+    tags: 标签
+    created: 创建日期
+    input-post-title: 输入文章标题
+    save: 保存
+    save-success: 保存成功!
+    # TODO: Pass parameters
+    auto-saved: "自动保存: "
   config:
     label: 配置管理
     config-site: 站点配置
