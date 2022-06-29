@@ -29,11 +29,18 @@ pages:
       draft: Draft
     tags: Tags
     created: Created At
+    slug: Slug
+    excerpt: Excerpt
+    sticky: Sticky
     input-post-title: Input post title
     save: Save
+    save-failed: Save failed!
     save-success: Saved successfully!
     # TODO: Pass parameters
     auto-saved: "Auto saved at: "
+    edit-post-config: Edit post config
+    metas: Custom metadata of the post
+    metas-bad-json-format: Bad JSON format!
   config:
     label: Config
     config-site: Site Config

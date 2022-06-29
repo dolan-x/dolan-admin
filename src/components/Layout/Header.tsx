@@ -5,15 +5,15 @@ import { Button, Layout, Nav, Radio, RadioGroup, Toast } from "@douyinfe/semi-ui
 
 import { useAppStore, useLoginStore } from "~/stores";
 
+const langs = {
+  "en": "English",
+  "zh-CN": "简体中文",
+};
+
 const Sidebar: FC = () => {
   const { t, i18n } = useTranslation();
   const appStore = useAppStore();
   const loginStore = useLoginStore();
-
-  const langs = {
-    "en": "English",
-    "zh-CN": "简体中文",
-  };
 
   const onChangeI18n = (i18nName: string) => {
     appStore.setI18n(i18nName);
@@ -30,7 +30,7 @@ const Sidebar: FC = () => {
         mode="horizontal"
         footer={(
           <div className="flex gap-3">
-            <RadioGroup type="button" buttonSize="large" defaultValue={i18n.language} aria-label="I18n" onChange={(e) => { onChangeI18n(e.target.value); }}>
+            <RadioGroup type="button" defaultValue={i18n.language} aria-label="I18n" onChange={(e) => { onChangeI18n(e.target.value); }}>
               {Object.entries(langs).map(([k, v]) => (
                 <Radio key={k} value={k}>
                   {v}
@@ -40,12 +40,12 @@ const Sidebar: FC = () => {
             <Link to="/login">
               {loginStore.token
                 ? (
-                  <Button size="large" onClick={onLogout}>
+                  <Button onClick={onLogout}>
                     {t("login.logout")}
                   </Button>
                 )
                 : (
-                  <Button theme="solid" type="primary" size="large">
+                  <Button theme="solid" type="primary">
                     {t("login.login")}
                   </Button>
                 )}

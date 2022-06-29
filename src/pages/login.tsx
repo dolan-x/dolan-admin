@@ -17,15 +17,15 @@ const Login: FC = () => {
 
   if (loginStore.token)
     navigate("/dash");
-  async function onLogin(data: LoginData) {
+  async function onLogin (data: LoginData) {
     let resp;
     try {
       resp = await fetchApi("users/login", {
         method: "POST",
         body: data,
       });
-    } catch (e) {
-      Toast.error(`${t("login.login-failed")} ${e}`);
+    } catch (e: any) {
+      Toast.error(`${t("login.login-failed")} ${e.data.error}`);
       return;
     }
     if (resp.success) {

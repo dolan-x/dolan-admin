@@ -29,11 +29,18 @@ pages:
       draft: 草稿
     tags: 标签
     created: 创建日期
+    slug: 文章唯一标识符
+    excerpt: 摘要
+    sticky: 置顶
     input-post-title: 输入文章标题
     save: 保存
+    save-failed: 保存失败!
     save-success: 保存成功!
     # TODO: Pass parameters
     auto-saved: "自动保存: "
+    edit-post-config: 编辑文章配置
+    metas: 自定义文章元数据
+    metas-bad-json-format: 错误的JSON格式!
   config:
     label: 配置管理
     config-site: 站点配置

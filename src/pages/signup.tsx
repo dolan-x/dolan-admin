@@ -13,15 +13,15 @@ const Login: FC = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
 
-  async function onSignup(data: SignupData) {
+  async function onSignup (data: SignupData) {
     let resp;
     try {
       resp = await fetchApi("users/signup", {
         method: "POST",
         body: JSON.stringify(data),
       });
-    } catch (e) {
-      Toast.error(`${t("login.signup-failed")} ${e}`);
+    } catch (e: any) {
+      Toast.error(`${t("login.signup-failed")} ${e.data.error}`);
       return;
     }
     if (resp.success) {

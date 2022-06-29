@@ -4,10 +4,10 @@ import { atom, defineStore } from "sodayo";
 import { DOLAN_SAVED_POST } from "~/constants";
 import { serializedLocalStorage } from "~/utils/storage";
 
+// FIXME
 export const usePostsStore = defineStore(() => {
   const savedPost = atom(serializedLocalStorage.getItem<Partial<Post>>(DOLAN_SAVED_POST) ?? {});
   function setSavedPost (value: Partial<Post>) {
-    console.log(savedPost.value);
     savedPost.value = value;
     serializedLocalStorage.setItem(DOLAN_SAVED_POST, value);
   }

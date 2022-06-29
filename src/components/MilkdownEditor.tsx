@@ -13,7 +13,10 @@ import { upload } from "@milkdown/plugin-upload";
 import { menu } from "@milkdown/plugin-menu";
 import { history } from "@milkdown/plugin-history";
 import { clipboard } from "@milkdown/plugin-clipboard";
+import { prism } from "@milkdown/plugin-prism";
 import { listener, listenerCtx } from "@milkdown/plugin-listener";
+
+import "prism-themes/themes/prism-nord.css";
 
 const plugins: (MilkdownPlugin | MilkdownPlugin[])[] = [
   nord,
@@ -27,6 +30,7 @@ const plugins: (MilkdownPlugin | MilkdownPlugin[])[] = [
   menu,
   history,
   clipboard,
+  prism,
   listener,
 ];
 
@@ -34,7 +38,7 @@ interface MilkdownEditorProps {
   value?: string
   onChange?: (s: string) => void
 }
-export const MilkdownEditor: FC<MilkdownEditorProps> = ({ value, onChange }) => {
+const MilkdownEditor: FC<MilkdownEditorProps> = ({ value, onChange }) => {
   const { editor } = useEditor(root =>
     Editor.make()
       .config((ctx) => {
@@ -51,3 +55,5 @@ export const MilkdownEditor: FC<MilkdownEditorProps> = ({ value, onChange }) => 
 
   return <ReactEditor editor={editor} />;
 };
+
+export default MilkdownEditor;
