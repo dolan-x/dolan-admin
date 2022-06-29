@@ -1,21 +1,28 @@
 import { type FC, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { Button, Card, Col, Form, Input, Modal, Row, Space, Toast, Typography, type useFormState } from "@douyinfe/semi-ui";
+import { useNavigate, useParams } from "react-router-dom";
+import { Button, Card, Col, Form, Input, Modal, Row, Space, Toast, Typography, type useFormApi, type useFormState } from "@douyinfe/semi-ui";
 import type { Metas, Post } from "@dolan-x/shared";
 
+import useAsyncEffect from "use-async-effect";
 import MilkdownEditor from "~/components/MilkdownEditor";
 import { NEW_POST_TEMPLATE } from "~/lib/templates";
 import { fetchApi } from "~/lib";
 import MonacoMetaEditor from "~/components/MonacoMetaEditor";
 
 type FormState = ReturnType<typeof useFormState>;
+type FormApi = ReturnType<typeof useFormApi>;
+type Config = Omit<Post, "title" | "content" | "metas">;
 
-const NewPost: FC = () => {
+const EditPost: FC = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const params = useParams();
+
+  const formRef = useRef<FormApi>();
+
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
-  const [config, setConfig] = useState({});
+  const [config, setConfig] = useState<Config>({} as Config);
   const [metas, setMetas] = useState<Metas>({});
   const [metasString, setMetasString] = useState("{}");
   const [metasBadJSON, setMetasBadJSON] = useState(false);
@@ -24,6 +31,35 @@ const NewPost: FC = () => {
   const [showMetaEditor, setShowMetaEditor] = useState(false);
   // const [autosavedAt, setAutosaveAt] = useState<Date | null>(null);
   // TODO
+
+  async function onFetch () {
+    let resp;
+    try {
+      resp = await fetchApi<Post>(`posts/${params.id}`);
+      console.log(resp);
+    } catch {
+      Toast.error("文章不存在");
+      navigate("../..", { replace: true });
+    }
+    if (resp?.success) {
+      setPostData(resp);
+      const {
+        title,
+        content,
+        metas,
+        ...config
+      } = resp.data;
+      setTitle(title);
+      setContent(content);
+      setMetas(metas);
+      setConfig(config);
+
+      const formApi = formRef.current;
+      formApi?.setValue("slug", "fuck");
+    }
+  }
+
+  useAsyncEffect(onFetch, []);
 
   function updatePostData () {
     setPostData({
@@ -76,6 +112,9 @@ const NewPost: FC = () => {
     setSaving(false);
     navigate("../");
   }
+  useEffect(() => {
+    formRef.current?.setValue("slug", "d");
+  }, []);
   // TODO: Auto save
   // useEffect(() => {
   //   const autosave = setInterval(() => {
@@ -98,7 +137,7 @@ const NewPost: FC = () => {
         </div>
       )}
     >
-      <Form onChange={onConfigChange}>
+      <Form getFormApi={formApi => formRef.current = formApi} onChange={onConfigChange}>
         <Form.Input field="slug" placeholder={t("pages.posts.slug")} label={t("pages.posts.slug")} />
         <Form.TextArea field="excerpt" placeholder={t("pages.posts.excerpt")} label={t("pages.posts.excerpt")} />
         <Form.Switch field="sticky" label={t("pages.posts.sticky")} />
@@ -112,8 +151,8 @@ const NewPost: FC = () => {
         </Form.Select>
         {/* TODO */}
         {/* <Form.Select field="tags">
-          1
-        </Form.Select> */}
+                  1
+                </Form.Select> */}
       </Form>
     </Card>
   );
@@ -179,4 +218,4 @@ const NewPost: FC = () => {
   );
 };
 
-export default NewPost;
+export default EditPost;

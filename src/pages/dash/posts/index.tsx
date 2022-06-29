@@ -19,13 +19,13 @@ const Posts: FC = () => {
   const [meta, setMeta] = useState<Record<string, any>>({});
   const [currentPage, setCurrentPage] = useState(1);
 
-  const onFetch = async () => {
+  async function onFetch () {
     const resp = await fetchApi("posts");
     if (resp.success) {
       setPosts(resp.data);
-      setMeta(resp.meta);
+      setMeta(resp.metas);
     } else { Toast.error(t("pages.posts.failed")); }
-  };
+  }
 
   useAsyncEffect(onFetch, []);
 
@@ -34,7 +34,7 @@ const Posts: FC = () => {
       <div className="text-blue-400">
         <Link to={`./edit/${item.slug}`}>
           {item.sticky
-            ? <div className="text-red-600 h-5 i-carbon-pin" />
+            ? <div className="text-red-600 h-4 i-carbon-pin" />
             : null}
           &nbsp;
           {title || t("pages.posts.no-title")}

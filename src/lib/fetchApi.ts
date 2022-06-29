@@ -3,7 +3,7 @@ import { $fetch } from "ohmyfetch";
 import { DOLAN_TOKEN } from "~/constants";
 
 export type DolanResponse<T> =
-  | { success: true; code: number; message: string; data: T; meta: Record<string, any> }
+  | { success: true; code: number; message: string; data: T; metas: Record<string, any> }
   | { success: false; code: number; message: string; error: string };
 export type DolanResponseP<T> = Promise<DolanResponse<T>>;
 
