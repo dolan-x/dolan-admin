@@ -10,3 +10,11 @@ h1, h2, h3, h4, h5, h6 {
 .milkdown ul, .milkdown ol {
   list-style: unset;
 }
+
+@media only screen and (min-width: 72rem) {
+  .milkdown .editor {
+    margin: 0 auto;
+    max-width: 57.375rem;
+    padding: 3.125rem!important;
+  }
+}
