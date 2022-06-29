@@ -13,6 +13,7 @@ import { upload } from "@milkdown/plugin-upload";
 import { menu } from "@milkdown/plugin-menu";
 import { history } from "@milkdown/plugin-history";
 import { clipboard } from "@milkdown/plugin-clipboard";
+import { listener, listenerCtx } from "@milkdown/plugin-listener";
 
 const plugins: (MilkdownPlugin | MilkdownPlugin[])[] = [
   nord,
@@ -26,18 +27,24 @@ const plugins: (MilkdownPlugin | MilkdownPlugin[])[] = [
   menu,
   history,
   clipboard,
+  listener,
 ];
 
 interface MilkdownEditorProps {
   value?: string
   onChange?: (s: string) => void
 }
-export const MilkdownEditor: FC<MilkdownEditorProps> = ({ value }) => {
+export const MilkdownEditor: FC<MilkdownEditorProps> = ({ value, onChange }) => {
   const { editor } = useEditor(root =>
     Editor.make()
       .config((ctx) => {
         ctx.set(rootCtx, root);
         value && ctx.set(defaultValueCtx, value);
+        if (onChange) {
+          ctx.get(listenerCtx).markdownUpdated((_ctx, markdown, _prevMarkdown) => {
+            onChange(markdown);
+          });
+        }
       })
       .use(plugins.flat()),
   );

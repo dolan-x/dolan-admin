@@ -14,15 +14,17 @@ const NewPost: FC = () => {
   const navigate = useNavigate();
   // const postsStore = usePostsStore();
   const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
   // const [autosavedAt, setAutosaveAt] = useState<Date | null>(null);
   // TODO
   // const postData: Partial<Post> = {
   //   title,
   // };
-  const onSave = async () => {
+
+  async function onSave () {
     Toast.success(t("pages.posts.save-success"));
     navigate("../");
-  };
+  }
   // TODO: Auto save
   // useEffect(() => {
   //   const autosave = setInterval(() => {
@@ -57,7 +59,7 @@ const NewPost: FC = () => {
           {t("pages.posts.save")}
         </Button>
       </div>
-      <MilkdownEditor value={NEW_POST_TEMPLATE} />
+      <MilkdownEditor value={NEW_POST_TEMPLATE} onChange={setContent} />
     </div>
   );
 };
