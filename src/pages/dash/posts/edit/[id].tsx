@@ -54,8 +54,9 @@ const EditPost: FC = () => {
       setMetas(metas);
       setConfig(config);
 
-      const formApi = formRef.current;
-      formApi?.setValue("slug", "fuck");
+      // const formApi = formRef.current;
+      // formApi?.setValue("slug", "fuck");
+      // console.log(formRef.current?.getValue("slug"));
     }
   }
 
@@ -112,9 +113,10 @@ const EditPost: FC = () => {
     setSaving(false);
     navigate("../");
   }
-  useEffect(() => {
-    formRef.current?.setValue("slug", "d");
-  }, []);
+  // useEffect(() => {
+  //   formRef.current?.setValue("slug", "d");
+  //   console.log(formRef.current?.getValue("slug"));
+  // }, []);
   // TODO: Auto save
   // useEffect(() => {
   //   const autosave = setInterval(() => {
