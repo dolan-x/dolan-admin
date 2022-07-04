@@ -41,6 +41,16 @@ pages:
     edit-post-config: Edit post config
     metas: Custom metadata of the post
     metas-bad-json-format: Bad JSON format!
+  tags:
+    new-tag: New Tag
+    tag-list: Tag List
+    name: Name
+    slug: Slug
+    color: Color
+    description: Description
+    add-success: Added successfully!
+    add-failed: Add failed!
+    add: Add
   config:
     label: Config
     config-site: Site Config

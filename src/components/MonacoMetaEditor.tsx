@@ -19,7 +19,7 @@ const MonacoEditor: FC<MonacoMetaEditorProps> = ({ value, onChange }) => {
       <Editor
         height="60vh"
         defaultLanguage="json"
-        loading={<Spin />}
+        loading={<Spin size="large" />}
         value={value}
         onChange={onChange}
       />

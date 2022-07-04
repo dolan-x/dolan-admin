@@ -18,7 +18,7 @@ const Login: FC = () => {
     try {
       resp = await fetchApi("users/signup", {
         method: "POST",
-        body: JSON.stringify(data),
+        body: data,
       });
     } catch (e: any) {
       Toast.error(`${t("login.signup-failed")} ${e.data.error}`);

@@ -1,16 +1,15 @@
-import { type FC, useState } from "react";
+import type { FC } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { Button, Card, Col, Form, Input, Modal, Row, Space, Toast, Typography, type useFormApi, type useFormState } from "@douyinfe/semi-ui";
+import { Button, Card, Col, Form, Input, Modal, Row, Space, Toast, Typography } from "@douyinfe/semi-ui";
+import useAsyncEffect from "use-async-effect";
 import type { Metas, Post } from "@dolan-x/shared";
 
-import useAsyncEffect from "use-async-effect";
 import MilkdownEditor from "~/components/MilkdownEditor";
+import MonacoMetaEditor from "~/components/MonacoMetaEditor";
 import { NEW_POST_TEMPLATE } from "~/lib/templates";
 import { fetchApi } from "~/lib";
-import MonacoMetaEditor from "~/components/MonacoMetaEditor";
+import type { FormApi, FormState } from "~/types";
 
-type FormState = ReturnType<typeof useFormState>;
-type FormApi = ReturnType<typeof useFormApi>;
 type Config = Omit<Post, "title" | "content" | "metas">;
 
 const EditPost: FC = () => {

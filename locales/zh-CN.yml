@@ -41,6 +41,16 @@ pages:
     edit-post-config: 编辑文章配置
     metas: 自定义文章元数据
     metas-bad-json-format: 错误的JSON格式!
+  tags:
+    new-tag: 新建标签
+    tag-list: 标签列表
+    name: 名称
+    slug: 标签唯一标识符
+    color: 颜色
+    description: 标签描述
+    add-success: 添加成功!
+    add-failed: 添加失败!
+    add: 添加
   config:
     label: 配置管理
     config-site: 站点配置
