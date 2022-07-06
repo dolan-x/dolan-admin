@@ -7,8 +7,7 @@ const Dash: FC = () => {
   const location = useLocation();
   const loginStore = useLoginStore();
 
-  if (location.pathname.startsWith("/dash") && !loginStore.token)
-    return <Navigate replace to="/login" />;
+  if (location.pathname.startsWith("/dash") && !loginStore.token) { return <Navigate replace to="/login" />; }
 
   return <Outlet />;
 };

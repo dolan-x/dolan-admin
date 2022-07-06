@@ -1,8 +1,7 @@
 export const serializedLocalStorage = {
   getItem<T = any> (key: string): T | null {
     const maybeItem = localStorage.getItem(key);
-    if (maybeItem != null)
-      return JSON.parse(maybeItem);
+    if (maybeItem != null) { return JSON.parse(maybeItem); }
 
     return null;
   },

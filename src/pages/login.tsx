@@ -15,8 +15,7 @@ const Login: FC = () => {
   const navigate = useNavigate();
   const loginStore = useLoginStore();
 
-  if (loginStore.token)
-    navigate("/dash");
+  if (loginStore.token) { navigate("/dash"); }
   async function onLogin (data: LoginData) {
     let resp;
     try {

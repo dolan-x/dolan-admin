@@ -1,90 +1,80 @@
 import type { FC } from "react";
 import { useNavigate } from "react-router-dom";
-import { Button, Card, Col, Form, Input, Modal, Row, Space, Toast, Typography, type useFormState } from "@douyinfe/semi-ui";
-import type { Metas, Post } from "@dolan-x/shared";
+import { Button, Card, Col, Input, Modal, Row, Select, Space, Toast, Typography } from "@douyinfe/semi-ui";
+import type { Metas } from "@dolan-x/shared";
 
 import MilkdownEditor from "~/components/MilkdownEditor";
-import { NEW_POST_TEMPLATE } from "~/lib/templates";
-import { fetchApi } from "~/lib";
 import MonacoMetaEditor from "~/components/MonacoMetaEditor";
+import { SemiInput, SemiSelect, SemiSwitch, SemiTextArea } from "~/components/Dash/Common";
+import { fetchApi } from "~/lib";
+import { NEW_POST_TEMPLATE } from "~/lib/templates";
 
-type FormState = ReturnType<typeof useFormState>;
-
-const NewPost: FC = () => {
+const EditPost: FC = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
+
+  const [showMetaEditor, setShowMetaEditor] = useState(false);
+  const toggleShowMetaEditor = () => { setShowMetaEditor(!showMetaEditor); };
+
+  const [saving, setSaving] = useState(false);
+
+  // Form
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
-  const [config, setConfig] = useState({});
-  const [metas, setMetas] = useState<Metas>({});
-  const [metasString, setMetasString] = useState("{}");
-  const [metasBadJSON, setMetasBadJSON] = useState(false);
-  const [postData, setPostData] = useState<Partial<Post>>({});
-  const [saving, setSaving] = useState(false);
-  const [showMetaEditor, setShowMetaEditor] = useState(false);
-  // const [autosavedAt, setAutosaveAt] = useState<Date | null>(null);
-  // TODO
+  const [slug, setSlug] = useState("");
+  const [excerpt, setExcerpt] = useState("");
+  const [sticky, setSticky] = useState(false);
+  const [status, setStatus] = useState("published");
 
-  function updatePostData () {
-    setPostData({
+  const [metas, setMetas] = useState("{}");
+  const [parsedMetas, setParsedMetas] = useState({} as Metas);
+  const [metasBadJson, setMetasBadJson] = useState(false);
+
+  async function onSave () {
+    setSaving(true);
+    if (metasBadJson) {
+      Toast.error(t("pages.posts.metas-bad-json-format"));
+      setSaving(false);
+      return;
+    }
+    const body = {
       title,
       content,
-      ...config,
-      metas,
-    });
+      slug,
+      excerpt,
+      sticky,
+      status,
+      tags: [],
+      categories: [],
+      metas: parsedMetas,
+    };
+    try {
+      await fetchApi("posts", {
+        method: "POST",
+        body,
+      });
+      Toast.success(t("pages.posts.save-success"));
+      navigate("..");
+    } catch (e: any) {
+      Toast.error(`${t("pages.posts.save-failed")} ${e.data.error}`);
+    }
+    setSaving(false);
   }
-  useEffect(updatePostData, [title, content, config, metas]);
 
-  function onConfigChange (values: FormState) {
-    setConfig(values.values);
-    updatePostData();
-  }
-  function toggleShowMetaEditor () {
-    setShowMetaEditor(!showMetaEditor);
-  }
   function onMetasChange (value: string | undefined) {
-    setMetasString(value || "");
+    setMetas(value || "");
     if (value === "" || value === undefined) {
-      setMetas({});
+      setParsedMetas({});
       return;
     }
     try {
       const parsedMetas = JSON.parse(value.trim() || "");
-      setMetas(parsedMetas);
-      setMetasBadJSON(false);
+      setParsedMetas(parsedMetas);
+      setMetasBadJson(false);
     } catch {
-      setMetasBadJSON(true);
+      setMetasBadJson(true);
     }
   }
-  async function onSave () {
-    if (metasBadJSON) {
-      Toast.error(t("pages.posts.metas-bad-json-format"));
-      return;
-    }
-    setSaving(true);
-    try {
-      await fetchApi("posts", {
-        method: "POST",
-        body: postData,
-      });
-    } catch (e: any) {
-      setSaving(false);
-      Toast.error(`${t("pages.posts.save-failed")} ${e.data.error}`);
-      return;
-    }
-    Toast.success(t("pages.posts.save-success"));
-    setSaving(false);
-    navigate("../");
-  }
-  // TODO: Auto save
-  // useEffect(() => {
-  //   const autosave = setInterval(() => {
-  //     console.log(postData);
-  //     postsStore.setSavedPost(postData);
-  //     setAutosaveAt(new Date());
-  //   }, 3 * 1000); // Auto save each 3 sec
-  //   return () => clearInterval(autosave);
-  // }, []);
 
   const Milkdown = <MilkdownEditor value={NEW_POST_TEMPLATE} onChange={setContent} />;
   const ConfigEditor = (
@@ -98,23 +88,17 @@ const NewPost: FC = () => {
         </div>
       )}
     >
-      <Form onChange={onConfigChange}>
-        <Form.Input field="slug" placeholder={t("pages.posts.slug")} label={t("pages.posts.slug")} />
-        <Form.TextArea field="excerpt" placeholder={t("pages.posts.excerpt")} label={t("pages.posts.excerpt")} />
-        <Form.Switch field="sticky" label={t("pages.posts.sticky")} />
-        <Form.Select field="status" className="w-full" label={t("pages.posts.status.label")}>
-          <Form.Select.Option value="published">
-            {t("pages.posts.status.published")}
-          </Form.Select.Option>
-          <Form.Select.Option value="draft">
-            {t("pages.posts.status.draft")}
-          </Form.Select.Option>
-        </Form.Select>
-        {/* TODO */}
-        {/* <Form.Select field="tags">
-          1
-        </Form.Select> */}
-      </Form>
+      <SemiInput value={slug} onChange={setSlug} placeholder={t("pages.posts.slug")} label={t("pages.posts.slug")} />
+      <SemiTextArea autosize value={excerpt} onChange={setExcerpt} placeholder={t("pages.posts.excerpt")} label={t("pages.posts.excerpt")} />
+      <SemiSwitch checked={sticky} onChange={setSticky} label={t("pages.posts.sticky")} />
+      <SemiSelect value={status} onChange={setStatus as any} className="w-full" label={t("pages.posts.status.label")}>
+        <Select.Option value="published">
+          {t("pages.posts.status.published")}
+        </Select.Option>
+        <Select.Option value="draft">
+          {t("pages.posts.status.draft")}
+        </Select.Option>
+      </SemiSelect>
     </Card>
   );
   const MetaEditor = (
@@ -130,7 +114,7 @@ const NewPost: FC = () => {
         </Button>
       )}
     >
-      <MonacoMetaEditor value={metasString} onChange={onMetasChange} />
+      <MonacoMetaEditor value={metas} onChange={onMetasChange} />
     </Modal>
   );
 
@@ -140,12 +124,6 @@ const NewPost: FC = () => {
         <Typography.Title heading={2}>
           {t("pages.posts.new-post")}
         </Typography.Title>
-        {/* {autosavedAt !== null && (
-          <Typography.Title heading={6}>
-            {t("pages.posts.auto-saved")}
-            {toDisplayDate(autosavedAt.toUTCString())}
-          </Typography.Title>
-        )} */}
       </div>
       <div className="flex gap-4">
         <Input
@@ -179,4 +157,4 @@ const NewPost: FC = () => {
   );
 };
 
-export default NewPost;
+export default EditPost;

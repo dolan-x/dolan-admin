@@ -13,6 +13,11 @@ pages:
     failed: 加载文章列表失败!
     search: 搜索
     reset: 重置
+    batch-operation: 批量操作
+    convert-to-published: 转为发布
+    convert-to-draft: 转为草稿
+    delete: 删除
+    confirm-delete: 确定删除?
     filter-published: 已发布
     filter-draft: 草稿
     new-post: 新建文章
@@ -40,7 +45,7 @@ pages:
     auto-saved: "自动保存: "
     edit-post-config: 编辑文章配置
     metas: 自定义文章元数据
-    metas-bad-json-format: 错误的JSON格式!
+    metas-bad-json-format: 元数据JSON格式错误!
   tags:
     new-tag: 新建标签
     tag-list: 标签列表
@@ -50,7 +55,11 @@ pages:
     description: 标签描述
     add-success: 添加成功!
     add-failed: 添加失败!
+    update-success: 更新成功!
+    update-failed: 更新失败!
     add: 添加
+    update: 更新
+    clear: 清除
   config:
     label: 配置管理
     config-site: 站点配置

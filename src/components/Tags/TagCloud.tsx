@@ -10,7 +10,7 @@ interface TagCloudProps {
 
 const TagCloud: FC<TagCloudProps> = ({ tags, onTagClick }) => {
   return (
-    <div className="flex gap-2">
+    <div className="flex gap-2 flex-wrap">
       {tags.map(({ name, slug, color }) => (
         <Tag
           key={slug}

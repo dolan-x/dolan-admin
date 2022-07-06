@@ -3,11 +3,17 @@ a {
   text-decoration: inherit;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-weight: 300 !important;
 }
 
-.milkdown ul, .milkdown ol {
+.milkdown ul,
+.milkdown ol {
   list-style: unset;
 }
 
@@ -15,6 +21,6 @@ h1, h2, h3, h4, h5, h6 {
   .milkdown .editor {
     margin: 0 auto;
     max-width: 57.375rem;
-    padding: 3.125rem!important;
+    padding: 3.125rem !important;
   }
 }

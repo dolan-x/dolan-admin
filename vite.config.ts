@@ -3,6 +3,7 @@ import { defineConfig } from "vite";
 import React from "@vitejs/plugin-react";
 import Pages from "vite-plugin-pages";
 import AutoImport from "unplugin-auto-import/vite";
+import { VitePluginFonts } from "vite-plugin-fonts";
 import { presetAttributify, presetIcons, presetUno } from "unocss";
 import Unocss from "unocss/vite";
 import Yaml from "@rollup/plugin-yaml";
@@ -29,6 +30,17 @@ export default defineConfig({
         },
       ],
       dts: "src/auto-imports.d.ts",
+    }),
+
+    VitePluginFonts({
+      google: {
+        families: [
+          {
+            name: "Roboto",
+            styles: "wght@100;300;400;500;700;900",
+          },
+        ],
+      },
     }),
 
     Unocss({

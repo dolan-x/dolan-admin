@@ -1,20 +1,27 @@
 import type { FC } from "react";
-import { Button, Card, Col, Form, Modal, Popover, Row, Space, Spin, Toast } from "@douyinfe/semi-ui";
+import { Button, Card, Col, Modal, Popover, Row, Space, Spin, Toast } from "@douyinfe/semi-ui";
 import useAsyncEffect from "use-async-effect";
 import { HexColorPicker } from "react-colorful";
 import type { Tag as DolanTag } from "@dolan-x/shared";
 
 import { fetchApi } from "~/lib";
 import TagCloud from "~/components/Tags/TagCloud";
-import type { FormApi } from "~/types";
+import { Loading, SemiInput, SemiTextArea } from "~/components/Dash/Common";
 
 const Tags: FC = () => {
   const { t } = useTranslation();
   const [tags, setTags] = useState<DolanTag[]>([]);
-  const [color, setColor] = useState("");
   const [colorPickerVisible, setColorPickerVisible] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [isEdit, setIsEdit] = useState(false);
+  const [modified, setModified] = useState(false);
 
-  const formApiRef = useRef<FormApi>();
+  // Form
+  const [name, setName] = useState("");
+  const [slug, setSlug] = useState("");
+  const [origSlug, setOrigSlug] = useState("");
+  const [description, setDescription] = useState("");
+  const [color, setColor] = useState("");
 
   function toggleColorPickerVisible () {
     setColorPickerVisible(!colorPickerVisible);
@@ -22,16 +29,21 @@ const Tags: FC = () => {
 
   async function onFetch () {
     const resp = await fetchApi("tags");
-    if (resp.success)
-      setTags(resp.data);
+    if (resp.success) { setTags(resp.data); }
   }
   useAsyncEffect(onFetch, []);
 
-  async function onSubmit (values: Partial<DolanTag>) {
+  async function onAdd () {
+    if (!modified) { return; }
+    const body = {
+      name,
+      slug,
+      description,
+    };
     try {
       await fetchApi("tags", {
         method: "POST",
-        body: values,
+        body,
       });
       Toast.success(t("pages.tags.add-success"));
     } catch (e: any) {
@@ -41,32 +53,80 @@ const Tags: FC = () => {
     onFetch();
   }
 
-  useEffect(() => {
-    formApiRef.current?.setValue("color", "1123");
-  }, []);
+  async function onUpdate () {
+    if (!modified) { return; }
+    const body = {
+      name,
+      slug,
+      description,
+    };
+    try {
+      await fetchApi(`tags/${origSlug}`, {
+        method: "PUT",
+        body,
+      });
+      Toast.success(t("pages.tags.update-success"));
+    } catch (e: any) {
+      Toast.error(`${t("pages.tags.update-failed")} ${e.data.error}`);
+      return;
+    }
+    onFetch();
+  }
 
-  function onTagClick (tag: DolanTag) {
-    console.log(tag);
-    // TODO
+  async function onTagClick ({ slug: requestSlug }: Omit<DolanTag, "description">) {
+    if (slug === requestSlug || loading) { return; }
+    setIsEdit(true);
+    setLoading(true);
+    const resp = await fetchApi<DolanTag>(`tags/${requestSlug}`);
+    if (resp.success) {
+      const { slug, name, description } = resp.data;
+      setOrigSlug(slug);
+      setSlug(slug);
+      setName(name);
+      setDescription(description);
+    }
+    setLoading(false);
+  }
+
+  function onClear () {
+    setIsEdit(false);
+    setModified(false);
+    setName("");
+    setSlug("");
+    setDescription("");
+  }
+
+  function withSetModified<A, R> (fn: (_: A) => R) {
+    return (_: A): R => {
+      setModified(true);
+      return fn(_);
+    };
   }
 
   const NewTag = (
     <Card title={t("pages.tags.new-tag")}>
-      <Form onSubmit={onSubmit} getFormApi={formApi => formApiRef.current = formApi}>
-        <Form.Input field="name" placeholder={t("pages.tags.name")} label={t("pages.tags.name")} />
-        <Form.Input field="slug" placeholder={t("pages.tags.slug")} label={t("pages.tags.slug")} />
-        <Form.TextArea field="description" placeholder={t("pages.tags.description")} label={t("pages.tags.description")} />
+      <Loading loading={loading}>
+        <SemiInput value={name} onChange={withSetModified(setName)} placeholder={t("pages.tags.name")} label={t("pages.tags.name")} />
+        <SemiInput value={slug} onChange={withSetModified(setSlug)} placeholder={t("pages.tags.slug")} label={t("pages.tags.slug")} />
+        <SemiTextArea value={description} onChange={withSetModified(setDescription)} placeholder={t("pages.tags.description")} label={t("pages.tags.description")} />
         {/* FIXME: https://github.com/DouyinFE/semi-design/issues/936/ */}
-        <Form.Input
-          field="color"
-          placeholder={t("pages.tags.color")}
-          label={t("pages.tags.color")}
-          suffix={<div onClick={toggleColorPickerVisible} className="i-carbon-color-palette pr-2" />}
-        />
-        <Button type="primary" theme="solid" htmlType="submit">
-          {t("pages.tags.add")}
-        </Button>
-      </Form>
+        {/* <SemiInput
+        field="color"
+        placeholder={t("pages.tags.color")}
+        label={t("pages.tags.color")}
+        suffix={<div onClick={toggleColorPickerVisible} className="i-carbon-color-palette pr-2" />}
+      /> */}
+        <div className="flex gap-2">
+          <Button theme="solid" onClick={isEdit ? onUpdate : onAdd}>
+            { isEdit ? t("pages.tags.update") : t("pages.tags.add") }
+          </Button>
+          {isEdit && (
+            <Button onClick={onClear}>
+              {t("pages.tags.clear")}
+            </Button>
+          )}
+        </div>
+      </Loading>
     </Card>
   );
   const TagList = (

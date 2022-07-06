@@ -23,7 +23,7 @@ const Tag: FC<TagProps> = ({ name, slug, color, onClick }) => {
   }
 
   return (
-    <SemiTag className="cursor-pointer" color="white" style={{ backgroundColor: colorString }} onClick={internalOnClick}>
+    <SemiTag className="cursor-pointer" size="large" color="white" style={{ backgroundColor: colorString }} onClick={internalOnClick}>
       {name}
     </SemiTag>
   );
