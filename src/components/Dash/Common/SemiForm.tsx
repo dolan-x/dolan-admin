@@ -1,6 +1,6 @@
 // Wrap because of https://github.com/DouyinFE/semi-design/issues/936/
 
-import { Form, Input, Select, Switch, TextArea } from "@douyinfe/semi-ui";
+import { Form, Input, InputNumber, Select, Switch, TagInput, TextArea } from "@douyinfe/semi-ui";
 import type { ComponentType } from "react";
 
 type PropsWithLabel<T extends Record<string, any>> = T & {
@@ -19,8 +19,11 @@ function withLabel<P extends {}> (Comp: ComponentType<P>) {
 }
 
 export const SemiInput = withLabel(Input);
+export const SemiInputNumber = withLabel(InputNumber);
 export const SemiTextArea = withLabel(TextArea);
 // @ts-expect-error ...
 export const SemiSelect = withLabel(Select);
 // @ts-expect-error ...
 export const SemiSwitch = withLabel(Switch);
+// @ts-expect-error ...
+export const SemiTagInput = withLabel(TagInput);

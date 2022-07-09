@@ -5,7 +5,7 @@ import useAsyncEffect from "use-async-effect";
 import type { Metas, Post } from "@dolan-x/shared";
 
 import MilkdownEditor from "~/components/MilkdownEditor";
-import MonacoMetaEditor from "~/components/MonacoMetaEditor";
+import MonacoEditor from "~/components/MonacoEditor";
 import { Loading, SemiInput, SemiSelect, SemiSwitch, SemiTextArea } from "~/components/Dash/Common";
 import { fetchApi } from "~/lib";
 
@@ -38,10 +38,11 @@ const EditPost: FC = () => {
     try {
       resp = await fetchApi<Post>(`posts/${params.id}`);
     } catch {
-      Toast.error("文章不存在");
+      Toast.error(t("pages.posts.not-exist"));
       navigate("../..");
+      return;
     }
-    if (resp?.success) {
+    if (resp.success) {
       const {
         title,
         content,
@@ -87,10 +88,10 @@ const EditPost: FC = () => {
         method: "PUT",
         body,
       });
-      Toast.success(t("pages.posts.save-success"));
+      Toast.success(t("common.save-success"));
       navigate("../..");
     } catch (e: any) {
-      Toast.error(`${t("pages.posts.save-failed")} ${e.data.error}`);
+      Toast.error(`${t("common.save-failed")} ${e.data.error}`);
     }
     setSaving(false);
   }
@@ -150,11 +151,11 @@ const EditPost: FC = () => {
       onCancel={toggleShowMetaEditor}
       footer={(
         <Button type="primary" onClick={toggleShowMetaEditor}>
-          {t("pages.posts.save")}
+          {t("common.save")}
         </Button>
       )}
     >
-      <MonacoMetaEditor value={metas} onChange={onMetasChange} />
+      <MonacoEditor value={metas} onChange={onMetasChange} />
     </Modal>
   );
 
@@ -180,7 +181,7 @@ const EditPost: FC = () => {
           loading={saving}
           onClick={onSave}
         >
-          {t("pages.posts.save")}
+          {t("common.save")}
         </Button>
       </div>
       <div className="display-none md:display-block">

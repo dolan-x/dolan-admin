@@ -1,47 +1,66 @@
 import type { FC } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { Layout, Nav } from "@douyinfe/semi-ui";
 
 const Sidebar: FC = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const { t } = useTranslation();
 
-  const [selected, setSelected] = useState<string[]>([]);
+  const [selected, setSelected] = useState<string[]>([location.pathname]);
 
-  const itemsOriginal = [
+  function createNavigateTo (path: string) {
+    return () => {
+      navigate(path);
+    };
+  }
+
+  const items = [
     {
-      itemKey: "posts-management",
-      text: t("sidebar.posts-management"),
-      to: "/dash/posts",
+      itemKey: "/dash/posts",
+      text: t("pages.posts.label"),
       icon: <div className="i-carbon-document" />,
+      onClick: createNavigateTo("/dash/posts"),
     },
     {
-      itemKey: "pages-management",
-      text: t("sidebar.pages-management"),
-      to: "/dash/pages",
-      icon: <div className="i-carbon-book" />,
+      itemKey: "/dash/pages",
+      text: t("pages.pages.label"),
+      icon: <div className="i-carbon-document" />,
+      onClick: createNavigateTo("/dash/pages"),
     },
     {
-      itemKey: "tags-management",
-      text: t("sidebar.tags-management"),
-      to: "/dash/tags",
+      itemKey: "/dash/tags",
+      text: t("pages.tags.label"),
       icon: <div className="i-carbon-tag-group" />,
+      onClick: createNavigateTo("/dash/tags"),
     },
     {
-      itemKey: "categories-management",
-      text: t("sidebar.categories-management"),
-      to: "/dash/categories",
+      itemKey: "/dash/categories",
+      text: t("pages.categories.label"),
       icon: <div className="i-carbon-categories" />,
+      onClick: createNavigateTo("/dash/categories"),
     },
     {
-      itemKey: "config-management",
-      text: t("sidebar.config-management"),
-      to: "/dash/config",
+      itemKey: "/dash/config",
+      text: t("pages.config.label"),
       icon: <div className="i-carbon-settings" />,
+      items: [
+        {
+          itemKey: "/dash/config/site",
+          text: t("pages.config.site.label"),
+          icon: <div className="i-carbon-content-delivery-network" />,
+          onClick: createNavigateTo("/dash/config/site"),
+        },
+        // TODO
+        {
+          itemKey: "/dash/config/posts",
+          text: t("pages.config.posts.label"),
+          icon: <div className="i-carbon-content-delivery-network" />,
+          onClick: createNavigateTo("/dash/config/posts"),
+        },
+      ],
     },
   ];
-  const items = useMemo(() => itemsOriginal.map(i => ({ ...i, onClick: () => navigate(i.to) })), [itemsOriginal]);
-
   return (
     <Layout.Sider>
       <Nav

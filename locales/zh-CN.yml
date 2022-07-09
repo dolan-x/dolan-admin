@@ -1,6 +1,10 @@
 dark-mode:
   light: 白天
   dark: 黑暗
+common:
+  save: 保存
+  save-failed: 保存失败!
+  save-success: 保存成功!
 pages:
   home:
     label: 首页
@@ -38,15 +42,16 @@ pages:
     excerpt: 摘要
     sticky: 置顶
     input-post-title: 输入文章标题
-    save: 保存
-    save-failed: 保存失败!
-    save-success: 保存成功!
+    not-exist: 文章不存在
     # TODO: Pass parameters
     auto-saved: "自动保存: "
     edit-post-config: 编辑文章配置
     metas: 自定义文章元数据
     metas-bad-json-format: 元数据JSON格式错误!
+  pages:
+    label: 页面管理
   tags:
+    label: 标签管理
     new-tag: 新建标签
     tag-list: 标签列表
     name: 名称
@@ -60,23 +65,33 @@ pages:
     add: 添加
     update: 更新
     clear: 清除
+    confirm-delete: 确认删除?
+    delete: 删除
+  categories:
+    label: 分类管理
   config:
     label: 配置管理
-    config-site: 站点配置
-    config-posts: 文章配置
-    config-tags: 标签配置
-    config-categories: 分类配置
-    config-pages: 页面配置
-    config-authors: 作者配置
-    config-functions: 功能配置
-    config-custom: 自定义配置
+    site:
+      label: 站点配置
+      name: 名称
+      description: 简介
+      keywords: 关键词
+    posts:
+      label: 文章配置
+    tags:
+      label: 标签配置
+    categories:
+      label: 分类配置
+    pages:
+      label: 页面配置
+    authors:
+      label: 作者配置
+    functions:
+      label: 功能配置
+    custom:
+      label: 自定义配置
 sidebar:
   hide: 收起侧边栏
-  posts-management: 文章管理
-  pages-management: 页面管理
-  categories-management: 分类管理
-  tags-management: 标签管理
-  config-management: 配置管理
 login:
   login: 登录
   signup: 注册

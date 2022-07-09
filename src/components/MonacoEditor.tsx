@@ -2,11 +2,11 @@ import type { FC } from "react";
 import Editor, { useMonaco } from "@monaco-editor/react";
 import { Spin } from "@douyinfe/semi-ui";
 
-interface MonacoMetaEditorProps {
+interface MonacoEditorProps {
   value?: string
   onChange?: (s?: string) => void
 }
-const MonacoEditor: FC<MonacoMetaEditorProps> = ({ value, onChange }) => {
+const MonacoEditor: FC<MonacoEditorProps> = ({ value, onChange }) => {
   const monaco = useMonaco();
 
   useEffect(() => {

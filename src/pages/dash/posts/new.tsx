@@ -4,7 +4,7 @@ import { Button, Card, Col, Input, Modal, Row, Select, Space, Toast, Typography 
 import type { Metas } from "@dolan-x/shared";
 
 import MilkdownEditor from "~/components/MilkdownEditor";
-import MonacoMetaEditor from "~/components/MonacoMetaEditor";
+import MonacoEditor from "~/components/MonacoEditor";
 import { SemiInput, SemiSelect, SemiSwitch, SemiTextArea } from "~/components/Dash/Common";
 import { fetchApi } from "~/lib";
 import { NEW_POST_TEMPLATE } from "~/lib/templates";
@@ -53,10 +53,10 @@ const EditPost: FC = () => {
         method: "POST",
         body,
       });
-      Toast.success(t("pages.posts.save-success"));
+      Toast.success(t("common.save-success"));
       navigate("..");
     } catch (e: any) {
-      Toast.error(`${t("pages.posts.save-failed")} ${e.data.error}`);
+      Toast.error(`${t("common.save-failed")} ${e.data.error}`);
     }
     setSaving(false);
   }
@@ -110,11 +110,11 @@ const EditPost: FC = () => {
       onCancel={toggleShowMetaEditor}
       footer={(
         <Button type="primary" onClick={toggleShowMetaEditor}>
-          {t("pages.posts.save")}
+          {t("common.save")}
         </Button>
       )}
     >
-      <MonacoMetaEditor value={metas} onChange={onMetasChange} />
+      <MonacoEditor value={metas} onChange={onMetasChange} />
     </Modal>
   );
 
@@ -133,7 +133,7 @@ const EditPost: FC = () => {
           onChange={setTitle}
         />
         <Button size="large" theme="solid" loading={saving} onClick={onSave}>
-          {t("pages.posts.save")}
+          {t("common.save")}
         </Button>
       </div>
       <div className="display-none md:display-block">

@@ -1,7 +1,8 @@
 import type { FC } from "react";
-import { Button, Card, Col, Modal, Popover, Row, Space, Spin, Toast } from "@douyinfe/semi-ui";
-import useAsyncEffect from "use-async-effect";
+import { Button, Card, Col, Modal, Popconfirm, Row, Space, Spin, SplitButtonGroup, Toast } from "@douyinfe/semi-ui";
 import { HexColorPicker } from "react-colorful";
+import useAsyncEffect from "use-async-effect";
+import { validateHTMLColorHex } from "validate-color";
 import type { Tag as DolanTag } from "@dolan-x/shared";
 
 import { fetchApi } from "~/lib";
@@ -12,6 +13,7 @@ const Tags: FC = () => {
   const { t } = useTranslation();
   const [tags, setTags] = useState<DolanTag[]>([]);
   const [colorPickerVisible, setColorPickerVisible] = useState(false);
+  const [isColorValid, setIsColorValid] = useState(false);
   const [loading, setLoading] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
   const [modified, setModified] = useState(false);
@@ -27,6 +29,10 @@ const Tags: FC = () => {
     setColorPickerVisible(!colorPickerVisible);
   }
 
+  useEffect(() => {
+    setIsColorValid(color === "" ? true : validateHTMLColorHex(color));
+  }, [color]);
+
   async function onFetch () {
     const resp = await fetchApi("tags");
     if (resp.success) { setTags(resp.data); }
@@ -35,10 +41,15 @@ const Tags: FC = () => {
 
   async function onAdd () {
     if (!modified) { return; }
+    if (!isColorValid) {
+      Toast.error("Invalid color format");
+      return;
+    }
     const body = {
       name,
       slug,
       description,
+      color,
     };
     try {
       await fetchApi("tags", {
@@ -55,10 +66,15 @@ const Tags: FC = () => {
 
   async function onUpdate () {
     if (!modified) { return; }
+    if (!isColorValid) {
+      Toast.error("Invalid color format");
+      return;
+    }
     const body = {
       name,
       slug,
       description,
+      color,
     };
     try {
       await fetchApi(`tags/${origSlug}`, {
@@ -70,6 +86,15 @@ const Tags: FC = () => {
       Toast.error(`${t("pages.tags.update-failed")} ${e.data.error}`);
       return;
     }
+    onFetch();
+  }
+
+  async function onTagDelete () {
+    setLoading(true);
+    await fetchApi<DolanTag>(`tags/${origSlug}`, {
+      method: "DELETE",
+    });
+    setLoading(false);
     onFetch();
   }
 
@@ -110,20 +135,31 @@ const Tags: FC = () => {
         <SemiInput value={slug} onChange={withSetModified(setSlug)} placeholder={t("pages.tags.slug")} label={t("pages.tags.slug")} />
         <SemiTextArea value={description} onChange={withSetModified(setDescription)} placeholder={t("pages.tags.description")} label={t("pages.tags.description")} />
         {/* FIXME: https://github.com/DouyinFE/semi-design/issues/936/ */}
-        {/* <SemiInput
-        field="color"
-        placeholder={t("pages.tags.color")}
-        label={t("pages.tags.color")}
-        suffix={<div onClick={toggleColorPickerVisible} className="i-carbon-color-palette pr-2" />}
-      /> */}
-        <div className="flex gap-2">
-          <Button theme="solid" onClick={isEdit ? onUpdate : onAdd}>
-            { isEdit ? t("pages.tags.update") : t("pages.tags.add") }
-          </Button>
-          {isEdit && (
-            <Button onClick={onClear}>
-              {t("pages.tags.clear")}
+        <SemiInput
+          value={color}
+          onChange={withSetModified(setColor)}
+          validateStatus={isColorValid ? "default" : "error"}
+          placeholder={t("pages.tags.color")}
+          label={t("pages.tags.color")}
+          suffix={<div onClick={toggleColorPickerVisible} className="i-carbon-color-palette pr-2" />}
+        />
+        <div className="flex gap-2 justify-between">
+          <SplitButtonGroup>
+            <Button theme="solid" onClick={isEdit ? onUpdate : onAdd}>
+              { isEdit ? t("pages.tags.update") : t("pages.tags.add") }
             </Button>
+            {isEdit && (
+              <Button onClick={onClear}>
+                {t("pages.tags.clear")}
+              </Button>
+            )}
+          </SplitButtonGroup>
+          {isEdit && (
+            <Popconfirm title={t("pages.tags.confirm-delete")} onConfirm={onTagDelete}>
+              <Button type="danger">
+                {t("pages.tags.delete")}
+              </Button>
+            </Popconfirm>
           )}
         </div>
       </Loading>
@@ -171,7 +207,7 @@ const Tags: FC = () => {
         )}
       >
         <div className="flex justify-center">
-          <HexColorPicker color={color} onChange={setColor} />
+          <HexColorPicker color={color} onChange={withSetModified(setColor)} />
         </div>
       </Modal>
     </div>

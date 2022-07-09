@@ -36,6 +36,7 @@ specifiers:
   unocss: ^0.43.2
   unplugin-auto-import: ^0.9.2
   use-async-effect: ^2.2.6
+  validate-color: ^2.2.1
   vite: 2.9.13
   vite-plugin-fonts: ^0.5.0
   vite-plugin-pages: ^0.25.0
@@ -66,6 +67,7 @@ dependencies:
   sodayo: 0.2.8_biqbaboplfbrettd7655fr4n2y
   uniqolor: 1.0.2
   use-async-effect: 2.2.6_react@18.2.0
+  validate-color: 2.2.1
 
 devDependencies:
   '@rollup/plugin-yaml': 3.1.0
@@ -5395,6 +5397,10 @@ packages:
   /v8-compile-cache/2.3.0:
     resolution: {integrity: sha512-l8lCEmLcLYZh4nbunNZvQCJc5pv7+RCwa8q/LdUx8u7lsWvPDKmpodJAJNwkAhJC//dFY48KuIEmjtd4RViDrA==}
     dev: true
+
+  /validate-color/2.2.1:
+    resolution: {integrity: sha512-1eDb1zqP6W6bbfKKl6dRXObelNoQpW7aF3BUTh2AivWuhcD0pa3ejwURWqrVsyKJMLBMlHLFcM3sj5J+dSFhbg==}
+    dev: false
 
   /validate-npm-package-license/3.0.4:
     resolution: {integrity: sha512-DpKm2Ui/xN7/HQKCtpZxoRWBhZ9Z0kqtygG8XCgNQ8ZlDnxuQmWhj566j8fN4Cu3/JmbhsDo7fcAJq4s9h27Ew==}

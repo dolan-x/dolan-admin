@@ -1,6 +1,10 @@
 dark-mode:
   light: Light
   dark: Dark
+common:
+  save: Save
+  save-failed: Save failed!
+  save-success: Saved successfully!
 pages:
   home:
     label: Home
@@ -15,7 +19,7 @@ pages:
     reset: Reset
     batch-operation: Batch Operation
     convert-to-published: Convert to published
-    convert-to-draft: Convert to drafy
+    convert-to-draft: Convert to draft
     delete: Delete
     confirm-delete: Comfirm deleting?
     filter-published: Published
@@ -38,14 +42,15 @@ pages:
     excerpt: Excerpt
     sticky: Sticky
     input-post-title: Input post title
-    save: Save
-    save-failed: Save failed!
-    save-success: Saved successfully!
+    not-exist: Post does not exist
     auto-saved: "Auto saved at: "
     edit-post-config: Edit post config
     metas: Custom metadata of the post
     metas-bad-json-format: Bad Metas JSON format!
+  pages:
+    label: Pages
   tags:
+    label: Tags
     new-tag: New Tag
     tag-list: Tag List
     name: Name
@@ -59,23 +64,33 @@ pages:
     add: Add
     update: Update
     clear: Clear
+    confirm-delete: Comfirm deleting?
+    delete: Delete
+  categories:
+    label: Categories
   config:
     label: Config
-    config-site: Site Config
-    config-posts: Posts Config
-    config-tags: Tags Config
-    config-categories: Categories Config
-    config-pages: Pages Config
-    config-authors: Authors Config
-    config-functions: Functions Config
-    config-custom: Custom Config
+    site:
+      label: Site
+      name: Name
+      description: Description
+      keywords: Keywords
+    posts:
+      label: Posts
+    tags:
+      label: Tags
+    categories:
+      label: Categories
+    pages:
+      label: Pages
+    authors:
+      label: Authors
+    functions:
+      label: Functions
+    custom:
+      label: Custom
 sidebar:
   hide: Hide Sidebar
-  posts-management: Posts
-  pages-management: Pages
-  categories-management: Categories
-  tags-management: Tags
-  config-management: Config
 login:
   login: Login
   signup: Sign Up

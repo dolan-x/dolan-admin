@@ -157,7 +157,7 @@ const Posts: FC = () => {
   }
 
   return (
-    <div>
+    <div className="min-h-full">
       <div className="flex gap-3">
         <Link to="./new">
           <Button className="mb-4" theme="solid" type="primary">
@@ -199,7 +199,7 @@ const Posts: FC = () => {
           </Button>
         </Dropdown>
       </div>
-      <Card>
+      <Card className="min-h-full">
         <Loading loading={loading}>
           <Table
             pagination={false}
