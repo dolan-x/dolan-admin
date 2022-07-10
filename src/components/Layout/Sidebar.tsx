@@ -25,7 +25,7 @@ const Sidebar: FC = () => {
     {
       itemKey: "/dash/pages",
       text: t("pages.pages.label"),
-      icon: <div className="i-carbon:document" />,
+      icon: <div className="i-carbon:book" />,
       onClick: createNavigateTo("/dash/pages"),
     },
     {
@@ -62,7 +62,7 @@ const Sidebar: FC = () => {
     },
   ];
   return (
-    <Layout.Sider className="md:(relative h-auto) fixed h-full z-9999">
+    <Layout.Sider className="md:(relative h-auto) fixed h-full z-1000">
       <Nav
         selectedKeys={selected}
         className="h-full"
