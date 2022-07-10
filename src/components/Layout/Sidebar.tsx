@@ -62,7 +62,7 @@ const Sidebar: FC = () => {
     },
   ];
   return (
-    <Layout.Sider className="z-9999 h-full fixed md:(relative h-auto)">
+    <Layout.Sider className="md:(relative h-auto) fixed h-full z-9999">
       <Nav
         selectedKeys={selected}
         className="h-full"
