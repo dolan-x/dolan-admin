@@ -3,7 +3,7 @@ import { Button, Card, Toast } from "@douyinfe/semi-ui";
 import type { ConfigSite } from "@dolan-x/shared";
 import useAsyncEffect from "use-async-effect";
 
-import { Loading, SemiInput, SemiTagInput, SemiTextArea } from "~/components/Dash/Common";
+import { FormWrapper, Loading, SemiInput, SemiTagInput, SemiTextArea } from "~/components/Dash/Common";
 import { fetchApi } from "~/lib";
 
 const Site: FC = () => {
@@ -55,7 +55,7 @@ const Site: FC = () => {
   }
 
   return (
-    <Card>
+    <FormWrapper>
       <Loading loading={loading}>
         <SemiInput label={t("pages.config.site.name")} value={name} onChange={setName} />
         <SemiTextArea label={t("pages.config.site.description")} value={description} onChange={setDescription} />
@@ -64,7 +64,7 @@ const Site: FC = () => {
           {t("common.save")}
         </Button>
       </Loading>
-    </Card>
+    </FormWrapper>
   );
 };
 
