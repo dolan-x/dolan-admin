@@ -1,6 +1,6 @@
 import type { FC } from "react";
 import { Link } from "react-router-dom";
-import { useAsyncEffect } from "use-async-effect";
+import useAsyncEffect from "use-async-effect";
 import { Badge, Button, Card, Dropdown, Pagination, Popconfirm, Table, Tag, Toast } from "@douyinfe/semi-ui";
 import type { Tag as DolanTag, Post } from "@dolan-x/shared";
 
@@ -112,7 +112,7 @@ const Posts: FC = () => {
       <div className="text-blue-400">
         <Link to={`./edit/${item.slug}`}>
           {item.sticky
-            ? <div className="text-red-600 h-4 i-carbon-pin" />
+            ? <div className="text-red-600 h-4 i-carbon:pin" />
             : null}
           &nbsp;
           {title || t("pages.posts.no-title")}
@@ -194,7 +194,7 @@ const Posts: FC = () => {
           <Button className="mb-4" type="tertiary" disabled={!enableBatchOperation} onClick={toggleShowBatchOperationMenu}>
             <div className="flex items-center gap-1">
               {t("pages.posts.batch-operation")}
-              <div className="i-fluent-triangle-down-12-filled text-2" />
+              <div className="i-fluent:triangle-down-12-filled text-2" />
             </div>
           </Button>
         </Dropdown>

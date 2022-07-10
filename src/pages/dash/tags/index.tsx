@@ -141,7 +141,7 @@ const Tags: FC = () => {
           validateStatus={isColorValid ? "default" : "error"}
           placeholder={t("pages.tags.color")}
           label={t("pages.tags.color")}
-          suffix={<div onClick={toggleColorPickerVisible} className="i-carbon-color-palette pr-2" />}
+          suffix={<div onClick={toggleColorPickerVisible} className="i-carbon:color-palette pr-2" />}
         />
         <div className="flex gap-2 justify-between">
           <SplitButtonGroup>

@@ -10,7 +10,7 @@ const DolanLayout: FC<PropsWithChildren<{}>> = ({ children }) => {
       <Sidebar />
       <Layout>
         <Header />
-        <Layout.Content className="p-6">
+        <Layout.Content className="md:pl-6 p-6 pl-[calc(60px_+_1.5rem)]">
           {children}
         </Layout.Content>
       </Layout>

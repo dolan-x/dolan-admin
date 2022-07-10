@@ -19,57 +19,57 @@ const Sidebar: FC = () => {
     {
       itemKey: "/dash/posts",
       text: t("pages.posts.label"),
-      icon: <div className="i-carbon-document" />,
+      icon: <div className="i-carbon:document" />,
       onClick: createNavigateTo("/dash/posts"),
     },
     {
       itemKey: "/dash/pages",
       text: t("pages.pages.label"),
-      icon: <div className="i-carbon-document" />,
+      icon: <div className="i-carbon:document" />,
       onClick: createNavigateTo("/dash/pages"),
     },
     {
       itemKey: "/dash/tags",
       text: t("pages.tags.label"),
-      icon: <div className="i-carbon-tag-group" />,
+      icon: <div className="i-carbon:tag-group" />,
       onClick: createNavigateTo("/dash/tags"),
     },
     {
       itemKey: "/dash/categories",
       text: t("pages.categories.label"),
-      icon: <div className="i-carbon-categories" />,
+      icon: <div className="i-carbon:categories" />,
       onClick: createNavigateTo("/dash/categories"),
     },
     {
       itemKey: "/dash/config",
       text: t("pages.config.label"),
-      icon: <div className="i-carbon-settings" />,
+      icon: <div className="i-carbon:settings" />,
       items: [
         {
           itemKey: "/dash/config/site",
           text: t("pages.config.site.label"),
-          icon: <div className="i-carbon-content-delivery-network" />,
+          icon: <div className="i-carbon:content-delivery-network" />,
           onClick: createNavigateTo("/dash/config/site"),
         },
         // TODO
         {
           itemKey: "/dash/config/posts",
           text: t("pages.config.posts.label"),
-          icon: <div className="i-carbon-content-delivery-network" />,
+          icon: <div className="i-carbon:chart-custom" />,
           onClick: createNavigateTo("/dash/config/posts"),
         },
       ],
     },
   ];
   return (
-    <Layout.Sider>
+    <Layout.Sider className="z-9999 h-full fixed md:(relative h-auto)">
       <Nav
         selectedKeys={selected}
         className="h-full"
         items={items}
         header={{
           className: "justify-center",
-          logo: <div className="i-carbon-military-camp" />,
+          logo: <div className="i-carbon:military-camp" />,
           text: "Dolan Admin",
         }}
         footer={{

@@ -4,7 +4,8 @@ import { HashRouter as Router } from "react-router-dom";
 import App from "./App";
 
 import "virtual:fonts.css";
-import "uno.css";
+import "virtual:uno.css";
+import "virtual:unocss-devtools";
 import "@unocss/reset/eric-meyer.css";
 import "~/styles/main.css";
 

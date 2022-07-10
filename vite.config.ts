@@ -4,7 +4,6 @@ import React from "@vitejs/plugin-react";
 import Pages from "vite-plugin-pages";
 import AutoImport from "unplugin-auto-import/vite";
 import { VitePluginFonts } from "vite-plugin-fonts";
-import { presetAttributify, presetIcons, presetUno } from "unocss";
 import Unocss from "unocss/vite";
 import Yaml from "@rollup/plugin-yaml";
 
@@ -16,6 +15,8 @@ export default defineConfig({
     },
   },
   plugins: [
+    Unocss("./uno.config.ts"),
+
     React(),
 
     Pages(),
@@ -41,23 +42,6 @@ export default defineConfig({
           },
         ],
       },
-    }),
-
-    Unocss({
-      shortcuts: [],
-      presets: [
-        presetUno(),
-        presetAttributify(),
-        presetIcons({
-          scale: 1.2,
-          extraProperties: {
-            "display": "inline-block",
-            "height": "1.4em",
-            "width": "1.4em",
-            "vertical-align": "text-bottom",
-          },
-        }),
-      ],
     }),
 
     Yaml(),

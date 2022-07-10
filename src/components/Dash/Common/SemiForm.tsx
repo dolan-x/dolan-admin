@@ -1,7 +1,7 @@
 // Wrap because of https://github.com/DouyinFE/semi-design/issues/936/
 
-import { Form, Input, InputNumber, Select, Switch, TagInput, TextArea } from "@douyinfe/semi-ui";
-import type { ComponentType } from "react";
+import type { ComponentType, FC, PropsWithChildren } from "react";
+import { Card, Form, Input, InputNumber, Select, Switch, TagInput, TextArea } from "@douyinfe/semi-ui";
 
 type PropsWithLabel<T extends Record<string, any>> = T & {
   label?: string
@@ -17,6 +17,16 @@ function withLabel<P extends {}> (Comp: ComponentType<P>) {
   );
   return Wrapped;
 }
+
+export const FormWrapper: FC<PropsWithChildren<{}>> = ({ children }) => {
+  return (
+    <Card>
+      <div className="md:max-w-40%">
+        {children}
+      </div>
+    </Card>
+  );
+};
 
 export const SemiInput = withLabel(Input);
 export const SemiInputNumber = withLabel(InputNumber);

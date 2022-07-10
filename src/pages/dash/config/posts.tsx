@@ -1,9 +1,9 @@
 import type { FC } from "react";
-import { Button, Card, Toast } from "@douyinfe/semi-ui";
+import { Button, Toast } from "@douyinfe/semi-ui";
 import type { ConfigPosts } from "@dolan-x/shared";
 import useAsyncEffect from "use-async-effect";
 
-import { Loading, SemiInputNumber } from "~/components/Dash/Common";
+import { FormWrapper, Loading, SemiInputNumber } from "~/components/Dash/Common";
 import { fetchApi } from "~/lib";
 
 const Posts: FC = () => {
@@ -52,14 +52,22 @@ const Posts: FC = () => {
   }
 
   return (
-    <Card>
+    <FormWrapper>
       <Loading loading={loading}>
-        <SemiInputNumber label={t("pages.config.site.name")} value={maxPageSize} onChange={setMaxPageSize} />
+        <SemiInputNumber
+          className="w-full"
+          label={t("pages.config.site.name")}
+          min={0}
+          max={Number.MAX_SAFE_INTEGER}
+          value={maxPageSize}
+          formatter={value => `${value}`.replace(/\D/g, "")}
+          onNumberChange={setMaxPageSize}
+        />
         <Button theme="solid" disabled={loading} loading={saving} onClick={onSave}>
           {t("common.save")}
         </Button>
       </Loading>
-    </Card>
+    </FormWrapper>
   );
 };
 

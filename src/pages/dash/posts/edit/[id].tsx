@@ -123,7 +123,7 @@ const EditPost: FC = () => {
           <Typography.Title heading={6}>
             {t("pages.posts.edit-post-config")}
           </Typography.Title>
-          <Button type="tertiary" icon={<div className="i-ph-dots-three-vertical-bold" />} onClick={toggleShowMetaEditor} />
+          <Button type="tertiary" icon={<div className="i-ph:dots-three-vertical-bold" />} onClick={toggleShowMetaEditor} />
         </div>
       )}
     >
