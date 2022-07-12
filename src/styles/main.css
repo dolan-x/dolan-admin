@@ -24,3 +24,10 @@ h6 {
     padding: 3.125rem !important;
   }
 }
+
+@media (max-width: 768px) {
+  .semi-modal-small {
+    width: calc(100vw - 1.5rem * 2) !important;
+    padding: 10px;
+  }
+}

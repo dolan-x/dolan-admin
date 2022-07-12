@@ -1,5 +1,5 @@
 import type { FC } from "react";
-import { Button, Card, Toast } from "@douyinfe/semi-ui";
+import { Button, Toast } from "@douyinfe/semi-ui";
 import type { ConfigSite } from "@dolan-x/shared";
 import useAsyncEffect from "use-async-effect";
 
@@ -46,11 +46,15 @@ const Site: FC = () => {
       description,
       keywords,
     };
-    await fetchApi("config/site", {
-      method: "PUT",
-      body,
-    });
-    Toast.success(t("common.save-success"));
+    try {
+      await fetchApi("config/site", {
+        method: "PUT",
+        body,
+      });
+      Toast.success(t("common.save-success"));
+    } catch (e: any) {
+      Toast.success(t("common.save-failed") + e.data.error);
+    }
     setSaving(false);
   }
 

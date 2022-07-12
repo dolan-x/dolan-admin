@@ -12,7 +12,7 @@ specifiers:
   '@milkdown/react': ^6.2.0
   '@monaco-editor/react': ^4.4.5
   '@rollup/plugin-yaml': ^3.1.0
-  '@so1ve/eslint-config': ^0.24.0
+  '@so1ve/eslint-config': ^0.25.0
   '@types/node': ^18.0.3
   '@types/react': 18.0.15
   '@types/react-dom': 18.0.6
@@ -73,7 +73,7 @@ dependencies:
 
 devDependencies:
   '@rollup/plugin-yaml': 3.1.0
-  '@so1ve/eslint-config': 0.24.0_4x5o4skxv6sl53vpwefgt23khm
+  '@so1ve/eslint-config': 0.25.0_4x5o4skxv6sl53vpwefgt23khm
   '@types/node': 18.0.3
   '@types/react': 18.0.15
   '@types/react-dom': 18.0.6
@@ -1096,8 +1096,8 @@ packages:
       picomatch: 2.3.1
     dev: true
 
-  /@so1ve/eslint-config-basic/0.24.0_iom7pm3yknyiblqpw2vvqvxs5i:
-    resolution: {integrity: sha512-1B+VtvY2p19D8Lqw4hBS9WDoaJfbYxN5ngPi6arBc4ABN1W6AGrg2piBp+vZQy82BYwUrcEbqXTptyoJxY6dhA==}
+  /@so1ve/eslint-config-basic/0.25.0_iom7pm3yknyiblqpw2vvqvxs5i:
+    resolution: {integrity: sha512-ge2TxbbHCGazskadbGOO6vdnFbN//NIUtm5OPjtBvdyBDyWF4kT5eJbSwBTkQxWUdWx/SlFLAxym+5ot5rh0mw==}
     peerDependencies:
       eslint: '>=7.4.0'
     dependencies:
@@ -1121,12 +1121,12 @@ packages:
       - supports-color
     dev: true
 
-  /@so1ve/eslint-config-react/0.24.0_4x5o4skxv6sl53vpwefgt23khm:
-    resolution: {integrity: sha512-sV9IkKVZK6Frxcw7fCa/Daa5CdnyO6KsonqDYA5lHXXoTlWaCOpTnImt1To1RORhKuprylPM4EKkUzOTzR20CQ==}
+  /@so1ve/eslint-config-react/0.25.0_4x5o4skxv6sl53vpwefgt23khm:
+    resolution: {integrity: sha512-eZZI5QjDzhJcwhbRBxfY5Oebg+AWyEUhMt4yhxJ/RtCZJ2g5zOcLfRKj28Vtn8nnOAw3hKfETMLtzigOli2CfQ==}
     peerDependencies:
       eslint: '>=7.4.0'
     dependencies:
-      '@so1ve/eslint-config-ts': 0.24.0_4x5o4skxv6sl53vpwefgt23khm
+      '@so1ve/eslint-config-ts': 0.25.0_4x5o4skxv6sl53vpwefgt23khm
       eslint: 8.19.0
       eslint-plugin-react: 7.30.1_eslint@8.19.0
     transitivePeerDependencies:
@@ -1136,13 +1136,13 @@ packages:
       - typescript
     dev: true
 
-  /@so1ve/eslint-config-ts/0.24.0_4x5o4skxv6sl53vpwefgt23khm:
-    resolution: {integrity: sha512-CehYwAPICRDBVkrf2b+WEDlcepJs+oj4TaqlILj56vYbNzIHwkCSa0LkEAJjzl7uVZwnJ1qx3WLxyZjJSL52bQ==}
+  /@so1ve/eslint-config-ts/0.25.0_4x5o4skxv6sl53vpwefgt23khm:
+    resolution: {integrity: sha512-GV6T0iXCaObX6eY2pSqiCvO+nuvFqWWSs/ygrp766lk3q/d/9Zn1bk5RUJMlpnP9H0bXIitdTqtJCyouHmOEEw==}
     peerDependencies:
       eslint: '>=7.4.0'
       typescript: '>=3.9'
     dependencies:
-      '@so1ve/eslint-config-basic': 0.24.0_iom7pm3yknyiblqpw2vvqvxs5i
+      '@so1ve/eslint-config-basic': 0.25.0_iom7pm3yknyiblqpw2vvqvxs5i
       '@typescript-eslint/eslint-plugin': 5.30.5_6zdoc3rn4mpiddqwhppni2mnnm
       '@typescript-eslint/parser': 5.30.5_4x5o4skxv6sl53vpwefgt23khm
       eslint: 8.19.0
@@ -1153,12 +1153,12 @@ packages:
       - supports-color
     dev: true
 
-  /@so1ve/eslint-config-vue/0.24.0_4x5o4skxv6sl53vpwefgt23khm:
-    resolution: {integrity: sha512-SW+Cp3br+8f3GmClBNnkbPUnkW8gsEORKh/vHmP6855hwHmmACR82uuATJqUK/KkfJZ7YXjakw+sBANl5a9Vug==}
+  /@so1ve/eslint-config-vue/0.25.0_4x5o4skxv6sl53vpwefgt23khm:
+    resolution: {integrity: sha512-BfMUplurEGJhiqG/sHhIipx9Qex+l/VQb3Ba9dZswdfMiYQhRlp/CtDc+yj6FBZQEmCIprPmuhf8HlSR8eVNYw==}
     peerDependencies:
       eslint: '>=7.4.0'
     dependencies:
-      '@so1ve/eslint-config-ts': 0.24.0_4x5o4skxv6sl53vpwefgt23khm
+      '@so1ve/eslint-config-ts': 0.25.0_4x5o4skxv6sl53vpwefgt23khm
       eslint: 8.19.0
       eslint-plugin-vue: 9.1.1_eslint@8.19.0
     transitivePeerDependencies:
@@ -1168,13 +1168,13 @@ packages:
       - typescript
     dev: true
 
-  /@so1ve/eslint-config/0.24.0_4x5o4skxv6sl53vpwefgt23khm:
-    resolution: {integrity: sha512-yatkig3keYMyRnAIqtdgTXrw0xxqUeyGFowieN6ldWlAcZuLH8K7ZbQdX6Zyx0CLifG/IOuD2AJ7tD0KkjGC0g==}
+  /@so1ve/eslint-config/0.25.0_4x5o4skxv6sl53vpwefgt23khm:
+    resolution: {integrity: sha512-NpKi6AYfRirtHta1JdvtSmB53aqdChSOgfdL42PwJp2nF6mG/9GPWNR9f2mu0I5LjQaarkAQC3VENxP9q4CBEg==}
     peerDependencies:
       eslint: '>=7.4.0'
     dependencies:
-      '@so1ve/eslint-config-react': 0.24.0_4x5o4skxv6sl53vpwefgt23khm
-      '@so1ve/eslint-config-vue': 0.24.0_4x5o4skxv6sl53vpwefgt23khm
+      '@so1ve/eslint-config-react': 0.25.0_4x5o4skxv6sl53vpwefgt23khm
+      '@so1ve/eslint-config-vue': 0.25.0_4x5o4skxv6sl53vpwefgt23khm
       '@typescript-eslint/eslint-plugin': 5.30.5_6zdoc3rn4mpiddqwhppni2mnnm
       '@typescript-eslint/parser': 5.30.5_4x5o4skxv6sl53vpwefgt23khm
       eslint: 8.19.0

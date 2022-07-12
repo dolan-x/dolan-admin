@@ -1,8 +1,8 @@
 {
   "name": "dolan-admin",
+  "private": true,
   "version": "0.0.0",
   "packageManager": "pnpm@7.5.0",
-  "private": true,
   "scripts": {
     "dev": "vite --port=3333",
     "build": "vite build",
@@ -40,7 +40,7 @@
   },
   "devDependencies": {
     "@rollup/plugin-yaml": "^3.1.0",
-    "@so1ve/eslint-config": "^0.24.0",
+    "@so1ve/eslint-config": "^0.25.0",
     "@types/node": "^18.0.3",
     "@types/react": "18.0.15",
     "@types/react-dom": "18.0.6",

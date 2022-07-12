@@ -3,7 +3,7 @@ import { Button, Toast } from "@douyinfe/semi-ui";
 import type { ConfigPosts } from "@dolan-x/shared";
 import useAsyncEffect from "use-async-effect";
 
-import { FormWrapper, Loading, SemiInputNumber } from "~/components/Dash/Common";
+import { FormWrapper, Loading, MilkdownEditorWithLabel, SemiInputNumber } from "~/components/Dash/Common";
 import { fetchApi } from "~/lib";
 
 const Posts: FC = () => {
@@ -12,7 +12,7 @@ const Posts: FC = () => {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [maxPageSize, setMaxPageSize] = useState(10);
-  const [defaultContent, setDdefaultContent] = useState("");
+  const [defaultContent, setDefaultContent] = useState("");
 
   async function onFetch () {
     let resp;
@@ -29,7 +29,7 @@ const Posts: FC = () => {
         defaultContent,
       } = resp.data;
       setMaxPageSize(maxPageSize);
-      setDdefaultContent(defaultContent);
+      setDefaultContent(defaultContent);
       setLoading(false);
     } else {
       // Toast.error
@@ -43,11 +43,15 @@ const Posts: FC = () => {
       maxPageSize,
       defaultContent,
     };
-    await fetchApi("config/posts", {
-      method: "PUT",
-      body,
-    });
-    Toast.success(t("common.save-success"));
+    try {
+      await fetchApi("config/posts", {
+        method: "PUT",
+        body,
+      });
+      Toast.success(t("common.save-success"));
+    } catch (e: any) {
+      Toast.success(t("common.save-failed") + e.data.error);
+    }
     setSaving(false);
   }
 
@@ -56,13 +60,14 @@ const Posts: FC = () => {
       <Loading loading={loading}>
         <SemiInputNumber
           className="w-full"
-          label={t("pages.config.site.name")}
+          label={t("pages.config.posts.max-page-size")}
           min={0}
           max={Number.MAX_SAFE_INTEGER}
           value={maxPageSize}
           formatter={value => `${value}`.replace(/\D/g, "")}
           onNumberChange={setMaxPageSize}
         />
+        <MilkdownEditorWithLabel label={t("pages.config.posts.default-content")} value={defaultContent} onChange={setDefaultContent} />
         <Button theme="solid" disabled={loading} loading={saving} onClick={onSave}>
           {t("common.save")}
         </Button>

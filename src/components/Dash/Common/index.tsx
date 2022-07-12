@@ -1,2 +1,2 @@
-export * from "./SemiForm";
+export * from "./Form";
 export * from "./Loading";

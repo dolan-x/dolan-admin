@@ -57,6 +57,7 @@ pages:
     name: 名称
     slug: 标签唯一标识符
     color: 颜色
+    invalid-color-format: 颜色格式不合法!
     description: 标签描述
     add-success: 添加成功!
     add-failed: 添加失败!
@@ -78,6 +79,8 @@ pages:
       keywords: 关键词
     posts:
       label: 文章配置
+      max-page-size: 每页最大文章数
+      default-content: 默认内容
     tags:
       label: 标签配置
     categories:
@@ -88,6 +91,10 @@ pages:
       label: 作者配置
     functions:
       label: 功能配置
+      sitemap:
+        posts-baseurl: 站点地图文章 BaseURL
+        categories-baseurl: 站点地图分类 BaseURL
+        tags-baseurl: 站点地图标签 BaseURL
     custom:
       label: 自定义配置
 sidebar:

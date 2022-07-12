@@ -18,7 +18,7 @@ const langs = {
 function App () {
   const appStore = useAppStore();
 
-  const Loading = <Spin size="large" />;
+  const Loading = <Spin />;
   const currentLang = langs[appStore.i18n as keyof typeof langs];
 
   return (

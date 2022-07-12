@@ -3,6 +3,8 @@
 import type { ComponentType, FC, PropsWithChildren } from "react";
 import { Card, Form, Input, InputNumber, Select, Switch, TagInput, TextArea } from "@douyinfe/semi-ui";
 
+import MilkdownEditor from "~/components/MilkdownEditor";
+
 type PropsWithLabel<T extends Record<string, any>> = T & {
   label?: string
 };
@@ -37,3 +39,5 @@ export const SemiSelect = withLabel(Select);
 export const SemiSwitch = withLabel(Switch);
 // @ts-expect-error ...
 export const SemiTagInput = withLabel(TagInput);
+
+export const MilkdownEditorWithLabel = withLabel(MilkdownEditor);

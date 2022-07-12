@@ -17,6 +17,12 @@ const Sidebar: FC = () => {
 
   const items = [
     {
+      itemKey: "/dash",
+      text: t("pages.home.label"),
+      icon: <div className="i-carbon:dashboard" />,
+      onClick: createNavigateTo("/dash"),
+    },
+    {
       itemKey: "/dash/posts",
       text: t("pages.posts.label"),
       icon: <div className="i-carbon:document" />,
@@ -58,18 +64,28 @@ const Sidebar: FC = () => {
           icon: <div className="i-carbon:chart-custom" />,
           onClick: createNavigateTo("/dash/config/posts"),
         },
+        {
+          itemKey: "/dash/config/functions",
+          text: t("pages.config.functions.label"),
+          icon: <div className="i-carbon:function" />,
+          onClick: createNavigateTo("/dash/config/functions"),
+        },
       ],
     },
   ];
   return (
-    <Layout.Sider className="md:(relative h-auto) fixed h-full z-1000">
+    <Layout.Sider className="md:(relative h-unset!) absolute h-full z-1000">
       <Nav
         selectedKeys={selected}
         className="h-full"
         items={items}
         header={{
           className: "justify-center",
-          logo: <div className="i-carbon:military-camp" />,
+          logo: (
+            <div className="w-full flex justify-center">
+              <div className="i-carbon:military-camp" />
+            </div>
+          ),
           text: "Dolan Admin",
         }}
         footer={{

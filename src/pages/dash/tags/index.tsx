@@ -42,7 +42,7 @@ const Tags: FC = () => {
   async function onAdd () {
     if (!modified) { return; }
     if (!isColorValid) {
-      Toast.error("Invalid color format");
+      Toast.error(t("pages.tags.invalid-color-format"));
       return;
     }
     const body = {
@@ -67,7 +67,7 @@ const Tags: FC = () => {
   async function onUpdate () {
     if (!modified) { return; }
     if (!isColorValid) {
-      Toast.error("Invalid color format");
+      Toast.error(t("pages.tags.invalid-color-format"));
       return;
     }
     const body = {
@@ -141,7 +141,7 @@ const Tags: FC = () => {
           validateStatus={isColorValid ? "default" : "error"}
           placeholder={t("pages.tags.color")}
           label={t("pages.tags.color")}
-          suffix={<div onClick={toggleColorPickerVisible} className="i-carbon:color-palette pr-2" />}
+          suffix={<div onClick={toggleColorPickerVisible} className="i-carbon:color-palette pr-2" style={{ color }} />}
         />
         <div className="flex gap-2 justify-between">
           <SplitButtonGroup>
@@ -170,7 +170,7 @@ const Tags: FC = () => {
       {tags.length === 0
         ? (
           <div className="flex justify-center">
-            <Spin size="large" />
+            <Spin />
           </div>
         )
         : <TagCloud tags={tags} onTagClick={onTagClick} />}
@@ -196,6 +196,7 @@ const Tags: FC = () => {
         {TagList}
       </div>
       <Modal
+        closable={false}
         title={t("pages.tags.color")}
         visible={colorPickerVisible}
         onOk={toggleColorPickerVisible}

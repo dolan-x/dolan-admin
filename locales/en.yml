@@ -56,6 +56,7 @@ pages:
     name: Name
     slug: Slug
     color: Color
+    invalid-color-format: Invalid color format!
     description: Description
     add-success: Added successfully!
     add-failed: Add failed!
@@ -77,6 +78,8 @@ pages:
       keywords: Keywords
     posts:
       label: Posts
+      max-page-size: Max post size per page
+      default-content: Default content
     tags:
       label: Tags
     categories:
@@ -87,6 +90,10 @@ pages:
       label: Authors
     functions:
       label: Functions
+      sitemap:
+        posts-baseurl: Sitemap Posts BaseURL
+        categories-baseurl: Sitemap Categories BaseURL
+        tags-baseurl: Sitemap Tags BaseURL
     custom:
       label: Custom
 sidebar:
