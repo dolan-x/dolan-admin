@@ -6,8 +6,8 @@ common:
   save-failed: 保存失败!
   save-success: 保存成功!
 pages:
-  home:
-    label: 首页
+  dashboard:
+    label: 控制台
   login:
     label: 登录
   signup:

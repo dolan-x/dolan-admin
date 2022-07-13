@@ -20,7 +20,7 @@ const Sidebar: FC = () => {
   const items = [
     {
       itemKey: "/dash",
-      text: t("pages.home.label"),
+      text: t("pages.dashboard.label"),
       icon: <div className="i-carbon:dashboard" />,
       onClick: createNavigateTo("/dash"),
     },

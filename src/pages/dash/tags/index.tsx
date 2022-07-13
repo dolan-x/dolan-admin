@@ -13,7 +13,6 @@ const Tags: FC = () => {
   const { t } = useTranslation();
   const [tags, setTags] = useState<DolanTag[]>([]);
   const [colorPickerVisible, setColorPickerVisible] = useState(false);
-  const [isColorValid, setIsColorValid] = useState(false);
   const [loading, setLoading] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
   const [modified, setModified] = useState(false);
@@ -24,14 +23,12 @@ const Tags: FC = () => {
   const [origSlug, setOrigSlug] = useState("");
   const [description, setDescription] = useState("");
   const [color, setColor] = useState("");
+  const isColorValid = color === "" ? true : validateHTMLColorHex(color);
+  const canAddOrUpdate = name !== "" & slug !== " ";
 
   function toggleColorPickerVisible () {
     setColorPickerVisible(!colorPickerVisible);
   }
-
-  useEffect(() => {
-    setIsColorValid(color === "" ? true : validateHTMLColorHex(color));
-  }, [color]);
 
   async function onFetch () {
     const resp = await fetchApi("tags");
@@ -43,6 +40,11 @@ const Tags: FC = () => {
     if (!modified) { return; }
     if (!isColorValid) {
       Toast.error(t("pages.tags.invalid-color-format"));
+      return;
+    }
+    if (!canAddOrUpdate) {
+      // TODO: i18n
+      Toast.error("required");
       return;
     }
     const body = {
@@ -58,7 +60,7 @@ const Tags: FC = () => {
       });
       Toast.success(t("pages.tags.add-success"));
     } catch (e: any) {
-      Toast.error(`${t("pages.tags.add-failed")} ${e.data.error}`);
+      Toast.error(`${t("pages.tags.add-failed")} ${e?.data?.error}`);
       return;
     }
     onFetch();
@@ -68,6 +70,11 @@ const Tags: FC = () => {
     if (!modified) { return; }
     if (!isColorValid) {
       Toast.error(t("pages.tags.invalid-color-format"));
+      return;
+    }
+    if (canAddOrUpdate) {
+      // TODO
+      Toast.error("required");
       return;
     }
     const body = {
@@ -83,7 +90,7 @@ const Tags: FC = () => {
       });
       Toast.success(t("pages.tags.update-success"));
     } catch (e: any) {
-      Toast.error(`${t("pages.tags.update-failed")} ${e.data.error}`);
+      Toast.error(`${t("pages.tags.update-failed")} ${e?.data?.error}`);
       return;
     }
     onFetch();
@@ -134,7 +141,6 @@ const Tags: FC = () => {
         <SemiInput value={name} onChange={withSetModified(setName)} placeholder={t("pages.tags.name")} label={t("pages.tags.name")} />
         <SemiInput value={slug} onChange={withSetModified(setSlug)} placeholder={t("pages.tags.slug")} label={t("pages.tags.slug")} />
         <SemiTextArea value={description} onChange={withSetModified(setDescription)} placeholder={t("pages.tags.description")} label={t("pages.tags.description")} />
-        {/* FIXME: https://github.com/DouyinFE/semi-design/issues/936/ */}
         <SemiInput
           value={color}
           onChange={withSetModified(setColor)}
@@ -145,7 +151,7 @@ const Tags: FC = () => {
         />
         <div className="flex gap-2 justify-between">
           <SplitButtonGroup>
-            <Button theme="solid" onClick={isEdit ? onUpdate : onAdd}>
+            <Button theme="solid" disabled={!modified} onClick={isEdit ? onUpdate : onAdd}>
               { isEdit ? t("pages.tags.update") : t("pages.tags.add") }
             </Button>
             {isEdit && (

@@ -9,6 +9,7 @@ export type DolanResponseP<T> = Promise<DolanResponse<T>>;
 
 const f = $fetch.create({
   baseURL: import.meta.env.VITE_DOLAN_API_URL,
+  // TODO: Toast error here
   onRequestError: async (_ctx) => {
     console.log("error1");
   },

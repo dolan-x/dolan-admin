@@ -58,7 +58,7 @@ const Posts: FC = () => {
     Toast.info({
       content: `Converting to ${status}...`,
     });
-    await Promise.all(
+    await Promise.allSettled(
       postSlugs.map(async (s, i) => {
         fetchApi(`posts/${s}`, {
           method: "PUT",
@@ -86,7 +86,7 @@ const Posts: FC = () => {
     Toast.info({
       content: "Deleting...",
     });
-    await Promise.all(
+    await Promise.allSettled(
       selectedPostSlugs.map(async (s) => {
         fetchApi(`posts/${s}`, {
           method: "DELETE",

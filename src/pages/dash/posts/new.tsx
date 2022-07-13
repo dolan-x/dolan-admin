@@ -56,7 +56,7 @@ const EditPost: FC = () => {
       Toast.success(t("common.save-success"));
       navigate("..");
     } catch (e: any) {
-      Toast.error(`${t("common.save-failed")} ${e.data.error}`);
+      Toast.error(`${t("common.save-failed")} ${e?.data?.error}`);
     }
     setSaving(false);
   }

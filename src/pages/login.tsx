@@ -15,8 +15,11 @@ const Login: FC = () => {
   const navigate = useNavigate();
   const loginStore = useLoginStore();
 
+  const [loading, setLoading] = useState(false);
+
   if (loginStore.token) { navigate("/dash"); }
   async function onLogin (data: LoginData) {
+    setLoading(true);
     let resp;
     try {
       resp = await fetchApi("users/login", {
@@ -24,18 +27,18 @@ const Login: FC = () => {
         body: data,
       });
     } catch (e: any) {
-      Toast.error(`${t("login.login-failed")} ${e.data.error}`);
-      return;
+      Toast.error(`${t("login.login-failed")} ${e?.data?.error}`);
     }
-    if (resp.success) {
+    if (resp?.success) {
       loginStore.setToken(resp.data.token);
       Toast.success(t("login.login-success"));
     } else { Toast.error(t("login.login-failed")); }
+    setLoading(true);
   }
 
   return (
     <div className="flex justify-center">
-      <Form className="w-350px" onSubmit={data => onLogin(data as LoginData)}>
+      <Form className="w-350px" disabled={loading} onSubmit={data => onLogin(data as LoginData)}>
         <Form.Input field="username" label={t("login.username")} className="w-full" rules={[
           { required: true, message: t("login.username-missing") },
         ]}
@@ -50,7 +53,7 @@ const Login: FC = () => {
               {t("login.signup")}
             </Button>
           </Link>
-          <Button theme="solid" htmlType="submit" type="primary">
+          <Button theme="solid" htmlType="submit" type="primary" loading={loading}>
             {t("login.login")}
           </Button>
         </div>

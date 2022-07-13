@@ -34,7 +34,7 @@ export const FormWrapper: FC<PropsWithChildren<{}>> = ({ children }) => {
 
 export const SemiInput = withLabel(Input);
 export const SemiInputNumber = withLabel(InputNumber);
-export const SemiInputNumberOnly: FC<PropsWithLabel<GetProps<typeof InputNumber>>> = (props) => {
+export const SemiInputNumberOnly: FC<GetProps<typeof SemiInputNumber>> = (props) => {
   return (
     <SemiInputNumber
       min={0}

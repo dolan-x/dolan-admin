@@ -25,7 +25,7 @@ const Dash: FC = () => {
     try {
       resp = await fetchApi<boolean>("init", { method: "POST" });
     } catch (e: any) {
-      Toast.error(`Error! ${e.data.error}`);
+      Toast.error(`Error! ${e?.data?.error}`);
       return;
     }
     if (resp.success && resp.data) {

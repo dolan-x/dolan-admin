@@ -6,8 +6,8 @@ common:
   save-failed: Save failed!
   save-success: Saved successfully!
 pages:
-  home:
-    label: Home
+  dashboard:
+    label: Dashboard
   login:
     label: Login
   signup:
