@@ -60,7 +60,7 @@ const Dash: FC = () => {
   // TODO: Beautify
   return (
     <div>
-      <Row className="md:block hidden">
+      <Row className="md:block hidden!">
         <Col span={6}>
           {Initializer}
         </Col>
