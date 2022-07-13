@@ -82,8 +82,10 @@ pages:
       default-content: Default content
     tags:
       label: Tags
+      max-page-size: Max tag size per page
     categories:
       label: Categories
+      max-page-size: Max category size per page
     pages:
       label: Pages
     authors:

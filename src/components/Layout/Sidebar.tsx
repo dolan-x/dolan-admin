@@ -1,11 +1,13 @@
 import type { FC } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Layout, Nav } from "@douyinfe/semi-ui";
+import { breakpointsTailwind, useBreakpoints } from "@r-use/use-breakpoints";
 
 const Sidebar: FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { t } = useTranslation();
+  const breakpoints = useBreakpoints(breakpointsTailwind);
 
   const [selected, setSelected] = useState<string[]>([location.pathname]);
 
@@ -65,6 +67,18 @@ const Sidebar: FC = () => {
           onClick: createNavigateTo("/dash/config/posts"),
         },
         {
+          itemKey: "/dash/config/categories",
+          text: t("pages.config.categories.label"),
+          icon: <div className="i-carbon:category-add" />,
+          onClick: createNavigateTo("/dash/config/categories"),
+        },
+        {
+          itemKey: "/dash/config/tags",
+          text: t("pages.config.tags.label"),
+          icon: <div className="i-carbon:tag-edit" />,
+          onClick: createNavigateTo("/dash/config/tags"),
+        },
+        {
           itemKey: "/dash/config/functions",
           text: t("pages.config.functions.label"),
           icon: <div className="i-carbon:function" />,
@@ -74,8 +88,9 @@ const Sidebar: FC = () => {
     },
   ];
   return (
-    <Layout.Sider className="md:(relative h-unset!) absolute h-full z-1000">
+    <Layout.Sider className="md:(relative h-unset!) fixed h-screen z-1000">
       <Nav
+        defaultIsCollapsed={breakpoints.smaller("md")}
         selectedKeys={selected}
         className="h-full"
         items={items}

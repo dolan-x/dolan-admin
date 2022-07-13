@@ -179,7 +179,7 @@ const Tags: FC = () => {
 
   return (
     <div className="w-full">
-      <div className="display-none md:display-block">
+      <div className="hidden md:display-block">
         <Row>
           <Col span={13}>
             {NewTag}
@@ -190,7 +190,7 @@ const Tags: FC = () => {
           </Col>
         </Row>
       </div>
-      <div className="display-block md:display-none">
+      <div className="display-block md:hidden">
         {NewTag}
         <Space />
         {TagList}

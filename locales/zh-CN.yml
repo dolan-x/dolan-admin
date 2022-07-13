@@ -83,8 +83,10 @@ pages:
       default-content: 默认内容
     tags:
       label: 标签配置
+      max-page-size: 每页最大标签数
     categories:
       label: 分类配置
+      max-page-size: 每页最大分类数
     pages:
       label: 页面配置
     authors:

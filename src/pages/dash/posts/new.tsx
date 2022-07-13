@@ -136,7 +136,7 @@ const EditPost: FC = () => {
           {t("common.save")}
         </Button>
       </div>
-      <div className="display-none md:display-block">
+      <div className="hidden md:display-block">
         <Row>
           <Col span={16}>
             {Milkdown}
@@ -147,7 +147,7 @@ const EditPost: FC = () => {
           </Col>
         </Row>
       </div>
-      <div className="display-block md:display-none">
+      <div className="display-block md:hidden">
         {Milkdown}
         <Space />
         {ConfigEditor}

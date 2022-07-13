@@ -5,6 +5,8 @@ import { Card, Form, Input, InputNumber, Select, Switch, TagInput, TextArea } fr
 
 import MilkdownEditor from "~/components/MilkdownEditor";
 
+type GetProps<T> = T extends ComponentType<infer P> ? P : never;
+
 type PropsWithLabel<T extends Record<string, any>> = T & {
   label?: string
 };
@@ -32,6 +34,16 @@ export const FormWrapper: FC<PropsWithChildren<{}>> = ({ children }) => {
 
 export const SemiInput = withLabel(Input);
 export const SemiInputNumber = withLabel(InputNumber);
+export const SemiInputNumberOnly: FC<PropsWithLabel<GetProps<typeof InputNumber>>> = (props) => {
+  return (
+    <SemiInputNumber
+      min={0}
+      max={Number.MAX_SAFE_INTEGER}
+      formatter={value => `${value}`.replace(/\D/g, "")}
+      {...props}
+    />
+  );
+};
 export const SemiTextArea = withLabel(TextArea);
 // @ts-expect-error ...
 export const SemiSelect = withLabel(Select);

@@ -34,33 +34,40 @@ const Dash: FC = () => {
     setLoading(false);
   }
 
+  const Initializer = (
+    <Card>
+      <Loading loading={loading}>
+        <div className="flex justify-center flex-col">
+          <Typography.Title className="text-center">
+            初始化Dolan
+          </Typography.Title>
+          {initialized
+            ? (
+              <Button className="mt-10 text-black! bg-emerald-300 hover:bg-emerald-400!">
+                已经初始化
+              </Button>
+            )
+            : (
+              <Button className="mt-10" onClick={onInit}>
+                初始化
+              </Button>
+            )}
+        </div>
+      </Loading>
+    </Card>
+  );
+
   // TODO: Beautify
   return (
     <div>
-      <Row>
+      <Row className="md:block hidden">
         <Col span={6}>
-          <Card>
-            <Loading loading={loading}>
-              <div className="flex justify-center flex-col">
-                <Typography.Title className="text-center">
-                  初始化Dolan
-                </Typography.Title>
-                {initialized
-                  ? (
-                    <Button className="mt-10 text-black! bg-emerald-300 hover:bg-emerald-400!">
-                      已经初始化
-                    </Button>
-                  )
-                  : (
-                    <Button className="mt-10" onClick={onInit}>
-                      初始化
-                    </Button>
-                  )}
-              </div>
-            </Loading>
-          </Card>
+          {Initializer}
         </Col>
       </Row>
+      <div className="md:hidden block">
+        {Initializer}
+      </div>
     </div>
   );
 };
