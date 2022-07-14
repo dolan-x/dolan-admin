@@ -7,7 +7,8 @@ import type { Page } from "@dolan-x/shared";
 import MilkdownEditor from "~/components/MilkdownEditor";
 import MonacoEditor from "~/components/MonacoEditor";
 import { Loading, SemiInput, SemiSwitch } from "~/components/Dash/Common";
-import { fetchApi, useMetas } from "~/lib";
+import { fetchApi, useMonacoJSON } from "~/lib";
+import { prettyJSON } from "~/utils";
 
 const EditPage: FC = () => {
   const { t } = useTranslation();
@@ -29,12 +30,12 @@ const EditPage: FC = () => {
   const [hidden, setHidden] = useState(false);
 
   const {
-    metas,
-    setMetas,
-    parsedMetas,
-    metasBadJson,
-    onMetasChange,
-  } = useMetas();
+    stringJSON,
+    setStringJSON,
+    parsedJSON,
+    badJSON,
+    onJSONChange,
+  } = useMonacoJSON();
 
   async function onFetch () {
     let resp;
@@ -60,7 +61,7 @@ const EditPage: FC = () => {
       setDefaultContent(content);
       setSlug(slug);
       setHidden(hidden);
-      setMetas(JSON.stringify(metas, null, 2));
+      setStringJSON(prettyJSON(metas));
       setLoading(false);
     }
   }
@@ -68,7 +69,7 @@ const EditPage: FC = () => {
 
   async function onSave () {
     setSaving(true);
-    if (metasBadJson) {
+    if (badJSON) {
       Toast.error(t("pages.pages.metas-bad-json-format"));
       setSaving(false);
       return;
@@ -78,7 +79,7 @@ const EditPage: FC = () => {
       content,
       slug,
       hidden,
-      metas: parsedMetas,
+      metas: parsedJSON,
     };
     try {
       await fetchApi(`pages/${routeSlug}`, {
@@ -126,7 +127,7 @@ const EditPage: FC = () => {
         </Button>
       )}
     >
-      <MonacoEditor value={metas} onChange={onMetasChange} />
+      <MonacoEditor value={stringJSON} onChange={onJSONChange} />
     </Modal>
   );
 

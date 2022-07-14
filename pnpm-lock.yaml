@@ -25,6 +25,7 @@ specifiers:
   i18next: ^21.8.14
   i18next-browser-languagedetector: ^6.1.4
   material-icons: ^1.11.5
+  monaco-editor: ^0.33.0
   ohmyfetch: ^0.4.18
   pnpm: ^7.5.1
   prism-themes: ^1.9.0
@@ -55,7 +56,7 @@ dependencies:
   '@milkdown/core': 6.2.0
   '@milkdown/plugin-listener': 6.2.0_@milkdown+core@6.2.0
   '@milkdown/react': 6.2.0_xesazb5f4mojvxsjt66jki2ahe
-  '@monaco-editor/react': 4.4.5_biqbaboplfbrettd7655fr4n2y
+  '@monaco-editor/react': 4.4.5_jywyd5ymizla4bkdnod6po6m6y
   '@r-use/use-breakpoints': 0.2.1_biqbaboplfbrettd7655fr4n2y
   '@unocss/reset': 0.44.1
   i18next: 21.8.14
@@ -84,6 +85,7 @@ devDependencies:
   '@unocss/transformer-variant-group': 0.44.1
   '@vitejs/plugin-react': 2.0.0_vite@3.0.0
   eslint: 8.19.0
+  monaco-editor: 0.33.0
   pnpm: 7.5.1
   typescript: 4.7.4
   unocss: 0.44.1_vite@3.0.0
@@ -997,22 +999,24 @@ packages:
       tslib: 2.4.0
     dev: false
 
-  /@monaco-editor/loader/1.3.2:
+  /@monaco-editor/loader/1.3.2_monaco-editor@0.33.0:
     resolution: {integrity: sha512-BTDbpHl3e47r3AAtpfVFTlAi7WXv4UQ/xZmz8atKl4q7epQV5e7+JbigFDViWF71VBi4IIBdcWP57Hj+OWuc9g==}
     peerDependencies:
       monaco-editor: '>= 0.21.0 < 1'
     dependencies:
+      monaco-editor: 0.33.0
       state-local: 1.0.7
     dev: false
 
-  /@monaco-editor/react/4.4.5_biqbaboplfbrettd7655fr4n2y:
+  /@monaco-editor/react/4.4.5_jywyd5ymizla4bkdnod6po6m6y:
     resolution: {integrity: sha512-IImtzU7sRc66OOaQVCG+5PFHkSWnnhrUWGBuH6zNmH2h0YgmAhcjHZQc/6MY9JWEbUtVF1WPBMJ9u1XuFbRrVA==}
     peerDependencies:
       monaco-editor: '>= 0.25.0 < 1'
       react: ^16.8.0 || ^17.0.0 || ^18.0.0
       react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
     dependencies:
-      '@monaco-editor/loader': 1.3.2
+      '@monaco-editor/loader': 1.3.2_monaco-editor@0.33.0
+      monaco-editor: 0.33.0
       prop-types: 15.8.1
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
@@ -4061,6 +4065,9 @@ packages:
       pathe: 0.2.0
       pkg-types: 0.3.3
     dev: true
+
+  /monaco-editor/0.33.0:
+    resolution: {integrity: sha512-VcRWPSLIUEgQJQIE0pVT8FcGBIgFoxz7jtqctE+IiCxWugD0DwgyQBcZBhdSrdMC84eumoqMZsGl2GTreOzwqw==}
 
   /mri/1.2.0:
     resolution: {integrity: sha512-tzzskb3bG8LvYGFF/mDTpq3jpI6Q9wc3LEmBaghu+DdCssd1FakN7Bc0hVNmEyGq1bq3RgfkCb3cmQLpNPOroA==}

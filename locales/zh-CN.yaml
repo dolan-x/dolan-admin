@@ -117,6 +117,7 @@ pages:
         tags-baseurl: 站点地图标签 BaseURL
     custom:
       label: 自定义配置
+      bad-json-format: 错误的JSON格式!
 sidebar:
   hide: 收起侧边栏
 login:

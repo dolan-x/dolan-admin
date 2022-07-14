@@ -5,7 +5,7 @@ import { Button, Card, Col, Input, Modal, Row, Space, Toast, Typography } from "
 import MilkdownEditor from "~/components/MilkdownEditor";
 import MonacoEditor from "~/components/MonacoEditor";
 import { SemiInput, SemiSwitch } from "~/components/Dash/Common";
-import { fetchApi, useMetas } from "~/lib";
+import { fetchApi, useMonacoJSON } from "~/lib";
 import { NEW_POST_TEMPLATE } from "~/lib/templates";
 
 const NewPage: FC = () => {
@@ -24,15 +24,15 @@ const NewPage: FC = () => {
   const [hidden, setHidden] = useState(false);
 
   const {
-    metas,
-    parsedMetas,
-    metasBadJson,
-    onMetasChange,
-  } = useMetas();
+    stringJSON,
+    parsedJSON,
+    badJSON,
+    onJSONChange,
+  } = useMonacoJSON();
 
   async function onSave () {
     setSaving(true);
-    if (metasBadJson) {
+    if (badJSON) {
       Toast.error(t("pages.pages.metas-bad-json-format"));
       setSaving(false);
       return;
@@ -42,7 +42,7 @@ const NewPage: FC = () => {
       content,
       slug,
       hidden,
-      metas: parsedMetas,
+      metas: parsedJSON,
     };
     try {
       await fetchApi("pages", {
@@ -86,7 +86,7 @@ const NewPage: FC = () => {
         </Button>
       )}
     >
-      <MonacoEditor value={metas} onChange={onMetasChange} />
+      <MonacoEditor value={stringJSON} onChange={onJSONChange} />
     </Modal>
   );
 

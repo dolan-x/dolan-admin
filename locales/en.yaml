@@ -116,6 +116,7 @@ pages:
         tags-baseurl: Sitemap Tags BaseURL
     custom:
       label: Custom
+      bad-json-format: Bad JSON format!
 sidebar:
   hide: Hide Sidebar
 login:

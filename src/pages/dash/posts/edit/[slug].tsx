@@ -7,7 +7,8 @@ import type { Post } from "@dolan-x/shared";
 import MilkdownEditor from "~/components/MilkdownEditor";
 import MonacoEditor from "~/components/MonacoEditor";
 import { Loading, SemiInput, SemiSelect, SemiSwitch, SemiTextArea } from "~/components/Dash/Common";
-import { fetchApi, useMetas } from "~/lib";
+import { fetchApi, useMonacoJSON } from "~/lib";
+import { prettyJSON } from "~/utils";
 
 const EditPost: FC = () => {
   const { t } = useTranslation();
@@ -31,12 +32,12 @@ const EditPost: FC = () => {
   const [status, setStatus] = useState("");
 
   const {
-    metas,
-    setMetas,
-    parsedMetas,
-    metasBadJson,
-    onMetasChange,
-  } = useMetas();
+    stringJSON,
+    setStringJSON,
+    parsedJSON,
+    badJSON,
+    onJSONChange,
+  } = useMonacoJSON();
 
   async function onFetch () {
     let resp;
@@ -64,7 +65,7 @@ const EditPost: FC = () => {
       setExcerpt(excerpt);
       setSticky(sticky);
       setStatus(status);
-      setMetas(JSON.stringify(metas, null, 2));
+      setStringJSON(prettyJSON(metas));
       setLoading(false);
     }
   }
@@ -72,7 +73,7 @@ const EditPost: FC = () => {
 
   async function onSave () {
     setSaving(true);
-    if (metasBadJson) {
+    if (badJSON) {
       Toast.error(t("pages.posts.metas-bad-json-format"));
       setSaving(false);
       return;
@@ -86,7 +87,7 @@ const EditPost: FC = () => {
       status,
       tags: [],
       categories: [],
-      metas: parsedMetas,
+      metas: parsedJSON,
     };
     try {
       await fetchApi(`posts/${routeSlug}`, {
@@ -145,7 +146,7 @@ const EditPost: FC = () => {
         </Button>
       )}
     >
-      <MonacoEditor value={metas} onChange={onMetasChange} />
+      <MonacoEditor value={stringJSON} onChange={onJSONChange} />
     </Modal>
   );
 

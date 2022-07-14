@@ -1,17 +1,26 @@
 import type { FC } from "react";
-import { Button, Toast } from "@douyinfe/semi-ui";
+import { Button, Card, Toast } from "@douyinfe/semi-ui";
 import type { ConfigPosts } from "@dolan-x/shared";
 import useAsyncEffect from "use-async-effect";
 
-import { FormWrapper, Loading, MilkdownEditorWithLabel, SemiInputNumberOnly } from "~/components/Dash/Common";
-import { fetchApi } from "~/lib";
+import { FormWrapper, Loading } from "~/components/Dash/Common";
+import { fetchApi, useMonacoJSON } from "~/lib";
+import { prettyJSON } from "~/utils";
+import MonacoEditor from "~/components/MonacoEditor";
 
 const Custom: FC = () => {
   const { t } = useTranslation();
 
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
-  const [config, setConfig] = useState({});
+
+  const {
+    stringJSON,
+    setStringJSON,
+    badJSON,
+    parsedJSON,
+    onJSONChange,
+  } = useMonacoJSON();
 
   async function onFetch () {
     let resp;
@@ -22,7 +31,7 @@ const Custom: FC = () => {
       return;
     }
     if (resp.success) {
-      setConfig(resp.data);
+      setStringJSON(prettyJSON(resp.data));
       setLoading(false);
     } else {
       // Toast.error
@@ -33,10 +42,16 @@ const Custom: FC = () => {
   async function onSave () {
     setSaving(true);
 
+    if (badJSON) {
+      Toast.error(t("pages.config.custom.bad-json-format"));
+      setSaving(false);
+      return;
+    }
+
     try {
-      await fetchApi("config/posts", {
+      await fetchApi("config/custom", {
         method: "PUT",
-        body,
+        body: parsedJSON,
       });
       Toast.success(t("common.save-success"));
     } catch (e: any) {
@@ -48,14 +63,10 @@ const Custom: FC = () => {
   return (
     <FormWrapper>
       <Loading loading={loading}>
-        <SemiInputNumberOnly
-          className="w-full"
-          label={t("pages.config.posts.max-page-size")}
-          value={maxPageSize}
-          onNumberChange={setMaxPageSize}
-        />
-        <MilkdownEditorWithLabel label={t("pages.config.posts.default-content")} value={defaultContent} onChange={setDefaultContent} />
-        <Button theme="solid" disabled={loading} loading={saving} onClick={onSave}>
+        <Card>
+          <MonacoEditor value={stringJSON} onChange={onJSONChange} />
+        </Card>
+        <Button className="mt-3" theme="solid" disabled={loading} loading={saving} onClick={onSave}>
           {t("common.save")}
         </Button>
       </Loading>

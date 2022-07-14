@@ -91,6 +91,12 @@ const Sidebar: FC = () => {
           icon: <div className="i-carbon:function" />,
           onClick: createNavigateTo("/dash/config/functions"),
         },
+        {
+          itemKey: "/dash/config/functions",
+          text: t("pages.config.custom.label"),
+          icon: <div className="i-carbon:3d-cursor-alt" />,
+          onClick: createNavigateTo("/dash/config/custom"),
+        },
       ],
     },
   ];

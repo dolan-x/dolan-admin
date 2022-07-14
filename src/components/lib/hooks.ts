@@ -1,7 +1,8 @@
+import type { Metas } from "@dolan-x/shared";
 
 export function useMonacoJSON () {
   const [stringJSON, setStringJSON] = useState("{}");
-  const [parsedJSON, setParsedJSON] = useState({});
+  const [parsedJSON, setParsedJSON] = useState({} as Metas);
   const [badJSON, setBadJSON] = useState(false);
 
   function onJSONChange (value: string | undefined) {
