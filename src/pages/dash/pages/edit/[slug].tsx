@@ -1,18 +1,19 @@
 import type { FC } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { Button, Card, Col, Input, Modal, Row, Select, Space, Toast, Typography } from "@douyinfe/semi-ui";
+import { Button, Card, Col, Input, Modal, Row, Space, Toast, Typography } from "@douyinfe/semi-ui";
 import useAsyncEffect from "use-async-effect";
-import type { Metas, Post } from "@dolan-x/shared";
+import type { Page } from "@dolan-x/shared";
 
 import MilkdownEditor from "~/components/MilkdownEditor";
 import MonacoEditor from "~/components/MonacoEditor";
-import { Loading, SemiInput, SemiSelect, SemiSwitch, SemiTextArea } from "~/components/Dash/Common";
-import { fetchApi } from "~/lib";
+import { Loading, SemiInput, SemiSwitch } from "~/components/Dash/Common";
+import { fetchApi, useMetas } from "~/lib";
 
-const EditPost: FC = () => {
+const EditPage: FC = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const params = useParams();
+  const routeSlug = params.slug;
 
   const [showMetaEditor, setShowMetaEditor] = useState(false);
   const toggleShowMetaEditor = () => { setShowMetaEditor(!showMetaEditor); };
@@ -25,20 +26,22 @@ const EditPost: FC = () => {
   const [content, setContent] = useState("");
   const [defaultContent, setDefaultContent] = useState("");
   const [slug, setSlug] = useState("");
-  const [excerpt, setExcerpt] = useState("");
-  const [sticky, setSticky] = useState(false);
-  const [status, setStatus] = useState("");
+  const [hidden, setHidden] = useState(false);
 
-  const [metas, setMetas] = useState("{}");
-  const [parsedMetas, setParsedMetas] = useState({} as Metas);
-  const [metasBadJson, setMetasBadJson] = useState(false);
+  const {
+    metas,
+    setMetas,
+    parsedMetas,
+    metasBadJson,
+    onMetasChange,
+  } = useMetas();
 
   async function onFetch () {
     let resp;
     try {
-      resp = await fetchApi<Post>(`posts/${params.id}`);
+      resp = await fetchApi<Page>(`pages/${routeSlug}`);
     } catch {
-      Toast.error(t("pages.posts.not-exist"));
+      Toast.error(t("pages.pages.not-exist"));
       navigate("../..");
       return;
     }
@@ -47,18 +50,16 @@ const EditPost: FC = () => {
         title,
         content,
         slug,
-        excerpt,
-        sticky,
-        status,
+        // FIXME: Hidden
+        // @ts-expect-error Fix later
+        hidden,
         metas,
       } = resp.data;
       setTitle(title);
       setContent(content);
       setDefaultContent(content);
       setSlug(slug);
-      setExcerpt(excerpt);
-      setSticky(sticky);
-      setStatus(status);
+      setHidden(hidden);
       setMetas(JSON.stringify(metas, null, 2));
       setLoading(false);
     }
@@ -68,7 +69,7 @@ const EditPost: FC = () => {
   async function onSave () {
     setSaving(true);
     if (metasBadJson) {
-      Toast.error(t("pages.posts.metas-bad-json-format"));
+      Toast.error(t("pages.pages.metas-bad-json-format"));
       setSaving(false);
       return;
     }
@@ -76,15 +77,11 @@ const EditPost: FC = () => {
       title,
       content,
       slug,
-      excerpt,
-      sticky,
-      status,
-      tags: [],
-      categories: [],
+      hidden,
       metas: parsedMetas,
     };
     try {
-      await fetchApi(`posts/${params.id}`, {
+      await fetchApi(`pages/${routeSlug}`, {
         method: "PUT",
         body,
       });
@@ -94,21 +91,6 @@ const EditPost: FC = () => {
       Toast.error(`${t("common.save-failed")} ${e?.data?.error}`);
     }
     setSaving(false);
-  }
-
-  function onMetasChange (value: string | undefined) {
-    setMetas(value || "");
-    if (value === "" || value === undefined) {
-      setParsedMetas({});
-      return;
-    }
-    try {
-      const parsedMetas = JSON.parse(value.trim() || "");
-      setParsedMetas(parsedMetas);
-      setMetasBadJson(false);
-    } catch {
-      setMetasBadJson(true);
-    }
   }
 
   const Milkdown = (
@@ -121,30 +103,19 @@ const EditPost: FC = () => {
       header={(
         <div className="flex items-center justify-between">
           <Typography.Title heading={6}>
-            {t("pages.posts.edit-post-config")}
+            {t("pages.pages.edit-page-config")}
           </Typography.Title>
           <Button type="tertiary" icon={<div className="i-ph:dots-three-vertical-bold" />} onClick={toggleShowMetaEditor} />
         </div>
       )}
     >
-      <Loading loading={loading}>
-        <SemiInput value={slug} onChange={setSlug} placeholder={t("pages.posts.slug")} label={t("pages.posts.slug")} />
-        <SemiTextArea autosize value={excerpt} onChange={setExcerpt} placeholder={t("pages.posts.excerpt")} label={t("pages.posts.excerpt")} />
-        <SemiSwitch checked={sticky} onChange={setSticky} label={t("pages.posts.sticky")} />
-        <SemiSelect value={status} onChange={setStatus as any} className="w-full" label={t("pages.posts.status.label")}>
-          <Select.Option value="published">
-            {t("pages.posts.status.published")}
-          </Select.Option>
-          <Select.Option value="draft">
-            {t("pages.posts.status.draft")}
-          </Select.Option>
-        </SemiSelect>
-      </Loading>
+      <SemiInput value={slug} onChange={setSlug} placeholder={t("pages.pages.slug")} label={t("pages.pages.slug")} />
+      <SemiSwitch checked={hidden} onChange={setHidden} label={t("pages.pages.hidden")} />
     </Card>
   );
   const MetaEditor = (
     <Modal
-      title={t("pages.posts.metas")}
+      title={t("pages.pages.metas")}
       visible={showMetaEditor}
       maskClosable={false}
       width={600}
@@ -163,24 +134,17 @@ const EditPost: FC = () => {
     <div className="flex gap-4 flex-col">
       <div className="flex gap-2 items-end">
         <Typography.Title heading={2}>
-          {t("pages.posts.new-post")}
+          {t("pages.pages.edit-page")}
         </Typography.Title>
       </div>
       <div className="flex gap-4">
         <Input
           size="large"
-          placeholder={t("pages.posts.input-post-title")}
-          disabled={loading}
+          placeholder={t("pages.pages.input-page-title")}
           value={title}
           onChange={setTitle}
         />
-        <Button
-          size="large"
-          theme="solid"
-          disabled={loading}
-          loading={saving}
-          onClick={onSave}
-        >
+        <Button size="large" theme="solid" loading={saving} onClick={onSave}>
           {t("common.save")}
         </Button>
       </div>
@@ -205,4 +169,4 @@ const EditPost: FC = () => {
   );
 };
 
-export default EditPost;
+export default EditPage;

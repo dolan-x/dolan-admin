@@ -2,12 +2,14 @@ import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
 import LanguageDetector from "i18next-browser-languagedetector";
 
-import { DOLAN_I18N } from "./constants";
+import { useAppStore } from "~/stores";
+
+const appStore = useAppStore();
 
 const resources = Object.fromEntries(
   Object.entries(
-    import.meta.globEager("../locales/*.yml"))
-    .map(([key, value]) => [key.slice(11, -4), { translation: value.default }]),
+    import.meta.glob<{ default: object }>("../../locales/*.yaml", { eager: true }))
+    .map(([key, value]) => [key.slice("../../locales/".length, -".yaml".length), { translation: value.default }]),
 );
 
 i18n
@@ -15,7 +17,7 @@ i18n
   .use(LanguageDetector)
   .init({
     resources,
-    lng: localStorage.getItem(DOLAN_I18N) ?? undefined,
+    lng: appStore.i18n ?? undefined,
     interpolation: {
       escapeValue: false,
     },

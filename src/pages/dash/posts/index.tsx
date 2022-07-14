@@ -36,7 +36,7 @@ const Posts: FC = () => {
   const toggleShowBatchOperationMenu = () => { setShowBatchOperationMenu(!showBatchOperationMenu); };
 
   async function onFetch () {
-    const resp = await fetchApi("posts", {
+    const resp = await fetchApi<Post[]>("posts", {
       params: {
         page: currentPage,
       },
@@ -158,7 +158,7 @@ const Posts: FC = () => {
 
   return (
     <div className="min-h-full">
-      <div className="flex gap-3">
+      <div className="flex gap-3 flex-wrap">
         <Link to="./new">
           <Button className="mb-4" theme="solid" type="primary">
             {t("pages.posts.new-post")}
@@ -168,12 +168,6 @@ const Posts: FC = () => {
           trigger={enableBatchOperation ? "click" : "custom"}
           visible={showBatchOperationMenu}
           onVisibleChange={setShowBatchOperationMenu}
-          menu={[
-            { node: "item", name: "转为发布", onClick: convertToPublished },
-            { node: "item", name: "转为草稿", onClick: convertToDraft },
-            { node: "divider" },
-            { node: "item", name: "删除", type: "danger", onClick: deletePosts },
-          ]}
           render={(
             <Dropdown.Menu>
               <Dropdown.Item onClick={convertToPublished}>
@@ -183,9 +177,9 @@ const Posts: FC = () => {
                 {t("pages.posts.convert-to-draft")}
               </Dropdown.Item>
               <Dropdown.Divider />
-              <Popconfirm title={t("pages.posts.confirm-delete")} onConfirm={deletePosts}>
+              <Popconfirm title={t("common.confirm-delete")} onConfirm={deletePosts}>
                 <Dropdown.Item type="danger">
-                  {t("pages.posts.delete")}
+                  {t("common.delete")}
                 </Dropdown.Item>
               </Popconfirm>
             </Dropdown.Menu>

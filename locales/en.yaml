@@ -5,6 +5,10 @@ common:
   save: Save
   save-failed: Save failed!
   save-success: Saved successfully!
+  confirm-delete: Comfirm deleting?
+  delete: Delete
+  yes: 是
+  no: 否
 pages:
   dashboard:
     label: Dashboard
@@ -20,11 +24,10 @@ pages:
     batch-operation: Batch Operation
     convert-to-published: Convert to published
     convert-to-draft: Convert to draft
-    delete: Delete
-    confirm-delete: Comfirm deleting?
     filter-published: Published
     filter-draft: Draft
     new-post: Write new post
+    edit-post: Edit post
     post-title: Title
     post-status: Status
     post-tags: Tags
@@ -49,6 +52,19 @@ pages:
     metas-bad-json-format: Bad Metas JSON format!
   pages:
     label: Pages
+    new-page: Create new page
+    edit-page: Edit page
+    no-title: (No Title)
+    title: Title
+    failed: Failed to load pages!
+    batch-operation: Batch Operation
+    slug: Slug
+    hidden: Hidden
+    edit-page-config: Edit page config
+    input-page-title: Input page title
+    not-exist: Page does not exist
+    metas: Custom metadata of the page
+    metas-bad-json-format: Bad Metas JSON format!
   tags:
     label: Tags
     new-tag: New Tag
@@ -88,6 +104,8 @@ pages:
       max-page-size: Max category size per page
     pages:
       label: Pages
+      max-page-size: Max page size per page
+      default-content: Default content
     authors:
       label: Authors
     functions:

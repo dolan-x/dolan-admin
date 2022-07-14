@@ -57,7 +57,7 @@ const Functions: FC = () => {
       });
       Toast.success(t("common.save-success"));
     } catch (e: any) {
-      Toast.success(t("common.save-failed") + e?.data?.error);
+      Toast.error(t("common.save-failed") + e?.data?.error);
     }
     setSaving(false);
   }

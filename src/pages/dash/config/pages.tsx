@@ -1,37 +1,34 @@
 import type { FC } from "react";
 import { Button, Toast } from "@douyinfe/semi-ui";
-import type { ConfigSite } from "@dolan-x/shared";
+import type { ConfigPages } from "@dolan-x/shared";
 import useAsyncEffect from "use-async-effect";
 
-import { FormWrapper, Loading, SemiInput, SemiTagInput, SemiTextArea } from "~/components/Dash/Common";
+import { FormWrapper, Loading, MilkdownEditorWithLabel, SemiInputNumberOnly } from "~/components/Dash/Common";
 import { fetchApi } from "~/lib";
 
-const Site: FC = () => {
+const Pages: FC = () => {
   const { t } = useTranslation();
 
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
-  const [name, setName] = useState("");
-  const [description, setDescription] = useState("");
-  const [keywords, setKeywords] = useState<string[]>([]);
+  const [maxPageSize, setMaxPageSize] = useState(10);
+  const [defaultContent, setDefaultContent] = useState("");
 
   async function onFetch () {
     let resp;
     try {
-      resp = await fetchApi<ConfigSite>("config/site");
+      resp = await fetchApi<ConfigPages>("config/pages");
     } catch {
       // Toast.error(t("pages.config.site"));
       return;
     }
     if (resp.success) {
       const {
-        name,
-        description,
-        keywords,
+        maxPageSize,
+        defaultContent,
       } = resp.data;
-      setName(name);
-      setDescription(description);
-      setKeywords(keywords);
+      setMaxPageSize(maxPageSize);
+      setDefaultContent(defaultContent);
       setLoading(false);
     } else {
       // Toast.error
@@ -42,12 +39,11 @@ const Site: FC = () => {
   async function onSave () {
     setSaving(true);
     const body = {
-      name,
-      description,
-      keywords,
+      maxPageSize,
+      defaultContent,
     };
     try {
-      await fetchApi("config/site", {
+      await fetchApi("config/pages", {
         method: "PUT",
         body,
       });
@@ -61,9 +57,13 @@ const Site: FC = () => {
   return (
     <FormWrapper>
       <Loading loading={loading}>
-        <SemiInput label={t("pages.config.site.name")} value={name} onChange={setName} />
-        <SemiTextArea label={t("pages.config.site.description")} value={description} onChange={setDescription} />
-        <SemiTagInput label={t("pages.config.site.keywords")} value={keywords} onChange={setKeywords} />
+        <SemiInputNumberOnly
+          className="w-full"
+          label={t("pages.config.pages.max-page-size")}
+          value={maxPageSize}
+          onNumberChange={setMaxPageSize}
+        />
+        <MilkdownEditorWithLabel label={t("pages.config.posts.default-content")} value={defaultContent} onChange={setDefaultContent} />
         <Button theme="solid" disabled={loading} loading={saving} onClick={onSave}>
           {t("common.save")}
         </Button>
@@ -72,4 +72,4 @@ const Site: FC = () => {
   );
 };
 
-export default Site;
+export default Pages;

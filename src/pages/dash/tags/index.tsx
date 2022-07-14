@@ -24,14 +24,14 @@ const Tags: FC = () => {
   const [description, setDescription] = useState("");
   const [color, setColor] = useState("");
   const isColorValid = color === "" ? true : validateHTMLColorHex(color);
-  const canAddOrUpdate = name !== "" & slug !== " ";
+  const canAddOrUpdate = name !== "" && slug !== " ";
 
   function toggleColorPickerVisible () {
     setColorPickerVisible(!colorPickerVisible);
   }
 
   async function onFetch () {
-    const resp = await fetchApi("tags");
+    const resp = await fetchApi("tags", { params: { all: "" } });
     if (resp.success) { setTags(resp.data); }
   }
   useAsyncEffect(onFetch, []);

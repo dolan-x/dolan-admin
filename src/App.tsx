@@ -6,7 +6,7 @@ import zh_CN from "@douyinfe/semi-ui/lib/es/locale/source/zh_CN";
 import en_US from "@douyinfe/semi-ui/lib/es/locale/source/en_US";
 
 import routes from "virtual:generated-pages-react";
-import i18n from "./i18n";
+import i18n from "./lib/i18n";
 import { useAppStore } from "./stores";
 import Layout from "~/components/Layout";
 

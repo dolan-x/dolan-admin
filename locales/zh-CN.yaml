@@ -5,6 +5,10 @@ common:
   save: 保存
   save-failed: 保存失败!
   save-success: 保存成功!
+  confirm-delete: 确定删除?
+  delete: 删除
+  yes: 是
+  no: 否
 pages:
   dashboard:
     label: 控制台
@@ -20,11 +24,10 @@ pages:
     batch-operation: 批量操作
     convert-to-published: 转为发布
     convert-to-draft: 转为草稿
-    delete: 删除
-    confirm-delete: 确定删除?
     filter-published: 已发布
     filter-draft: 草稿
     new-post: 新建文章
+    edit-post: 编辑文章
     post-title: 标题
     post-status: 状态
     post-tags: 标签
@@ -50,6 +53,19 @@ pages:
     metas-bad-json-format: 元数据JSON格式错误!
   pages:
     label: 页面管理
+    new-page: 新建页面
+    edit-page: 编辑页面
+    no-title: (无标题)
+    title: 标题
+    failed: 加载页面列表失败!
+    batch-operation: 批量操作
+    slug: 页面唯一标识符
+    hidden: 隐藏
+    edit-page-config: 编辑页面配置
+    input-page-title: 输入页面标题
+    not-exist: 页面不存在
+    metas: 自定义页面元数据
+    metas-bad-json-format: 元数据JSON格式错误!
   tags:
     label: 标签管理
     new-tag: 新建标签
@@ -89,6 +105,8 @@ pages:
       max-page-size: 每页最大分类数
     pages:
       label: 页面配置
+      max-page-size: 每页最大页面数
+      default-content: 默认内容
     authors:
       label: 作者配置
     functions:

@@ -1,14 +1,14 @@
 import type { FC } from "react";
 import { useNavigate } from "react-router-dom";
-import { Button, Card, Col, Input, Modal, Row, Select, Space, Toast, Typography } from "@douyinfe/semi-ui";
+import { Button, Card, Col, Input, Modal, Row, Space, Toast, Typography } from "@douyinfe/semi-ui";
 
 import MilkdownEditor from "~/components/MilkdownEditor";
 import MonacoEditor from "~/components/MonacoEditor";
-import { SemiInput, SemiSelect, SemiSwitch, SemiTextArea } from "~/components/Dash/Common";
+import { SemiInput, SemiSwitch } from "~/components/Dash/Common";
 import { fetchApi, useMetas } from "~/lib";
 import { NEW_POST_TEMPLATE } from "~/lib/templates";
 
-const NewPost: FC = () => {
+const NewPage: FC = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
 
@@ -21,13 +21,10 @@ const NewPost: FC = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [slug, setSlug] = useState("");
-  const [excerpt, setExcerpt] = useState("");
-  const [sticky, setSticky] = useState(false);
-  const [status, setStatus] = useState("published");
+  const [hidden, setHidden] = useState(false);
 
   const {
     metas,
-    setMetas,
     parsedMetas,
     metasBadJson,
     onMetasChange,
@@ -36,7 +33,7 @@ const NewPost: FC = () => {
   async function onSave () {
     setSaving(true);
     if (metasBadJson) {
-      Toast.error(t("pages.posts.metas-bad-json-format"));
+      Toast.error(t("pages.pages.metas-bad-json-format"));
       setSaving(false);
       return;
     }
@@ -44,15 +41,11 @@ const NewPost: FC = () => {
       title,
       content,
       slug,
-      excerpt,
-      sticky,
-      status,
-      tags: [],
-      categories: [],
+      hidden,
       metas: parsedMetas,
     };
     try {
-      await fetchApi("posts", {
+      await fetchApi("pages", {
         method: "POST",
         body,
       });
@@ -70,28 +63,19 @@ const NewPost: FC = () => {
       header={(
         <div className="flex items-center justify-between">
           <Typography.Title heading={6}>
-            {t("pages.posts.edit-post-config")}
+            {t("pages.pages.edit-page-config")}
           </Typography.Title>
           <Button type="tertiary" icon={<div className="i-ph:dots-three-vertical-bold" />} onClick={toggleShowMetaEditor} />
         </div>
       )}
     >
-      <SemiInput value={slug} onChange={setSlug} placeholder={t("pages.posts.slug")} label={t("pages.posts.slug")} />
-      <SemiTextArea autosize value={excerpt} onChange={setExcerpt} placeholder={t("pages.posts.excerpt")} label={t("pages.posts.excerpt")} />
-      <SemiSwitch checked={sticky} onChange={setSticky} label={t("pages.posts.sticky")} />
-      <SemiSelect value={status} onChange={setStatus as any} className="w-full" label={t("pages.posts.status.label")}>
-        <Select.Option value="published">
-          {t("pages.posts.status.published")}
-        </Select.Option>
-        <Select.Option value="draft">
-          {t("pages.posts.status.draft")}
-        </Select.Option>
-      </SemiSelect>
+      <SemiInput value={slug} onChange={setSlug} placeholder={t("pages.pages.slug")} label={t("pages.pages.slug")} />
+      <SemiSwitch checked={hidden} onChange={setHidden} label={t("pages.pages.hidden")} />
     </Card>
   );
   const MetaEditor = (
     <Modal
-      title={t("pages.posts.metas")}
+      title={t("pages.pages.metas")}
       visible={showMetaEditor}
       maskClosable={false}
       width={600}
@@ -110,13 +94,13 @@ const NewPost: FC = () => {
     <div className="flex gap-4 flex-col">
       <div className="flex gap-2 items-end">
         <Typography.Title heading={2}>
-          {t("pages.posts.new-post")}
+          {t("pages.pages.new-page")}
         </Typography.Title>
       </div>
       <div className="flex gap-4">
         <Input
           size="large"
-          placeholder={t("pages.posts.input-post-title")}
+          placeholder={t("pages.pages.input-page-title")}
           value={title}
           onChange={setTitle}
         />
@@ -145,4 +129,4 @@ const NewPost: FC = () => {
   );
 };
 
-export default NewPost;
+export default NewPage;

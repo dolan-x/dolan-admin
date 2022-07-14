@@ -11,8 +11,13 @@ const Dash: FC = () => {
   const [initialized, setInitialized] = useState(false);
 
   async function onFetch () {
-    const resp = await fetchApi<boolean>("init");
-    if (resp.success) {
+    let resp;
+    try {
+      resp = await fetchApi<boolean>("init");
+    } catch (e: any) {
+      return;
+    }
+    if (resp?.success) {
       setInitialized(resp.data);
     }
     setLoading(false);
@@ -60,7 +65,7 @@ const Dash: FC = () => {
   // TODO: Beautify
   return (
     <div>
-      <Row className="md:block hidden!">
+      <Row className="md:block! hidden!">
         <Col span={6}>
           {Initializer}
         </Col>

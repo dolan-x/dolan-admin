@@ -1,29 +1,34 @@
 import type { FC } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Button, Card, Col, Input, Modal, Row, Select, Space, Toast, Typography } from "@douyinfe/semi-ui";
+import useAsyncEffect from "use-async-effect";
+import type { Post } from "@dolan-x/shared";
 
 import MilkdownEditor from "~/components/MilkdownEditor";
 import MonacoEditor from "~/components/MonacoEditor";
-import { SemiInput, SemiSelect, SemiSwitch, SemiTextArea } from "~/components/Dash/Common";
+import { Loading, SemiInput, SemiSelect, SemiSwitch, SemiTextArea } from "~/components/Dash/Common";
 import { fetchApi, useMetas } from "~/lib";
-import { NEW_POST_TEMPLATE } from "~/lib/templates";
 
-const NewPost: FC = () => {
+const EditPost: FC = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const params = useParams();
+  const routeSlug = params.slug;
 
   const [showMetaEditor, setShowMetaEditor] = useState(false);
   const toggleShowMetaEditor = () => { setShowMetaEditor(!showMetaEditor); };
 
+  const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
 
   // Form
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+  const [defaultContent, setDefaultContent] = useState("");
   const [slug, setSlug] = useState("");
   const [excerpt, setExcerpt] = useState("");
   const [sticky, setSticky] = useState(false);
-  const [status, setStatus] = useState("published");
+  const [status, setStatus] = useState("");
 
   const {
     metas,
@@ -32,6 +37,38 @@ const NewPost: FC = () => {
     metasBadJson,
     onMetasChange,
   } = useMetas();
+
+  async function onFetch () {
+    let resp;
+    try {
+      resp = await fetchApi<Post>(`posts/${routeSlug}`);
+    } catch {
+      Toast.error(t("pages.posts.not-exist"));
+      navigate("../..");
+      return;
+    }
+    if (resp.success) {
+      const {
+        title,
+        content,
+        slug,
+        excerpt,
+        sticky,
+        status,
+        metas,
+      } = resp.data;
+      setTitle(title);
+      setContent(content);
+      setDefaultContent(content);
+      setSlug(slug);
+      setExcerpt(excerpt);
+      setSticky(sticky);
+      setStatus(status);
+      setMetas(JSON.stringify(metas, null, 2));
+      setLoading(false);
+    }
+  }
+  useAsyncEffect(onFetch, []);
 
   async function onSave () {
     setSaving(true);
@@ -52,19 +89,23 @@ const NewPost: FC = () => {
       metas: parsedMetas,
     };
     try {
-      await fetchApi("posts", {
-        method: "POST",
+      await fetchApi(`posts/${routeSlug}`, {
+        method: "PUT",
         body,
       });
       Toast.success(t("common.save-success"));
-      navigate("..");
+      navigate("../..");
     } catch (e: any) {
       Toast.error(`${t("common.save-failed")} ${e?.data?.error}`);
     }
     setSaving(false);
   }
 
-  const Milkdown = <MilkdownEditor value={NEW_POST_TEMPLATE} onChange={setContent} />;
+  const Milkdown = (
+    <Loading loading={loading}>
+      <MilkdownEditor defaultValue={defaultContent} value={content} onChange={setContent} />
+    </Loading>
+  );
   const ConfigEditor = (
     <Card
       header={(
@@ -76,17 +117,19 @@ const NewPost: FC = () => {
         </div>
       )}
     >
-      <SemiInput value={slug} onChange={setSlug} placeholder={t("pages.posts.slug")} label={t("pages.posts.slug")} />
-      <SemiTextArea autosize value={excerpt} onChange={setExcerpt} placeholder={t("pages.posts.excerpt")} label={t("pages.posts.excerpt")} />
-      <SemiSwitch checked={sticky} onChange={setSticky} label={t("pages.posts.sticky")} />
-      <SemiSelect value={status} onChange={setStatus as any} className="w-full" label={t("pages.posts.status.label")}>
-        <Select.Option value="published">
-          {t("pages.posts.status.published")}
-        </Select.Option>
-        <Select.Option value="draft">
-          {t("pages.posts.status.draft")}
-        </Select.Option>
-      </SemiSelect>
+      <Loading loading={loading}>
+        <SemiInput value={slug} onChange={setSlug} placeholder={t("pages.posts.slug")} label={t("pages.posts.slug")} />
+        <SemiTextArea autosize value={excerpt} onChange={setExcerpt} placeholder={t("pages.posts.excerpt")} label={t("pages.posts.excerpt")} />
+        <SemiSwitch checked={sticky} onChange={setSticky} label={t("pages.posts.sticky")} />
+        <SemiSelect value={status} onChange={setStatus as any} className="w-full" label={t("pages.posts.status.label")}>
+          <Select.Option value="published">
+            {t("pages.posts.status.published")}
+          </Select.Option>
+          <Select.Option value="draft">
+            {t("pages.posts.status.draft")}
+          </Select.Option>
+        </SemiSelect>
+      </Loading>
     </Card>
   );
   const MetaEditor = (
@@ -110,17 +153,24 @@ const NewPost: FC = () => {
     <div className="flex gap-4 flex-col">
       <div className="flex gap-2 items-end">
         <Typography.Title heading={2}>
-          {t("pages.posts.new-post")}
+          {t("pages.posts.edit-post")}
         </Typography.Title>
       </div>
       <div className="flex gap-4">
         <Input
           size="large"
           placeholder={t("pages.posts.input-post-title")}
+          disabled={loading}
           value={title}
           onChange={setTitle}
         />
-        <Button size="large" theme="solid" loading={saving} onClick={onSave}>
+        <Button
+          size="large"
+          theme="solid"
+          disabled={loading}
+          loading={saving}
+          onClick={onSave}
+        >
           {t("common.save")}
         </Button>
       </div>
@@ -145,4 +195,4 @@ const NewPost: FC = () => {
   );
 };
 
-export default NewPost;
+export default EditPost;

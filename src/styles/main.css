@@ -12,9 +12,16 @@ h6 {
   font-weight: 300 !important;
 }
 
-.milkdown ul,
-.milkdown ol {
+.milkdown ul {
   list-style: unset;
+}
+
+.milkdown ol {
+  list-style: auto;
+}
+
+.milkdown .editor h1 {
+  height: unset !important;
 }
 
 @media only screen and (min-width: 72rem) {

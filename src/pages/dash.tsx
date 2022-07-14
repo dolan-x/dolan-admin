@@ -1,7 +1,7 @@
 import type { FC } from "react";
 import { Navigate, Outlet, useLocation } from "react-router-dom";
 
-import { useLoginStore } from "../stores";
+import { useLoginStore } from "~/stores";
 
 const Dash: FC = () => {
   const location = useLocation();

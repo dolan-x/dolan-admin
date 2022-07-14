@@ -8,6 +8,7 @@ const Sidebar: FC = () => {
   const location = useLocation();
   const { t } = useTranslation();
   const breakpoints = useBreakpoints(breakpointsTailwind);
+  const defaultIsCollapsed = breakpoints.smaller("md");
 
   const [selected, setSelected] = useState<string[]>([location.pathname]);
 
@@ -67,6 +68,12 @@ const Sidebar: FC = () => {
           onClick: createNavigateTo("/dash/config/posts"),
         },
         {
+          itemKey: "/dash/config/pages",
+          text: t("pages.config.pages.label"),
+          icon: <div className="i-carbon:gui-management" />,
+          onClick: createNavigateTo("/dash/config/pages"),
+        },
+        {
           itemKey: "/dash/config/categories",
           text: t("pages.config.categories.label"),
           icon: <div className="i-carbon:category-add" />,
@@ -90,7 +97,7 @@ const Sidebar: FC = () => {
   return (
     <Layout.Sider className="md:(relative h-unset!) fixed h-screen z-1000">
       <Nav
-        defaultIsCollapsed={breakpoints.smaller("md")}
+        defaultIsCollapsed={defaultIsCollapsed}
         selectedKeys={selected}
         className="h-full"
         items={items}

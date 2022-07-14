@@ -25,7 +25,6 @@ const Posts: FC = () => {
     if (resp.success) {
       const {
         maxPageSize,
-        // @ts-expect-error Fix later
         defaultContent,
       } = resp.data;
       setMaxPageSize(maxPageSize);
@@ -50,7 +49,7 @@ const Posts: FC = () => {
       });
       Toast.success(t("common.save-success"));
     } catch (e: any) {
-      Toast.success(t("common.save-failed") + e?.data?.error);
+      Toast.error(t("common.save-failed") + e?.data?.error);
     }
     setSaving(false);
   }
