@@ -92,7 +92,7 @@ const Sidebar: FC = () => {
           onClick: createNavigateTo("/dash/config/functions"),
         },
         {
-          itemKey: "/dash/config/functions",
+          itemKey: "/dash/config/custom",
           text: t("pages.config.custom.label"),
           icon: <div className="i-carbon:3d-cursor-alt" />,
           onClick: createNavigateTo("/dash/config/custom"),
