@@ -185,7 +185,7 @@ const Tags: FC = () => {
 
   return (
     <div className="w-full">
-      <div className="hidden md:display-block">
+      <div className="hidden! md:display-block!">
         <Row>
           <Col span={13}>
             {NewTag}

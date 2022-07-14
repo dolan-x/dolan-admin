@@ -148,7 +148,7 @@ const EditPage: FC = () => {
           {t("common.save")}
         </Button>
       </div>
-      <div className="hidden md:display-block">
+      <div className="hidden! md:display-block!">
         <Row>
           <Col span={16}>
             {Milkdown}

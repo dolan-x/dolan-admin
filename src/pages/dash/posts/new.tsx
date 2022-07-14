@@ -27,7 +27,6 @@ const NewPost: FC = () => {
 
   const {
     metas,
-    setMetas,
     parsedMetas,
     metasBadJson,
     onMetasChange,
@@ -124,7 +123,7 @@ const NewPost: FC = () => {
           {t("common.save")}
         </Button>
       </div>
-      <div className="hidden md:display-block">
+      <div className="hidden! md:display-block!">
         <Row>
           <Col span={16}>
             {Milkdown}
