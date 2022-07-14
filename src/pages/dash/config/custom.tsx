@@ -61,16 +61,14 @@ const Custom: FC = () => {
   }
 
   return (
-    <FormWrapper>
-      <Loading loading={loading}>
-        <Card>
-          <MonacoEditor value={stringJSON} onChange={onJSONChange} />
-        </Card>
+    <Loading loading={loading}>
+      <Card>
+        <MonacoEditor value={stringJSON} onChange={onJSONChange} />
         <Button className="mt-3" theme="solid" disabled={loading} loading={saving} onClick={onSave}>
           {t("common.save")}
         </Button>
-      </Loading>
-    </FormWrapper>
+      </Card>
+    </Loading>
   );
 };
 

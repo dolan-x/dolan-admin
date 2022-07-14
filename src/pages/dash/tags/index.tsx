@@ -72,7 +72,7 @@ const Tags: FC = () => {
       Toast.error(t("pages.tags.invalid-color-format"));
       return;
     }
-    if (canAddOrUpdate) {
+    if (!canAddOrUpdate) {
       // TODO
       Toast.error("required");
       return;
@@ -111,10 +111,11 @@ const Tags: FC = () => {
     setLoading(true);
     const resp = await fetchApi<DolanTag>(`tags/${requestSlug}`);
     if (resp.success) {
-      const { slug, name, description } = resp.data;
+      const { slug, name, description, color } = resp.data;
       setOrigSlug(slug);
       setSlug(slug);
       setName(name);
+      setColor(color);
       setDescription(description);
     }
     setLoading(false);
