@@ -1,11 +1,12 @@
 import type { FC } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { Button, Card, Col, Input, Modal, Row, Space, Toast, Typography } from "@douyinfe/semi-ui";
+import { Button, Card, Input, Toast, Typography } from "@douyinfe/semi-ui";
 import useAsyncEffect from "use-async-effect";
 import type { Page } from "@dolan-x/shared";
 
 import MilkdownEditor from "~/components/MilkdownEditor";
-import MonacoEditor from "~/components/MonacoEditor";
+import MetaEditor from "~/components/Dash/MetaEditor";
+import ResponsiveView from "~/components/Dash/Responsive";
 import { Loading, SemiInput, SemiSwitch } from "~/components/Dash/Common";
 import { fetchApi, useMonacoJSON } from "~/lib";
 import { prettyJSON } from "~/utils";
@@ -114,22 +115,6 @@ const EditPage: FC = () => {
       <SemiSwitch checked={hidden} onChange={setHidden} label={t("pages.pages.hidden")} />
     </Card>
   );
-  const MetaEditor = (
-    <Modal
-      title={t("pages.pages.metas")}
-      visible={showMetaEditor}
-      maskClosable={false}
-      width={600}
-      onCancel={toggleShowMetaEditor}
-      footer={(
-        <Button type="primary" onClick={toggleShowMetaEditor}>
-          {t("common.save")}
-        </Button>
-      )}
-    >
-      <MonacoEditor value={stringJSON} onChange={onJSONChange} />
-    </Modal>
-  );
 
   return (
     <div className="flex gap-4 flex-col">
@@ -149,23 +134,14 @@ const EditPage: FC = () => {
           {t("common.save")}
         </Button>
       </div>
-      <div className="hidden! md:display-block!">
-        <Row>
-          <Col span={16}>
-            {Milkdown}
-          </Col>
-          <Col span={1} />
-          <Col span={7}>
-            {ConfigEditor}
-          </Col>
-        </Row>
-      </div>
-      <div className="display-block md:hidden">
-        {Milkdown}
-        <Space />
-        {ConfigEditor}
-      </div>
-      {MetaEditor}
+      <ResponsiveView first={Milkdown} second={ConfigEditor} />
+      <MetaEditor
+        title={t("pages.pages.metas")}
+        show={showMetaEditor}
+        toggleShow={toggleShowMetaEditor}
+        stringJSON={stringJSON}
+        onJSONChange={onJSONChange}
+      />
     </div>
   );
 };
