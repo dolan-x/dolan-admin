@@ -1,8 +1,8 @@
 import type { FC } from "react";
 import { Link } from "react-router-dom";
 import useAsyncEffect from "use-async-effect";
-import { Badge, Button, Card, Dropdown, Pagination, Popconfirm, Table, Tag, Toast } from "@douyinfe/semi-ui";
-import type { Tag as DolanTag, Post } from "@dolan-x/shared";
+import { Badge, Button, Card, Dropdown, Pagination, Popconfirm, Table, Toast } from "@douyinfe/semi-ui";
+import type { Post } from "@dolan-x/shared";
 
 import { fetchApi } from "~/lib";
 import { toDisplayDate } from "~/utils";
@@ -132,22 +132,6 @@ const Posts: FC = () => {
     );
   }
 
-  function renderTags (tags: DolanTag[]) {
-    return (
-      <div>
-        {tags.length !== 0
-          ? tags.map((tag) => {
-            return (
-              <Tag key={tag.slug}>
-                {tag.name}
-              </Tag>
-            );
-          })
-          : t("pages.posts.no-tags")}
-      </div>
-    );
-  }
-
   function renderCreatedDate (publishedDate: Post["created"]) {
     return (
       <div>
@@ -205,7 +189,7 @@ const Posts: FC = () => {
           >
             <Table.Column title={t("pages.posts.title")} dataIndex="title" key="title" render={renderTitle} />
             <Table.Column title={t("pages.posts.status.label")} dataIndex="status" key="status" render={renderStatus} />
-            <Table.Column title={t("pages.posts.tags")} dataIndex="tags" key="tags" render={renderTags} />
+            {/* <Table.Column title={t("pages.posts.tags")} dataIndex="tags" key="tags" render={renderTags} /> */}
             <Table.Column title={t("pages.posts.created")} dataIndex="created" key="created" render={renderCreatedDate} />
           </Table>
           <div className="flex justify-center my-7">

@@ -4,6 +4,7 @@ import { Button, Card, Input, Select, Toast, Typography } from "@douyinfe/semi-u
 
 import MilkdownEditor from "~/components/MilkdownEditor";
 import MetaEditor from "~/components/Dash/MetaEditor";
+import TagSelect from "~/components/Dash/Posts/TagSelect";
 import ResponsiveView from "~/components/Dash/Responsive";
 import { SemiInput, SemiSelect, SemiSwitch, SemiTextArea } from "~/components/Dash/Common";
 import { fetchApi, useMonacoJSON } from "~/lib";
@@ -23,6 +24,7 @@ const NewPost: FC = () => {
   const [content, setContent] = useState("");
   const [slug, setSlug] = useState("");
   const [excerpt, setExcerpt] = useState("");
+  const [selectedTagSlugs, setSelectedTagSlugs] = useState<string[]>([]);
   const [sticky, setSticky] = useState(false);
   const [status, setStatus] = useState("published");
 
@@ -47,7 +49,7 @@ const NewPost: FC = () => {
       excerpt,
       sticky,
       status,
-      tags: [],
+      tags: selectedTagSlugs,
       categories: [],
       metas: parsedJSON,
     };
@@ -78,6 +80,7 @@ const NewPost: FC = () => {
     >
       <SemiInput value={slug} onChange={setSlug} placeholder={t("pages.posts.slug")} label={t("pages.posts.slug")} />
       <SemiTextArea autosize value={excerpt} onChange={setExcerpt} placeholder={t("pages.posts.excerpt")} label={t("pages.posts.excerpt")} />
+      <TagSelect label={t("pages.posts.tags")} slugs={selectedTagSlugs} onChange={setSelectedTagSlugs} />
       <SemiSwitch checked={sticky} onChange={setSticky} label={t("pages.posts.sticky")} />
       <SemiSelect value={status} onChange={setStatus as any} className="w-full" label={t("pages.posts.status.label")}>
         <Select.Option value="published">

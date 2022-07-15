@@ -6,6 +6,7 @@ import type { Post } from "@dolan-x/shared";
 
 import MilkdownEditor from "~/components/MilkdownEditor";
 import MetaEditor from "~/components/Dash/MetaEditor";
+import TagSelect from "~/components/Dash/Posts/TagSelect";
 import ResponsiveView from "~/components/Dash/Responsive";
 import { Loading, SemiInput, SemiSelect, SemiSwitch, SemiTextArea } from "~/components/Dash/Common";
 import { fetchApi, useMonacoJSON } from "~/lib";
@@ -28,6 +29,7 @@ const EditPost: FC = () => {
   const [content, setContent] = useState("");
   const [defaultContent, setDefaultContent] = useState("");
   const [slug, setSlug] = useState("");
+  const [selectedTagSlugs, setSelectedTagSlugs] = useState<string[]>([]);
   const [excerpt, setExcerpt] = useState("");
   const [sticky, setSticky] = useState(false);
   const [status, setStatus] = useState("");
@@ -55,6 +57,7 @@ const EditPost: FC = () => {
         content,
         slug,
         excerpt,
+        tags,
         sticky,
         status,
         metas,
@@ -64,6 +67,7 @@ const EditPost: FC = () => {
       setDefaultContent(content);
       setSlug(slug);
       setExcerpt(excerpt);
+      setSelectedTagSlugs(tags);
       setSticky(sticky);
       setStatus(status);
       setStringJSON(prettyJSON(metas));
@@ -86,7 +90,7 @@ const EditPost: FC = () => {
       excerpt,
       sticky,
       status,
-      tags: [],
+      tags: selectedTagSlugs,
       categories: [],
       metas: parsedJSON,
     };
@@ -122,6 +126,7 @@ const EditPost: FC = () => {
       <Loading loading={loading}>
         <SemiInput value={slug} onChange={setSlug} placeholder={t("pages.posts.slug")} label={t("pages.posts.slug")} />
         <SemiTextArea autosize value={excerpt} onChange={setExcerpt} placeholder={t("pages.posts.excerpt")} label={t("pages.posts.excerpt")} />
+        <TagSelect label={t("pages.posts.tags")} slugs={selectedTagSlugs} onChange={setSelectedTagSlugs} />
         <SemiSwitch checked={sticky} onChange={setSticky} label={t("pages.posts.sticky")} />
         <SemiSelect value={status} onChange={setStatus as any} className="w-full" label={t("pages.posts.status.label")}>
           <Select.Option value="published">
@@ -134,22 +139,6 @@ const EditPost: FC = () => {
       </Loading>
     </Card>
   );
-  // const MetaEditor = (
-  //   <Modal
-  //     title={t("pages.posts.metas")}
-  //     visible={showMetaEditor}
-  //     maskClosable={false}
-  //     width={600}
-  //     onCancel={toggleShowMetaEditor}
-  //     footer={(
-  //       <Button type="primary" onClick={toggleShowMetaEditor}>
-  //         {t("common.save")}
-  //       </Button>
-  //     )}
-  //   >
-  //     <MonacoEditor value={stringJSON} onChange={onJSONChange} />
-  //   </Modal>
-  // );
 
   return (
     <div className="flex gap-4 flex-col">
