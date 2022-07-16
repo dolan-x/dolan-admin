@@ -15,6 +15,7 @@ specifiers:
   '@r-use/use-breakpoints': ^0.2.1
   '@rollup/plugin-yaml': ^3.1.0
   '@so1ve/eslint-config': ^0.26.0
+  '@types/lodash.throttle': ^4.1.7
   '@types/node': ^18.0.4
   '@types/react': 18.0.15
   '@types/react-dom': 18.0.6
@@ -25,6 +26,7 @@ specifiers:
   eslint: ^8.19.0
   i18next: ^21.8.14
   i18next-browser-languagedetector: ^6.1.4
+  lodash.throttle: ^4.1.1
   material-icons: ^1.11.5
   monaco-editor: ^0.33.0
   ohmyfetch: ^0.4.18
@@ -63,6 +65,7 @@ dependencies:
   '@unocss/reset': 0.44.2
   i18next: 21.8.14
   i18next-browser-languagedetector: 6.1.4
+  lodash.throttle: 4.1.1
   material-icons: 1.11.5
   ohmyfetch: 0.4.18
   prism-themes: 1.9.0
@@ -80,6 +83,7 @@ dependencies:
 devDependencies:
   '@rollup/plugin-yaml': 3.1.0
   '@so1ve/eslint-config': 0.26.0_4x5o4skxv6sl53vpwefgt23khm
+  '@types/lodash.throttle': 4.1.7
   '@types/node': 18.0.4
   '@types/react': 18.0.15
   '@types/react-dom': 18.0.6
@@ -1280,6 +1284,16 @@ packages:
   /@types/katex/0.14.0:
     resolution: {integrity: sha512-+2FW2CcT0K3P+JMR8YG846bmDwplKUTsWgT2ENwdQ1UdVfRk3GQrh6Mi4sTopy30gI8Uau5CEqHTDZ6YvWIUPA==}
     dev: false
+
+  /@types/lodash.throttle/4.1.7:
+    resolution: {integrity: sha512-znwGDpjCHQ4FpLLx19w4OXDqq8+OvREa05H89obtSyXyOFKL3dDjCslsmfBz0T2FU8dmf5Wx1QvogbINiGIu9g==}
+    dependencies:
+      '@types/lodash': 4.14.182
+    dev: true
+
+  /@types/lodash/4.14.182:
+    resolution: {integrity: sha512-/THyiqyQAP9AfARo4pF+aCGcyiQ94tX/Is2I7HofNRqoYLgN1PBoOWu2/zTA5zMxzP5EFutMtWtGAFRKUe961Q==}
+    dev: true
 
   /@types/mdast/3.0.10:
     resolution: {integrity: sha512-W864tg/Osz1+9f4lrGTZpCSO5/z4608eUp19tbozkq2HJK6i3z1kT0H9tlADXuYIb1YYOBByU4Jsqkk75q48qA==}
@@ -3624,6 +3638,10 @@ packages:
   /lodash.merge/4.6.2:
     resolution: {integrity: sha512-0KpjqXRVvrYyCsX1swR/XTK0va6VQkQM6MNo7PqW77ByjAhoARA8EfrP1N4+KlKj8YS0ZUCtRT/YUuhyYDujIQ==}
     dev: true
+
+  /lodash.throttle/4.1.1:
+    resolution: {integrity: sha512-wIkUCfVKpVsWo3JSZlc+8MB5it+2AN5W8J7YVMST30UrvcQNZ1Okbj+rbVniijTWE6FGYy4XJq/rHkas8qJMLQ==}
+    dev: false
 
   /lodash/4.17.21:
     resolution: {integrity: sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==}

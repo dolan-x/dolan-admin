@@ -26,6 +26,7 @@
     "@unocss/reset": "^0.44.2",
     "i18next": "^21.8.14",
     "i18next-browser-languagedetector": "^6.1.4",
+    "lodash.throttle": "^4.1.1",
     "material-icons": "^1.11.5",
     "ohmyfetch": "^0.4.18",
     "prism-themes": "^1.9.0",
@@ -43,6 +44,7 @@
   "devDependencies": {
     "@rollup/plugin-yaml": "^3.1.0",
     "@so1ve/eslint-config": "^0.26.0",
+    "@types/lodash.throttle": "^4.1.7",
     "@types/node": "^18.0.4",
     "@types/react": "18.0.15",
     "@types/react-dom": "18.0.6",

@@ -1,7 +1,7 @@
 // Wrap because of https://github.com/DouyinFE/semi-design/issues/936/
 
 import type { ComponentType, FC, PropsWithChildren } from "react";
-import { Card, Form, Input, InputNumber, Select, Switch, TagInput, TextArea } from "@douyinfe/semi-ui";
+import { Card, DatePicker, Form, Input, InputNumber, Select, Switch, TagInput, TextArea } from "@douyinfe/semi-ui";
 
 import MilkdownEditor from "~/components/MilkdownEditor";
 
@@ -15,7 +15,9 @@ export function withLabel<P extends {}> (Comp: ComponentType<P>) {
     (
       <div className="py-3">
         <Form.Label className="block" text={props.label} />
-        <Comp {...props} />
+        <div>
+          <Comp {...props} />
+        </div>
       </div>
     )
   );
@@ -32,6 +34,7 @@ export const FormWrapper: FC<PropsWithChildren<{}>> = ({ children }) => {
   );
 };
 
+export const SemiDatepicker = withLabel(DatePicker);
 export const SemiInput = withLabel(Input);
 export const SemiInputNumber = withLabel(InputNumber);
 export const SemiInputNumberOnly: FC<GetProps<typeof SemiInputNumber>> = (props) => {

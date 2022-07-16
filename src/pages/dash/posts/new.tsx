@@ -1,12 +1,13 @@
 import type { FC } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button, Card, Input, Select, Toast, Typography } from "@douyinfe/semi-ui";
+import type { Post } from "@dolan-x/shared";
 
 import MilkdownEditor from "~/components/MilkdownEditor";
 import MetaEditor from "~/components/Dash/MetaEditor";
 import TagSelect from "~/components/Dash/Posts/TagSelect";
 import ResponsiveView from "~/components/Dash/Responsive";
-import { SemiInput, SemiSelect, SemiSwitch, SemiTextArea } from "~/components/Dash/Common";
+import { SemiDatepicker, SemiInput, SemiSelect, SemiSwitch, SemiTextArea } from "~/components/Dash/Common";
 import { fetchApi, useMonacoJSON } from "~/lib";
 import { NEW_POST_TEMPLATE } from "~/lib/templates";
 
@@ -24,6 +25,8 @@ const NewPost: FC = () => {
   const [content, setContent] = useState("");
   const [slug, setSlug] = useState("");
   const [excerpt, setExcerpt] = useState("");
+  const [created, setCreated] = useState(new Date());
+  const [updated, setUpdated] = useState(new Date());
   const [selectedTagSlugs, setSelectedTagSlugs] = useState<string[]>([]);
   const [sticky, setSticky] = useState(false);
   const [status, setStatus] = useState("published");
@@ -42,11 +45,13 @@ const NewPost: FC = () => {
       setSaving(false);
       return;
     }
-    const body = {
+    const body: Partial<Post> = {
       title,
       content,
       slug,
       excerpt,
+      created: created.toISOString(),
+      updated: updated.toISOString(),
       sticky,
       status,
       tags: selectedTagSlugs,
@@ -80,7 +85,9 @@ const NewPost: FC = () => {
     >
       <SemiInput value={slug} onChange={setSlug} placeholder={t("pages.posts.slug")} label={t("pages.posts.slug")} />
       <SemiTextArea autosize value={excerpt} onChange={setExcerpt} placeholder={t("pages.posts.excerpt")} label={t("pages.posts.excerpt")} />
-      <TagSelect label={t("pages.posts.tags")} slugs={selectedTagSlugs} onChange={setSelectedTagSlugs} />
+      <SemiDatepicker type="dateTime" value={created} onChange={setCreated as any} label={t("pages.posts.created")} />
+      <SemiDatepicker type="dateTime" value={updated} onChange={setUpdated as any} label={t("pages.posts.updated")} />
+      <TagSelect slugs={selectedTagSlugs} onChange={setSelectedTagSlugs} label={t("pages.posts.tags")} />
       <SemiSwitch checked={sticky} onChange={setSticky} label={t("pages.posts.sticky")} />
       <SemiSelect value={status} onChange={setStatus as any} className="w-full" label={t("pages.posts.status.label")}>
         <Select.Option value="published">

@@ -40,7 +40,8 @@ pages:
       published: 已发布
       draft: 草稿
     tags: 标签
-    created: 创建日期
+    created: 创建于
+    updated: 更新于
     slug: 文章唯一标识符
     excerpt: 摘要
     sticky: 置顶

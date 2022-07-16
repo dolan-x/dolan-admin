@@ -8,7 +8,7 @@ import MilkdownEditor from "~/components/MilkdownEditor";
 import MetaEditor from "~/components/Dash/MetaEditor";
 import TagSelect from "~/components/Dash/Posts/TagSelect";
 import ResponsiveView from "~/components/Dash/Responsive";
-import { Loading, SemiInput, SemiSelect, SemiSwitch, SemiTextArea } from "~/components/Dash/Common";
+import { Loading, SemiDatepicker, SemiInput, SemiSelect, SemiSwitch, SemiTextArea } from "~/components/Dash/Common";
 import { fetchApi, useMonacoJSON } from "~/lib";
 import { prettyJSON } from "~/utils";
 
@@ -29,8 +29,10 @@ const EditPost: FC = () => {
   const [content, setContent] = useState("");
   const [defaultContent, setDefaultContent] = useState("");
   const [slug, setSlug] = useState("");
-  const [selectedTagSlugs, setSelectedTagSlugs] = useState<string[]>([]);
   const [excerpt, setExcerpt] = useState("");
+  const [created, setCreated] = useState(new Date());
+  const [updated, setUpdated] = useState(new Date());
+  const [selectedTagSlugs, setSelectedTagSlugs] = useState<string[]>([]);
   const [sticky, setSticky] = useState(false);
   const [status, setStatus] = useState("");
 
@@ -57,6 +59,8 @@ const EditPost: FC = () => {
         content,
         slug,
         excerpt,
+        created,
+        updated,
         tags,
         sticky,
         status,
@@ -67,6 +71,8 @@ const EditPost: FC = () => {
       setDefaultContent(content);
       setSlug(slug);
       setExcerpt(excerpt);
+      setCreated(new Date(created));
+      setUpdated(new Date(updated));
       setSelectedTagSlugs(tags);
       setSticky(sticky);
       setStatus(status);
@@ -88,6 +94,8 @@ const EditPost: FC = () => {
       content,
       slug,
       excerpt,
+      created: created.toISOString(),
+      updated: updated.toISOString(),
       sticky,
       status,
       tags: selectedTagSlugs,
@@ -126,6 +134,8 @@ const EditPost: FC = () => {
       <Loading loading={loading}>
         <SemiInput value={slug} onChange={setSlug} placeholder={t("pages.posts.slug")} label={t("pages.posts.slug")} />
         <SemiTextArea autosize value={excerpt} onChange={setExcerpt} placeholder={t("pages.posts.excerpt")} label={t("pages.posts.excerpt")} />
+        <SemiDatepicker type="dateTime" value={created} onChange={setCreated as any} label={t("pages.posts.created")} />
+        <SemiDatepicker type="dateTime" value={updated} onChange={setUpdated as any} label={t("pages.posts.updated")} />
         <TagSelect label={t("pages.posts.tags")} slugs={selectedTagSlugs} onChange={setSelectedTagSlugs} />
         <SemiSwitch checked={sticky} onChange={setSticky} label={t("pages.posts.sticky")} />
         <SemiSelect value={status} onChange={setStatus as any} className="w-full" label={t("pages.posts.status.label")}>
