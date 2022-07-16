@@ -85,8 +85,8 @@ const NewPost: FC = () => {
     >
       <SemiInput value={slug} onChange={setSlug} placeholder={t("pages.posts.slug")} label={t("pages.posts.slug")} />
       <SemiTextArea autosize value={excerpt} onChange={setExcerpt} placeholder={t("pages.posts.excerpt")} label={t("pages.posts.excerpt")} />
-      <SemiDatepicker type="dateTime" value={created} onChange={setCreated as any} label={t("pages.posts.created")} />
-      <SemiDatepicker type="dateTime" value={updated} onChange={setUpdated as any} label={t("pages.posts.updated")} />
+      <SemiDatepicker className="w-full" type="dateTime" value={created} onChange={setCreated as any} label={t("pages.posts.created")} />
+      <SemiDatepicker className="w-full" type="dateTime" value={updated} onChange={setUpdated as any} label={t("pages.posts.updated")} />
       <TagSelect slugs={selectedTagSlugs} onChange={setSelectedTagSlugs} label={t("pages.posts.tags")} />
       <SemiSwitch checked={sticky} onChange={setSticky} label={t("pages.posts.sticky")} />
       <SemiSelect value={status} onChange={setStatus as any} className="w-full" label={t("pages.posts.status.label")}>
