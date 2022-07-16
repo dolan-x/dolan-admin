@@ -9,7 +9,7 @@ import TagSelect from "~/components/Dash/Posts/TagSelect";
 import ResponsiveView from "~/components/Dash/Responsive";
 import { SemiDatepicker, SemiInput, SemiSelect, SemiSwitch, SemiTextArea } from "~/components/Dash/Common";
 import { fetchApi, useMonacoJSON } from "~/lib";
-import { NEW_POST_TEMPLATE } from "~/lib/templates";
+import { LOCAL_NEW_POST_TEMPLATE } from "~/lib/templates";
 
 const NewPost: FC = () => {
   const { t } = useTranslation();
@@ -37,6 +37,11 @@ const NewPost: FC = () => {
     badJSON,
     onJSONChange,
   } = useMonacoJSON();
+
+  // TODO: Fetch new post template from config
+  async function onFetch () {
+
+  }
 
   async function onSave () {
     setSaving(true);
@@ -71,7 +76,7 @@ const NewPost: FC = () => {
     setSaving(false);
   }
 
-  const Milkdown = <MilkdownEditor value={NEW_POST_TEMPLATE} onChange={setContent} />;
+  const Milkdown = <MilkdownEditor value={LOCAL_NEW_POST_TEMPLATE} onChange={setContent} />;
   const ConfigEditor = (
     <Card
       header={(

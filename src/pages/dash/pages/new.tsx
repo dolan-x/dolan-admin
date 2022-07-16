@@ -7,7 +7,7 @@ import MetaEditor from "~/components/Dash/MetaEditor";
 import ResponsiveView from "~/components/Dash/Responsive";
 import { SemiInput, SemiSwitch } from "~/components/Dash/Common";
 import { fetchApi, useMonacoJSON } from "~/lib";
-import { NEW_POST_TEMPLATE } from "~/lib/templates";
+import { LOCAL_NEW_POST_TEMPLATE } from "~/lib/templates";
 
 const NewPage: FC = () => {
   const { t } = useTranslation();
@@ -58,7 +58,7 @@ const NewPage: FC = () => {
     setSaving(false);
   }
 
-  const Milkdown = <MilkdownEditor value={NEW_POST_TEMPLATE} onChange={setContent} />;
+  const Milkdown = <MilkdownEditor value={LOCAL_NEW_POST_TEMPLATE} onChange={setContent} />;
   const ConfigEditor = (
     <Card
       header={(
