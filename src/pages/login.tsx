@@ -33,7 +33,7 @@ const Login: FC = () => {
       loginStore.setToken(resp.data.token);
       Toast.success(t("login.login-success"));
     } else { Toast.error(t("login.login-failed")); }
-    setLoading(true);
+    setLoading(false);
   }
 
   return (
