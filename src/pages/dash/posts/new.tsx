@@ -39,9 +39,9 @@ const NewPost: FC = () => {
   } = useMonacoJSON();
 
   // TODO: Fetch new post template from config
-  async function onFetch () {
+  // async function onFetch () {
 
-  }
+  // }
 
   async function onSave () {
     setSaving(true);

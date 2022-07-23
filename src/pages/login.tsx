@@ -39,11 +39,11 @@ const Login: FC = () => {
   return (
     <div className="flex justify-center">
       <Form className="w-350px" disabled={loading} onSubmit={data => onLogin(data as LoginData)}>
-        <Form.Input field="username" label={t("login.username")} className="w-full" rules={[
+        <Form.Input className="w-full" field="username" label={t("login.username")}rules={[
           { required: true, message: t("login.username-missing") },
         ]}
         />
-        <Form.Input field="password" type="password" label={t("login.password")} className="w-full" rules={[
+        <Form.Input className="w-full" field="password" type="password" label={t("login.password")} rules={[
           { required: true, message: t("login.password-missing") },
         ]}
         />

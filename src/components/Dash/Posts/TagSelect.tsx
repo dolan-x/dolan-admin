@@ -29,10 +29,10 @@ const TagSelect: FC<TagSelectProps> = ({
   useAsyncEffect(onFetch, []);
 
   function processOptions (tags: Tag[]): OptionProps[] {
-    return tags.map((t) => {
+    return tags.map(({ slug, name }) => {
       return {
-        value: t.slug,
-        label: t.name,
+        value: slug,
+        label: `${name} (${slug})`,
       };
     });
   }
