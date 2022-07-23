@@ -10,24 +10,41 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix"
   },
+  "pnpm": {
+    "peerDependencyRules": {
+      "ignoreMissing": [
+        "@babel/core",
+        "@milkdown/*",
+        "prop-types",
+        "rollup"
+      ],
+      "allowedVersions": {
+        "react": "18",
+        "react-dom": "18"
+      },
+      "allowedDeprecatedVersions": {
+        "core-js-pure": "*"
+      }
+    }
+  },
   "dependencies": {
     "@dolan-x/milkdown-plugins": "^0.0.29",
     "@dolan-x/shared": "^0.0.29",
-    "@douyinfe/semi-ui": "^2.14.0",
+    "@douyinfe/semi-ui": "^2.15.1",
     "@iconify-json/carbon": "^1.1.6",
-    "@iconify-json/fluent": "^1.1.13",
+    "@iconify-json/fluent": "^1.1.14",
     "@iconify-json/ph": "^1.1.2",
-    "@milkdown/core": "^6.2.0",
-    "@milkdown/plugin-listener": "^6.2.0",
-    "@milkdown/react": "^6.2.0",
+    "@milkdown/core": "^6.3.1",
+    "@milkdown/plugin-listener": "^6.3.1",
+    "@milkdown/react": "^6.3.1",
     "@monaco-editor/react": "^4.4.5",
     "@r-use/use-before-unload": "^0.4.0",
-    "@r-use/use-breakpoints": "^0.2.1",
-    "@unocss/reset": "^0.44.2",
+    "@r-use/use-breakpoints": "^0.4.0",
+    "@unocss/reset": "^0.44.5",
     "i18next": "^21.8.14",
     "i18next-browser-languagedetector": "^6.1.4",
     "lodash.throttle": "^4.1.1",
-    "material-icons": "^1.11.5",
+    "material-icons": "^1.11.7",
     "ohmyfetch": "^0.4.18",
     "prism-themes": "^1.9.0",
     "prismjs": "^1.28.0",
@@ -45,20 +62,20 @@
     "@rollup/plugin-yaml": "^3.1.0",
     "@so1ve/eslint-config": "^0.26.0",
     "@types/lodash.throttle": "^4.1.7",
-    "@types/node": "^18.0.4",
+    "@types/node": "^18.0.6",
     "@types/react": "18.0.15",
     "@types/react-dom": "18.0.6",
-    "@unocss/transformer-compile-class": "^0.44.2",
-    "@unocss/transformer-variant-group": "^0.44.2",
+    "@unocss/transformer-compile-class": "^0.44.5",
+    "@unocss/transformer-variant-group": "^0.44.5",
     "@vitejs/plugin-react": "2.0.0",
-    "eslint": "^8.19.0",
+    "eslint": "^8.20.0",
     "monaco-editor": "^0.33.0",
-    "pnpm": "^7.5.1",
+    "pnpm": "^7.6.0",
     "typescript": "^4.7.4",
-    "unocss": "^0.44.2",
-    "unplugin-auto-import": "^0.9.3",
-    "vite": "3.0.0",
-    "vite-plugin-fonts": "^0.5.0",
+    "unocss": "^0.44.5",
+    "unplugin-auto-import": "^0.10.0",
+    "vite": "3.0.2",
+    "vite-plugin-fonts": "^0.6.0",
     "vite-plugin-pages": "^0.25.0"
   }
 }
