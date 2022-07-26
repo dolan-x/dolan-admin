@@ -1,9 +1,10 @@
 import type { FC } from "react";
+import { Select } from "@douyinfe/semi-ui";
 import type { OptionProps } from "@douyinfe/semi-ui/lib/es/select";
 import useAsyncEffect from "use-async-effect";
 import type { Tag } from "@dolan-x/shared";
 
-import { Loading, SemiSelect, withLabel } from "../Common";
+import { Loading, withLabel } from "../Common";
 import { fetchApi } from "~/lib";
 
 interface TagSelectProps {
@@ -39,7 +40,7 @@ const TagSelect: FC<TagSelectProps> = ({
 
   return (
     <Loading loading={loading}>
-      <SemiSelect
+      <Select
         className="w-full"
         filter
         multiple
