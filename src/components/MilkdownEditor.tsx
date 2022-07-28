@@ -6,7 +6,7 @@ import { Slice } from "@milkdown/prose/model";
 import { listener, listenerCtx } from "@milkdown/plugin-listener";
 import { milkdownPlugins } from "@dolan-x/milkdown-plugins";
 
-import { raw } from "./plugin";
+// import { raw } from "./plugin";
 
 import "material-icons/iconfont/outlined.css";
 import "prism-themes/themes/prism-nord.css";
