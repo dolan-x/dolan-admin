@@ -8,8 +8,8 @@ const appStore = useAppStore();
 
 const resources = Object.fromEntries(
   Object.entries(
-    import.meta.glob<{ default: object }>("../../locales/*.yaml", { eager: true }))
-    .map(([key, value]) => [key.slice("../../locales/".length, -".yaml".length), { translation: value.default }]),
+    import.meta.glob<{ default: object }>("../locales/*.yaml", { eager: true }))
+    .map(([key, value]) => [key.slice("../locales/".length, -".yaml".length), { translation: value.default }]),
 );
 
 i18n

@@ -6,8 +6,11 @@ import { Slice } from "@milkdown/prose/model";
 import { listener, listenerCtx } from "@milkdown/plugin-listener";
 import { milkdownPlugins } from "@dolan-x/milkdown-plugins";
 
+import { raw } from "./plugin";
+
 import "material-icons/iconfont/outlined.css";
 import "prism-themes/themes/prism-nord.css";
+import "katex/dist/katex.min.css";
 
 interface MilkdownEditorProps {
   disabled?: boolean
@@ -32,6 +35,7 @@ const MilkdownEditor: FC<MilkdownEditorProps> = ({ value, defaultValue, onChange
         }
       })
       .use(listener)
+      // .use(raw)
       .use(milkdownPlugins),
   );
 
