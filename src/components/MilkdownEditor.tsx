@@ -6,7 +6,7 @@ import { Slice } from "@milkdown/prose/model";
 import { listener, listenerCtx } from "@milkdown/plugin-listener";
 import { milkdownPlugins } from "@dolan-x/milkdown-plugins";
 
-// import { raw } from "./plugin";
+// import { raw } from "../../../milkdown-plugin-raw";
 
 import "material-icons/iconfont/outlined.css";
 import "prism-themes/themes/prism-nord.css";
@@ -37,6 +37,7 @@ const MilkdownEditor: FC<MilkdownEditorProps> = ({ value, defaultValue, onChange
       .use(listener)
       // .use(raw)
       .use(milkdownPlugins),
+    // .use(raw),
   );
 
   useEffect(() => {

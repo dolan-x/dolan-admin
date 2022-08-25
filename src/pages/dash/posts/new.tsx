@@ -1,15 +1,15 @@
 import type { FC } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button, Card, Input, Select, Toast, Typography } from "@douyinfe/semi-ui";
-import type { Post } from "@dolan-x/shared";
+import useAsyncEffect from "use-async-effect";
+import type { ConfigPosts, Post } from "@dolan-x/shared";
 
 import MilkdownEditor from "~/components/MilkdownEditor";
 import MetaEditor from "~/components/Dash/MetaEditor";
 import TagSelect from "~/components/Dash/Posts/TagSelect";
 import ResponsiveView from "~/components/Dash/Responsive";
-import { SemiDatepicker, SemiInput, SemiSelect, SemiSwitch, SemiTextArea } from "~/components/Dash/Common";
+import { Loading, SemiDatepicker, SemiInput, SemiSelect, SemiSwitch, SemiTextArea } from "~/components/Dash/Common";
 import { fetchApi, useMonacoJSON } from "~/lib";
-import { LOCAL_NEW_POST_TEMPLATE } from "~/lib/templates";
 
 const NewPost: FC = () => {
   const { t } = useTranslation();
@@ -19,6 +19,8 @@ const NewPost: FC = () => {
   const toggleShowMetaEditor = () => { setShowMetaEditor(!showMetaEditor); };
 
   const [saving, setSaving] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [defaultContent, setDefaultContent] = useState("");
 
   // Form
   const [title, setTitle] = useState("");
@@ -38,10 +40,14 @@ const NewPost: FC = () => {
     onJSONChange,
   } = useMonacoJSON();
 
-  // TODO: Fetch new post template from config
-  // async function onFetch () {
-
-  // }
+  async function onFetch () {
+    const resp = await fetchApi<ConfigPosts>("config/posts");
+    if (resp.success) {
+      setDefaultContent(resp.data.defaultContent);
+    }
+    setLoading(false);
+  }
+  useAsyncEffect(onFetch, []);
 
   async function onSave () {
     setSaving(true);
@@ -76,7 +82,11 @@ const NewPost: FC = () => {
     setSaving(false);
   }
 
-  const Milkdown = <MilkdownEditor value={LOCAL_NEW_POST_TEMPLATE} onChange={setContent} />;
+  const Milkdown = (
+    <Loading loading={loading}>
+      <MilkdownEditor value={defaultContent} onChange={setContent} />
+    </Loading>
+  );
   const ConfigEditor = (
     <Card
       header={(
@@ -88,20 +98,22 @@ const NewPost: FC = () => {
         </div>
       )}
     >
-      <SemiInput value={slug} onChange={setSlug} placeholder={t("pages.posts.slug")} label={t("pages.posts.slug")} />
-      <SemiTextArea autosize value={excerpt} onChange={setExcerpt} placeholder={t("pages.posts.excerpt")} label={t("pages.posts.excerpt")} />
-      <SemiDatepicker className="w-full" type="dateTime" value={created} onChange={setCreated as any} label={t("pages.posts.created")} />
-      <SemiDatepicker className="w-full" type="dateTime" value={updated} onChange={setUpdated as any} label={t("pages.posts.updated")} />
-      <TagSelect slugs={selectedTagSlugs} onChange={setSelectedTagSlugs} label={t("pages.posts.tags")} />
-      <SemiSwitch checked={sticky} onChange={setSticky} label={t("pages.posts.sticky")} />
-      <SemiSelect value={status} onChange={setStatus as any} className="w-full" label={t("pages.posts.status.label")}>
-        <Select.Option value="published">
-          {t("pages.posts.status.published")}
-        </Select.Option>
-        <Select.Option value="draft">
-          {t("pages.posts.status.draft")}
-        </Select.Option>
-      </SemiSelect>
+      <Loading loading={loading}>
+        <SemiInput value={slug} onChange={setSlug} placeholder={t("pages.posts.slug")} label={t("pages.posts.slug")} />
+        <SemiTextArea autosize value={excerpt} onChange={setExcerpt} placeholder={t("pages.posts.excerpt")} label={t("pages.posts.excerpt")} />
+        <SemiDatepicker className="w-full" type="dateTime" value={created} onChange={setCreated as any} label={t("pages.posts.created")} />
+        <SemiDatepicker className="w-full" type="dateTime" value={updated} onChange={setUpdated as any} label={t("pages.posts.updated")} />
+        <TagSelect slugs={selectedTagSlugs} onChange={setSelectedTagSlugs} label={t("pages.posts.tags")} />
+        <SemiSwitch checked={sticky} onChange={setSticky} label={t("pages.posts.sticky")} />
+        <SemiSelect value={status} onChange={setStatus as any} className="w-full" label={t("pages.posts.status.label")}>
+          <Select.Option value="published">
+            {t("pages.posts.status.published")}
+          </Select.Option>
+          <Select.Option value="draft">
+            {t("pages.posts.status.draft")}
+          </Select.Option>
+        </SemiSelect>
+      </Loading>
     </Card>
   );
 
@@ -116,10 +128,11 @@ const NewPost: FC = () => {
         <Input
           size="large"
           placeholder={t("pages.posts.input-post-title")}
+          disabled={loading}
           value={title}
           onChange={setTitle}
         />
-        <Button size="large" theme="solid" loading={saving} onClick={onSave}>
+        <Button size="large" theme="solid" disabled={loading} loading={saving} onClick={onSave}>
           {t("common.save")}
         </Button>
       </div>

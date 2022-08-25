@@ -101,7 +101,7 @@ const Sidebar: FC = () => {
     },
   ];
   return (
-    <Layout.Sider className="md:(relative h-unset!) fixed h-screen z-1000">
+    <Layout.Sider className="md:relative fixed h-screen z-1000">
       <Nav
         defaultIsCollapsed={defaultIsCollapsed}
         selectedKeys={selected}

@@ -1,13 +1,14 @@
 import type { FC } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button, Card, Input, Toast, Typography } from "@douyinfe/semi-ui";
+import useAsyncEffect from "use-async-effect";
+import type { ConfigPages } from "@dolan-x/shared";
 
 import MilkdownEditor from "~/components/MilkdownEditor";
 import MetaEditor from "~/components/Dash/MetaEditor";
 import ResponsiveView from "~/components/Dash/Responsive";
-import { SemiInput, SemiSwitch } from "~/components/Dash/Common";
+import { Loading, SemiInput, SemiSwitch } from "~/components/Dash/Common";
 import { fetchApi, useMonacoJSON } from "~/lib";
-import { LOCAL_NEW_POST_TEMPLATE } from "~/lib/templates";
 
 const NewPage: FC = () => {
   const { t } = useTranslation();
@@ -17,6 +18,8 @@ const NewPage: FC = () => {
   const toggleShowMetaEditor = () => { setShowMetaEditor(!showMetaEditor); };
 
   const [saving, setSaving] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [defaultContent, setDefaultContent] = useState("");
 
   // Form
   const [title, setTitle] = useState("");
@@ -30,6 +33,15 @@ const NewPage: FC = () => {
     badJSON,
     onJSONChange,
   } = useMonacoJSON();
+
+  async function onFetch () {
+    const resp = await fetchApi<ConfigPages>("config/pages");
+    if (resp.success) {
+      setDefaultContent(resp.data.defaultContent);
+    }
+    setLoading(false);
+  }
+  useAsyncEffect(onFetch, []);
 
   async function onSave () {
     setSaving(true);
@@ -58,7 +70,11 @@ const NewPage: FC = () => {
     setSaving(false);
   }
 
-  const Milkdown = <MilkdownEditor value={LOCAL_NEW_POST_TEMPLATE} onChange={setContent} />;
+  const Milkdown = (
+    <Loading loading={loading}>
+      <MilkdownEditor value={defaultContent} onChange={setContent} />
+    </Loading>
+  );
   const ConfigEditor = (
     <Card
       header={(
@@ -70,8 +86,10 @@ const NewPage: FC = () => {
         </div>
       )}
     >
-      <SemiInput value={slug} onChange={setSlug} placeholder={t("pages.pages.slug")} label={t("pages.pages.slug")} />
-      <SemiSwitch checked={hidden} onChange={setHidden} label={t("pages.pages.hidden")} />
+      <Loading loading={loading}>
+        <SemiInput value={slug} onChange={setSlug} placeholder={t("pages.pages.slug")} label={t("pages.pages.slug")} />
+        <SemiSwitch checked={hidden} onChange={setHidden} label={t("pages.pages.hidden")} />
+      </Loading>
     </Card>
   );
 
@@ -86,10 +104,11 @@ const NewPage: FC = () => {
         <Input
           size="large"
           placeholder={t("pages.pages.input-page-title")}
+          disabled={loading}
           value={title}
           onChange={setTitle}
         />
-        <Button size="large" theme="solid" loading={saving} onClick={onSave}>
+        <Button size="large" theme="solid" disabled={loading} loading={saving} onClick={onSave}>
           {t("common.save")}
         </Button>
       </div>

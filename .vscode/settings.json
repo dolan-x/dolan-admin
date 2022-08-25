@@ -7,8 +7,10 @@
     "*.css": "postcss"
   },
   "i18n-ally.localesPaths": [
-    "locales"
+    "src/locales"
   ],
   "i18n-ally.keystyle": "nested",
-  "i18n-ally.sourceLanguage": "zh-CN"
+  "i18n-ally.sourceLanguage": "zh-CN",
+  "editor.tabCompletion": "on",
+  "diffEditor.codeLens": true
 }
