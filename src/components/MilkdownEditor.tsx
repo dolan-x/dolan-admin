@@ -6,8 +6,6 @@ import { Slice } from "@milkdown/prose/model";
 import { listener, listenerCtx } from "@milkdown/plugin-listener";
 import { milkdownPlugins } from "@dolan-x/milkdown-plugins";
 
-// import { raw } from "../../../milkdown-plugin-raw";
-
 import "material-icons/iconfont/outlined.css";
 import "prism-themes/themes/prism-nord.css";
 import "katex/dist/katex.min.css";
@@ -23,8 +21,8 @@ const MilkdownEditor: FC<MilkdownEditorProps> = ({ value, defaultValue, onChange
     editor,
     getInstance,
     loading,
-  } = useEditor(root =>
-    Editor.make()
+  } = useEditor((root) => {
+    const e = Editor.make()
       .config((ctx) => {
         ctx.set(rootCtx, root);
         value && ctx.set(defaultValueCtx, value);
@@ -34,11 +32,11 @@ const MilkdownEditor: FC<MilkdownEditorProps> = ({ value, defaultValue, onChange
           });
         }
       })
-      .use(listener)
+      .use(listener);
       // .use(raw)
-      .use(milkdownPlugins),
-    // .use(raw),
-  );
+    milkdownPlugins.forEach(p => e.use(p));
+    return e;
+  });
 
   useEffect(() => {
     if (loading) { return; }

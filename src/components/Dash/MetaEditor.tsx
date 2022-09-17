@@ -25,12 +25,12 @@ const MetaEditor: FC<MetaEditorProps> = ({
       visible={show}
       maskClosable={false}
       width={600}
-      onCancel={toggleShow}
       footer={(
         <Button type="primary" onClick={toggleShow}>
           {t("common.save")}
         </Button>
       )}
+      onCancel={toggleShow}
     >
       <MonacoEditor value={stringJSON} onChange={onJSONChange} />
     </Modal>

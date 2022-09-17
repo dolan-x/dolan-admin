@@ -3,11 +3,16 @@ import Editor, { useMonaco } from "@monaco-editor/react";
 import { Spin } from "@douyinfe/semi-ui";
 
 interface MonacoEditorProps {
+  language?: string
   value?: string
-  onChange?: (s?: string) => void
+  onChange?: (s: string) => void
 }
-const MonacoEditor: FC<MonacoEditorProps> = ({ value, onChange }) => {
+const MonacoEditor: FC<MonacoEditorProps> = ({ language, value, onChange }) => {
   const monaco = useMonaco();
+
+  const internalOnChange = (s?: string) => { onChange?.(s ?? ""); };
+
+  language = language ?? "json";
 
   useEffect(() => {
     if (monaco) { monaco.languages.json.jsonDefaults.setDiagnosticsOptions({ enableSchemaRequest: true }); }
@@ -21,11 +26,11 @@ const MonacoEditor: FC<MonacoEditorProps> = ({ value, onChange }) => {
     <div>
       <Editor
         height="60vh"
-        defaultLanguage="json"
+        language={language}
         options={options}
         loading={<Spin />}
         value={value}
-        onChange={onChange}
+        onChange={internalOnChange}
       />
     </div>
   );

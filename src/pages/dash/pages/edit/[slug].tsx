@@ -4,7 +4,7 @@ import { Button, Card, Input, Toast, Typography } from "@douyinfe/semi-ui";
 import useAsyncEffect from "use-async-effect";
 import type { Page } from "@dolan-x/shared";
 
-import MilkdownEditor from "~/components/MilkdownEditor";
+import MarkdownEditor from "~/components/MarkdownEditor";
 import MetaEditor from "~/components/Dash/MetaEditor";
 import ResponsiveView from "~/components/Dash/Responsive";
 import { Loading, SemiInput, SemiSwitch } from "~/components/Dash/Common";
@@ -26,7 +26,6 @@ const EditPage: FC = () => {
   // Form
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
-  const [defaultContent, setDefaultContent] = useState("");
   const [slug, setSlug] = useState("");
   const [hidden, setHidden] = useState(false);
 
@@ -52,14 +51,11 @@ const EditPage: FC = () => {
         title,
         content,
         slug,
-        // FIXME: Hidden
-        // @ts-expect-error Fix later
         hidden,
         metas,
       } = resp.data;
       setTitle(title);
       setContent(content);
-      setDefaultContent(content);
       setSlug(slug);
       setHidden(hidden);
       setStringJSON(prettyJSON(metas));
@@ -95,9 +91,9 @@ const EditPage: FC = () => {
     setSaving(false);
   }
 
-  const Milkdown = (
+  const Markdown = (
     <Loading loading={loading}>
-      <MilkdownEditor defaultValue={defaultContent} value={content} onChange={setContent} />
+      <MarkdownEditor value={content} onChange={setContent} />
     </Loading>
   );
   const ConfigEditor = (
@@ -111,8 +107,8 @@ const EditPage: FC = () => {
         </div>
       )}
     >
-      <SemiInput value={slug} onChange={setSlug} placeholder={t("pages.pages.slug")} label={t("pages.pages.slug")} />
-      <SemiSwitch checked={hidden} onChange={setHidden} label={t("pages.pages.hidden")} />
+      <SemiInput value={slug} placeholder={t("pages.pages.slug")} label={t("pages.pages.slug")} onChange={setSlug} />
+      <SemiSwitch checked={hidden} label={t("pages.pages.hidden")} onChange={setHidden} />
     </Card>
   );
 
@@ -134,7 +130,7 @@ const EditPage: FC = () => {
           {t("common.save")}
         </Button>
       </div>
-      <ResponsiveView first={Milkdown} second={ConfigEditor} />
+      <ResponsiveView first={Markdown} second={ConfigEditor} />
       <MetaEditor
         title={t("pages.pages.metas")}
         show={showMetaEditor}

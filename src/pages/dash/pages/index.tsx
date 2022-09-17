@@ -104,7 +104,6 @@ const Pages: FC = () => {
         <Dropdown
           trigger={enableBatchOperation ? "click" : "custom"}
           visible={showBatchOperationMenu}
-          onVisibleChange={setShowBatchOperationMenu}
           render={(
             <Dropdown.Menu>
               {/* TODO: i18n */}
@@ -115,6 +114,7 @@ const Pages: FC = () => {
               </Popconfirm>
             </Dropdown.Menu>
           )}
+          onVisibleChange={setShowBatchOperationMenu}
         >
           <Button className="mb-4" type="tertiary" disabled={!enableBatchOperation} onClick={toggleShowBatchOperationMenu}>
             <div className="flex items-center gap-1">
@@ -134,11 +134,11 @@ const Pages: FC = () => {
               onChange: onRowSelectionChange as any,
             }}
           >
-            <Table.Column title={t("pages.pages.title")} dataIndex="title" key="title" render={renderTitle} />
-            <Table.Column title={t("pages.pages.hidden")} dataIndex="hidden" key="hidden" render={renderHidden} />
+            <Table.Column key="title" title={t("pages.pages.title")} dataIndex="title" render={renderTitle} />
+            <Table.Column key="hidden" title={t("pages.pages.hidden")} dataIndex="hidden" render={renderHidden} />
           </Table>
           <div className="flex justify-center my-7">
-            <Pagination currentPage={currentPage} onPageChange={onPageChange} total={metas.pages || 1} pageSize={1} />
+            <Pagination currentPage={currentPage} total={metas.pages || 1} pageSize={1} onPageChange={onPageChange} />
           </div>
         </Loading>
       </Card>

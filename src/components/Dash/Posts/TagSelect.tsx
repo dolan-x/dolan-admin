@@ -41,9 +41,9 @@ const TagSelect: FC<TagSelectProps> = ({
   return (
     <Loading loading={loading}>
       <Select
-        className="w-full"
         filter
         multiple
+        className="w-full"
         value={slugs}
         optionList={options}
         onChange={onChange as any}

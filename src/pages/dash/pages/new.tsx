@@ -4,7 +4,7 @@ import { Button, Card, Input, Toast, Typography } from "@douyinfe/semi-ui";
 import useAsyncEffect from "use-async-effect";
 import type { ConfigPages } from "@dolan-x/shared";
 
-import MilkdownEditor from "~/components/MilkdownEditor";
+import MarkdownEditor from "~/components/MarkdownEditor";
 import MetaEditor from "~/components/Dash/MetaEditor";
 import ResponsiveView from "~/components/Dash/Responsive";
 import { Loading, SemiInput, SemiSwitch } from "~/components/Dash/Common";
@@ -19,7 +19,6 @@ const NewPage: FC = () => {
 
   const [saving, setSaving] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [defaultContent, setDefaultContent] = useState("");
 
   // Form
   const [title, setTitle] = useState("");
@@ -37,7 +36,7 @@ const NewPage: FC = () => {
   async function onFetch () {
     const resp = await fetchApi<ConfigPages>("config/pages");
     if (resp.success) {
-      setDefaultContent(resp.data.defaultContent);
+      setContent(resp.data.defaultContent);
     }
     setLoading(false);
   }
@@ -70,9 +69,9 @@ const NewPage: FC = () => {
     setSaving(false);
   }
 
-  const Milkdown = (
+  const Markdown = (
     <Loading loading={loading}>
-      <MilkdownEditor value={defaultContent} onChange={setContent} />
+      <MarkdownEditor value={content} onChange={setContent} />
     </Loading>
   );
   const ConfigEditor = (
@@ -87,8 +86,8 @@ const NewPage: FC = () => {
       )}
     >
       <Loading loading={loading}>
-        <SemiInput value={slug} onChange={setSlug} placeholder={t("pages.pages.slug")} label={t("pages.pages.slug")} />
-        <SemiSwitch checked={hidden} onChange={setHidden} label={t("pages.pages.hidden")} />
+        <SemiInput value={slug} placeholder={t("pages.pages.slug")} label={t("pages.pages.slug")} onChange={setSlug} />
+        <SemiSwitch checked={hidden} label={t("pages.pages.hidden")} onChange={setHidden} />
       </Loading>
     </Card>
   );
@@ -112,7 +111,7 @@ const NewPage: FC = () => {
           {t("common.save")}
         </Button>
       </div>
-      <ResponsiveView first={Milkdown} second={ConfigEditor} />
+      <ResponsiveView first={Markdown} second={ConfigEditor} />
       <MetaEditor
         title={t("pages.pages.metas")}
         show={showMetaEditor}

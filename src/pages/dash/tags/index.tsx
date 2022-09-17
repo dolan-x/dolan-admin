@@ -139,16 +139,16 @@ const Tags: FC = () => {
   const NewTag = (
     <Card title={t("pages.tags.new-tag")}>
       <Loading loading={loading}>
-        <SemiInput value={name} onChange={withSetModified(setName)} placeholder={t("pages.tags.name")} label={t("pages.tags.name")} />
-        <SemiInput value={slug} onChange={withSetModified(setSlug)} placeholder={t("pages.tags.slug")} label={t("pages.tags.slug")} />
-        <SemiTextArea value={description} onChange={withSetModified(setDescription)} placeholder={t("pages.tags.description")} label={t("pages.tags.description")} />
+        <SemiInput value={name} placeholder={t("pages.tags.name")} label={t("pages.tags.name")} onChange={withSetModified(setName)} />
+        <SemiInput value={slug} placeholder={t("pages.tags.slug")} label={t("pages.tags.slug")} onChange={withSetModified(setSlug)} />
+        <SemiTextArea value={description} placeholder={t("pages.tags.description")} label={t("pages.tags.description")} onChange={withSetModified(setDescription)} />
         <SemiInput
           value={color}
-          onChange={withSetModified(setColor)}
           validateStatus={isColorValid ? "default" : "error"}
           placeholder={t("pages.tags.color")}
           label={t("pages.tags.color")}
-          suffix={<div onClick={toggleColorPickerVisible} className="i-carbon:color-palette pr-2" style={{ color }} />}
+          suffix={<div className="i-carbon:color-palette pr-2" style={{ color }} onClick={toggleColorPickerVisible} />}
+          onChange={withSetModified(setColor)}
         />
         <div className="flex gap-2 justify-between">
           <SplitButtonGroup>
@@ -203,16 +203,16 @@ const Tags: FC = () => {
         {TagList}
       </div>
       <Modal
+        closeOnEsc
         closable={false}
         title={t("pages.tags.color")}
         visible={colorPickerVisible}
-        onOk={toggleColorPickerVisible}
-        closeOnEsc
         footer={(
           <Button type="primary" onClick={toggleColorPickerVisible}>
             OK
           </Button>
         )}
+        onOk={toggleColorPickerVisible}
       >
         <div className="flex justify-center">
           <HexColorPicker color={color} onChange={withSetModified(setColor)} />

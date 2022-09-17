@@ -3,7 +3,7 @@ import { Button, Card, Toast } from "@douyinfe/semi-ui";
 import type { ConfigPosts } from "@dolan-x/shared";
 import useAsyncEffect from "use-async-effect";
 
-import { FormWrapper, Loading } from "~/components/Dash/Common";
+import { Loading } from "~/components/Dash/Common";
 import { fetchApi, useMonacoJSON } from "~/lib";
 import { prettyJSON } from "~/utils";
 import MonacoEditor from "~/components/MonacoEditor";

@@ -4,7 +4,7 @@ import { Button, Card, Input, Select, Toast, Typography } from "@douyinfe/semi-u
 import useAsyncEffect from "use-async-effect";
 import type { Post } from "@dolan-x/shared";
 
-import MilkdownEditor from "~/components/MilkdownEditor";
+import MarkdownEditor from "~/components/MarkdownEditor";
 import MetaEditor from "~/components/Dash/MetaEditor";
 import TagSelect from "~/components/Dash/Posts/TagSelect";
 import ResponsiveView from "~/components/Dash/Responsive";
@@ -27,7 +27,6 @@ const EditPost: FC = () => {
   // Form
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
-  const [defaultContent, setDefaultContent] = useState("");
   const [slug, setSlug] = useState("");
   const [excerpt, setExcerpt] = useState("");
   const [created, setCreated] = useState(new Date());
@@ -68,7 +67,6 @@ const EditPost: FC = () => {
       } = resp.data;
       setTitle(title);
       setContent(content);
-      setDefaultContent(content);
       setSlug(slug);
       setExcerpt(excerpt);
       setCreated(new Date(created));
@@ -115,9 +113,9 @@ const EditPost: FC = () => {
     setSaving(false);
   }
 
-  const Milkdown = (
+  const Markdown = (
     <Loading loading={loading}>
-      <MilkdownEditor defaultValue={defaultContent} value={content} onChange={setContent} />
+      <MarkdownEditor value={content} onChange={setContent} />
     </Loading>
   );
   const ConfigEditor = (
@@ -132,13 +130,13 @@ const EditPost: FC = () => {
       )}
     >
       <Loading loading={loading}>
-        <SemiInput value={slug} onChange={setSlug} placeholder={t("pages.posts.slug")} label={t("pages.posts.slug")} />
-        <SemiTextArea autosize value={excerpt} onChange={setExcerpt} placeholder={t("pages.posts.excerpt")} label={t("pages.posts.excerpt")} />
-        <SemiDatepicker className="w-full" type="dateTime" value={created} onChange={setCreated as any} label={t("pages.posts.created")} />
-        <SemiDatepicker className="w-full" type="dateTime" value={updated} onChange={setUpdated as any} label={t("pages.posts.updated")} />
+        <SemiInput value={slug} placeholder={t("pages.posts.slug")} label={t("pages.posts.slug")} onChange={setSlug} />
+        <SemiTextArea autosize value={excerpt} placeholder={t("pages.posts.excerpt")} label={t("pages.posts.excerpt")} onChange={setExcerpt} />
+        <SemiDatepicker className="w-full" type="dateTime" value={created} label={t("pages.posts.created")} onChange={setCreated as any} />
+        <SemiDatepicker className="w-full" type="dateTime" value={updated} label={t("pages.posts.updated")} onChange={setUpdated as any} />
         <TagSelect label={t("pages.posts.tags")} slugs={selectedTagSlugs} onChange={setSelectedTagSlugs} />
-        <SemiSwitch checked={sticky} onChange={setSticky} label={t("pages.posts.sticky")} />
-        <SemiSelect value={status} onChange={setStatus as any} className="w-full" label={t("pages.posts.status.label")}>
+        <SemiSwitch checked={sticky} label={t("pages.posts.sticky")} onChange={setSticky} />
+        <SemiSelect value={status} className="w-full" label={t("pages.posts.status.label")} onChange={setStatus as any}>
           <Select.Option value="published">
             {t("pages.posts.status.published")}
           </Select.Option>
@@ -175,7 +173,7 @@ const EditPost: FC = () => {
           {t("common.save")}
         </Button>
       </div>
-      <ResponsiveView first={Milkdown} second={ConfigEditor} />
+      <ResponsiveView first={Markdown} second={ConfigEditor} />
       <MetaEditor
         title={t("pages.posts.metas")}
         show={showMetaEditor}

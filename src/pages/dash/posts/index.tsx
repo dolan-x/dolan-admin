@@ -151,7 +151,6 @@ const Posts: FC = () => {
         <Dropdown
           trigger={enableBatchOperation ? "click" : "custom"}
           visible={showBatchOperationMenu}
-          onVisibleChange={setShowBatchOperationMenu}
           render={(
             <Dropdown.Menu>
               <Dropdown.Item onClick={convertToPublished}>
@@ -168,6 +167,7 @@ const Posts: FC = () => {
               </Popconfirm>
             </Dropdown.Menu>
           )}
+          onVisibleChange={setShowBatchOperationMenu}
         >
           <Button className="mb-4" type="tertiary" disabled={!enableBatchOperation} onClick={toggleShowBatchOperationMenu}>
             <div className="flex items-center gap-1">
@@ -187,13 +187,13 @@ const Posts: FC = () => {
               onChange: onRowSelectionChange as any,
             }}
           >
-            <Table.Column title={t("pages.posts.title")} dataIndex="title" key="title" render={renderTitle} />
-            <Table.Column title={t("pages.posts.status.label")} dataIndex="status" key="status" render={renderStatus} />
+            <Table.Column key="title" title={t("pages.posts.title")} dataIndex="title" render={renderTitle} />
+            <Table.Column key="status" title={t("pages.posts.status.label")} dataIndex="status" render={renderStatus} />
             {/* <Table.Column title={t("pages.posts.tags")} dataIndex="tags" key="tags" render={renderTags} /> */}
-            <Table.Column title={t("pages.posts.created")} dataIndex="created" key="created" render={renderCreatedDate} />
+            <Table.Column key="created" title={t("pages.posts.created")} dataIndex="created" render={renderCreatedDate} />
           </Table>
           <div className="flex justify-center my-7">
-            <Pagination currentPage={currentPage} onPageChange={onPageChange} total={metas.pages || 1} pageSize={1} />
+            <Pagination currentPage={currentPage} total={metas.pages || 1} pageSize={1} onPageChange={onPageChange} />
           </div>
         </Loading>
       </Card>

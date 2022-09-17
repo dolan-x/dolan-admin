@@ -138,3 +138,7 @@ login:
 not-found:
   not-found: Not found
   back: Back
+components:
+  markdown-editor:
+    editor: Editor
+    switch-editor: Switch Editor
