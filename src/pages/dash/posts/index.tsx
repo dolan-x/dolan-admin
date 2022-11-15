@@ -39,6 +39,7 @@ const Posts: FC = () => {
     const resp = await fetchApi<Post[]>("posts", {
       params: {
         page: currentPage,
+        all: "",
       },
     });
     if (resp.success) {
