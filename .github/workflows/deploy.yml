@@ -8,6 +8,8 @@ jobs:
     permissions:
       id-token: write
       contents: read
+    env:
+      VITE_DOLAN_API_URL: https://rbs.deno.dev
 
     steps:
       - name: Clone repository
