@@ -9,7 +9,7 @@ jobs:
       id-token: write
       contents: read
     env:
-      VITE_DOLAN_API_URL: https://rbs.deno.dev
+      VITE_DOLAN_API_URL: https://s.mk1.io
 
     steps:
       - name: Clone repository
