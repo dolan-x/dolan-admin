@@ -9,7 +9,7 @@ jobs:
       id-token: write
       contents: read
     env:
-      VITE_DOLAN_API_URL: https://s.mk1.io
+      VITE_DOLAN_API_URL: ${{ secrets.VITE_DOLAN_API_URL }}
 
     steps:
       - name: Clone repository
