@@ -35,7 +35,6 @@ jobs:
 
       - name: Upload to Deno Deploy
         uses: denoland/deployctl@v1
-        if: secrets.VITE_DOLAN_API_URL != ""
         with:
           project: ${{ secrets.DENO_DEPLOY_PROJECT_NAME }}
           entrypoint: https://deno.land/std/http/file_server.ts
