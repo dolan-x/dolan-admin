@@ -87,13 +87,13 @@ const EditPost: FC = () => {
       setSaving(false);
       return;
     }
-    const body = {
+    const body: Partial<Post> = {
       title,
       content,
       slug,
       excerpt,
-      created: created.toISOString(),
-      updated: updated.toISOString(),
+      created: created.getTime(),
+      updated: updated.getTime(),
       sticky,
       status,
       tags: selectedTagSlugs,
