@@ -60,18 +60,18 @@ const Posts: FC = () => {
       content: `Converting to ${status}...`,
     });
     await Promise.allSettled(
-      postSlugs.map(async (s, i) => {
+      postSlugs.map(async (s) => {
         fetchApi(`posts/${s}`, {
           method: "PUT",
           body: {
-            ...posts[i],
+            ...posts.find(p => p.slug === s),
             status,
           },
         });
       }),
     );
     // TODO: 直接onFetch()会导致数据不更新/不完全，不清楚原因
-    setTimeout(() => onFetch(), 1000);
+    setTimeout(onFetch, 1000);
   }
 
   async function convertToPublished () {
@@ -95,7 +95,7 @@ const Posts: FC = () => {
       }),
     );
     // TODO
-    setTimeout(() => onFetch(), 1000);
+    setTimeout(onFetch, 1000);
   }
 
   function onPageChange (currentPage: number) {
