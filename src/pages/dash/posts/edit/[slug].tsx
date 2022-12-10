@@ -75,7 +75,6 @@ const EditPost: FC = () => {
       setCreated(new Date(created));
       setUpdated(new Date(updated));
       setSelectedTagSlugs(tags);
-      console.log(category);
       setSelectedCategory(category);
       setSticky(sticky);
       setStatus(status);
