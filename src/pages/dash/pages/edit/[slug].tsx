@@ -37,7 +37,7 @@ const EditPage: FC = () => {
     onJSONChange,
   } = useMonacoJSON();
 
-  async function onFetch () {
+  async function onFetch() {
     let resp;
     try {
       resp = await fetchApi<Page>(`pages/${routeSlug}`);
@@ -64,7 +64,7 @@ const EditPage: FC = () => {
   }
   useAsyncEffect(onFetch, []);
 
-  async function onSave () {
+  async function onSave() {
     setSaving(true);
     if (badJSON) {
       Toast.error(t("pages.pages.metas-bad-json-format"));

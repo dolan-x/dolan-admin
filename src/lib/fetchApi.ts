@@ -22,7 +22,7 @@ type URLArg = Parameters<typeof f>[0];
 type RestArgs = Parameters<typeof f>[1] & {
   method?: "GET" | "POST" | "PUT" | "PATCH" | "DELETE" | "OPTION" | "HEAD"
 };
-export async function fetchApi<T = any> (url: URLArg, args?: RestArgs): DolanResponseP<T> {
+export async function fetchApi<T = any>(url: URLArg, args?: RestArgs): DolanResponseP<T> {
   const res = await f(url, {
     ...args,
     headers: {

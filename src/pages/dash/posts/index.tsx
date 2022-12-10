@@ -15,7 +15,7 @@ const statusMapping = {
   draft: <Badge dot type="danger" />,
 };
 
-function processPosts (posts: Post[]) {
+function processPosts(posts: Post[]) {
   return posts.map(p => ({
     ...p,
     key: p.slug,
@@ -35,7 +35,7 @@ const Posts: FC = () => {
 
   const toggleShowBatchOperationMenu = () => { setShowBatchOperationMenu(!showBatchOperationMenu); };
 
-  async function onFetch () {
+  async function onFetch() {
     const resp = await fetchApi<Post[]>("posts", {
       params: {
         page: currentPage,
@@ -54,13 +54,13 @@ const Posts: FC = () => {
   // Batch Operations
   // TODO: use PATCH
 
-  async function convertTo (postSlugs: string[], status: "published" | "draft") {
+  async function convertTo(postSlugs: string[], status: "published" | "draft") {
     setLoading(true);
     Toast.info({
       content: `Converting to ${status}...`,
     });
     await Promise.allSettled(
-      postSlugs.map(async (s) => {
+      postSlugs.map(async(s) => {
         fetchApi(`posts/${s}`, {
           method: "PUT",
           body: {
@@ -74,21 +74,21 @@ const Posts: FC = () => {
     setTimeout(onFetch, 1000);
   }
 
-  async function convertToPublished () {
+  async function convertToPublished() {
     await convertTo(selectedPostSlugs, "published");
   }
 
-  async function convertToDraft () {
+  async function convertToDraft() {
     await convertTo(selectedPostSlugs, "draft");
   }
 
-  async function deletePosts () {
+  async function deletePosts() {
     setLoading(true);
     Toast.info({
       content: "Deleting...",
     });
     await Promise.allSettled(
-      selectedPostSlugs.map(async (s) => {
+      selectedPostSlugs.map(async(s) => {
         fetchApi(`posts/${s}`, {
           method: "DELETE",
         });
@@ -98,17 +98,17 @@ const Posts: FC = () => {
     setTimeout(onFetch, 1000);
   }
 
-  function onPageChange (currentPage: number) {
+  function onPageChange(currentPage: number) {
     setCurrentPage(currentPage);
     setLoading(true);
   }
 
-  function onRowSelectionChange (selectedRowKeys: string[] | undefined) {
+  function onRowSelectionChange(selectedRowKeys: string[] | undefined) {
     setEnableBatchOperation(selectedRowKeys?.length !== 0);
     setSelectedPostSlugs(selectedRowKeys || []);
   }
 
-  function renderTitle (title: string, item: Post) {
+  function renderTitle(title: string, item: Post) {
     return (
       <div className="text-blue-400">
         <Link to={`./edit/${item.slug}`}>
@@ -122,7 +122,7 @@ const Posts: FC = () => {
     );
   }
 
-  function renderStatus (status: Post["status"]) {
+  function renderStatus(status: Post["status"]) {
     if (!(status in statusMapping)) { return null; }
     return (
       <>
@@ -133,7 +133,7 @@ const Posts: FC = () => {
     );
   }
 
-  function renderCreatedDate (publishedDate: Post["created"]) {
+  function renderCreatedDate(publishedDate: Post["created"]) {
     return (
       <div>
         {toDisplayDate(publishedDate)}

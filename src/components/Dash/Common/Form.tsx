@@ -10,7 +10,7 @@ type GetProps<T> = T extends ComponentType<infer P> ? P : never;
 type PropsWithLabel<T extends Record<string, any>> = T & {
   label?: string
 };
-export function withLabel<P extends {}> (Comp: ComponentType<P>) {
+export function withLabel<P extends {}>(Comp: ComponentType<P>) {
   const Wrapped = (props: PropsWithLabel<P>) => (
     (
       <div className="py-3">

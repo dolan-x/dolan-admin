@@ -15,7 +15,7 @@ const Functions: FC = () => {
   const [sitemapCategoriesBaseUrl, setSitemapCategoriesBaseUrl] = useState("");
   const [sitemapTagsBaseUrl, setSitemapTagsBaseUrl] = useState("");
 
-  async function onFetch () {
+  async function onFetch() {
     let resp;
     try {
       resp = await fetchApi<ConfigFunctions>("config/functions");
@@ -41,7 +41,7 @@ const Functions: FC = () => {
   }
   useAsyncEffect(onFetch, []);
 
-  async function onSave () {
+  async function onSave() {
     setSaving(true);
     const body: ConfigFunctions = {
       sitemap: {

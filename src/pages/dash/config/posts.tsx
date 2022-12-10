@@ -14,7 +14,7 @@ const Posts: FC = () => {
   const [maxPageSize, setMaxPageSize] = useState(10);
   const [defaultContent, setDefaultContent] = useState("");
 
-  async function onFetch () {
+  async function onFetch() {
     let resp;
     try {
       resp = await fetchApi<ConfigPosts>("config/posts");
@@ -36,7 +36,7 @@ const Posts: FC = () => {
   }
   useAsyncEffect(onFetch, []);
 
-  async function onSave () {
+  async function onSave() {
     setSaving(true);
     const body = {
       maxPageSize,

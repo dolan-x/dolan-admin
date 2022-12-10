@@ -6,7 +6,15 @@ common:
   save-failed: 保存失败!
   save-success: 保存成功!
   confirm-delete: 确定删除?
+  add-success: 添加成功!
+  add-failed: 添加失败!
+  update-success: 更新成功!
+  update-failed: 更新失败!
+  add: 添加
+  update: 更新
+  clear: 清除
   delete: 删除
+  edit: 编辑
   yes: 是
   no: 否
 pages:
@@ -40,6 +48,7 @@ pages:
       published: 已发布
       draft: 草稿
     tags: 标签
+    category: 分类
     created: 创建于
     updated: 更新于
     slug: 文章唯一标识符
@@ -70,23 +79,21 @@ pages:
   tags:
     label: 标签管理
     new-tag: 新建标签
+    edit-tag: 编辑标签
     tag-list: 标签列表
     name: 名称
     slug: 标签唯一标识符
     color: 颜色
     invalid-color-format: 颜色格式不合法!
     description: 标签描述
-    add-success: 添加成功!
-    add-failed: 添加失败!
-    update-success: 更新成功!
-    update-failed: 更新失败!
-    add: 添加
-    update: 更新
-    clear: 清除
-    confirm-delete: 确认删除?
-    delete: 删除
   categories:
     label: 分类管理
+    new-category: 新建分类
+    edit-category: 编辑分类
+    category-list: 分类列表
+    name: 名称
+    slug: 分类唯一标识符
+    description: 分类描述
   config:
     label: 配置管理
     site:

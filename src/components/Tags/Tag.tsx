@@ -10,7 +10,7 @@ export interface TagProps {
 }
 
 const Tag: FC<TagProps> = ({ name, slug, color, onClick }) => {
-  function internalOnClick () {
+  function internalOnClick() {
     onClick?.({
       name,
       slug,

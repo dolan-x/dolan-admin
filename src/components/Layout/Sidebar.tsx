@@ -12,7 +12,7 @@ const Sidebar: FC = () => {
 
   const [selected, setSelected] = useState<string[]>([location.pathname]);
 
-  function createNavigateTo (path: string) {
+  function createNavigateTo(path: string) {
     return () => {
       navigate(path);
     };
