@@ -1,4 +1,4 @@
-import { $fetch } from "ohmyfetch";
+import { ofetch } from "ofetch";
 
 import { DOLAN_TOKEN } from "~/constants";
 
@@ -7,7 +7,7 @@ export type DolanResponse<T> =
   | { success: false; code: number; message: string; error: string };
 export type DolanResponseP<T> = Promise<DolanResponse<T>>;
 
-const f = $fetch.create({
+const f = ofetch.create({
   baseURL: import.meta.env.VITE_DOLAN_API_URL,
   // TODO: Toast error here
   // onRequestError: async (_ctx) => {
