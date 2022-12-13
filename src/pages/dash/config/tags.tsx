@@ -13,7 +13,7 @@ const Tags: FC = () => {
   const [saving, setSaving] = useState(false);
   const [maxPageSize, setMaxPageSize] = useState(10);
 
-  async function onFetch () {
+  async function onFetch() {
     let resp;
     try {
       resp = await fetchApi<ConfigTags>("config/tags");
@@ -33,7 +33,7 @@ const Tags: FC = () => {
   }
   useAsyncEffect(onFetch, []);
 
-  async function onSave () {
+  async function onSave() {
     setSaving(true);
     const body = {
       maxPageSize,

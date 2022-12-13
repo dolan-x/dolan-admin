@@ -10,7 +10,7 @@ const Dash: FC = () => {
   const [loading, setLoading] = useState(true);
   const [initialized, setInitialized] = useState(false);
 
-  async function onFetch () {
+  async function onFetch() {
     let resp;
     try {
       resp = await fetchApi<boolean>("init");
@@ -24,7 +24,7 @@ const Dash: FC = () => {
   }
   useAsyncEffect(onFetch, []);
 
-  async function onInit () {
+  async function onInit() {
     setLoading(true);
     let resp;
     try {
@@ -51,12 +51,12 @@ const Dash: FC = () => {
               <Button className="mt-10 text-black! bg-emerald-300 hover:bg-emerald-400!">
                 已经初始化
               </Button>
-            )
+              )
             : (
               <Button className="mt-10" onClick={onInit}>
                 初始化
               </Button>
-            )}
+              )}
         </div>
       </Loading>
     </Card>

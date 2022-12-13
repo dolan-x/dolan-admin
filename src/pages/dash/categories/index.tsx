@@ -1,18 +1,15 @@
 import type { FC } from "react";
-import { Button, Card, Col, Modal, Popconfirm, Row, Space, Spin, SplitButtonGroup, Toast } from "@douyinfe/semi-ui";
-import { HexColorPicker } from "react-colorful";
+import { Button, Card, Col, Popconfirm, Row, Space, Spin, SplitButtonGroup, Toast } from "@douyinfe/semi-ui";
 import useAsyncEffect from "use-async-effect";
-import { validateHTMLColorHex } from "validate-color";
-import type { Tag as DolanTag } from "@dolan-x/shared";
+import type { Category } from "@dolan-x/shared";
 
 import { fetchApi } from "~/lib";
-import TagCloud from "~/components/Tags/TagCloud";
 import { Loading, SemiInput, SemiTextArea } from "~/components/Dash/Common";
+import CategoryList from "~/components/Categories/CategoryList";
 
-const Tags: FC = () => {
+const Categories: FC = () => {
   const { t } = useTranslation();
-  const [tags, setTags] = useState<DolanTag[]>([]);
-  const [colorPickerVisible, setColorPickerVisible] = useState(false);
+  const [categories, setCategories] = useState<Category[]>([]);
   const [loading, setLoading] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
   const [modified, setModified] = useState(false);
@@ -22,26 +19,16 @@ const Tags: FC = () => {
   const [slug, setSlug] = useState("");
   const [origSlug, setOrigSlug] = useState("");
   const [description, setDescription] = useState("");
-  const [color, setColor] = useState("");
-  const isColorValid = color === "" ? true : validateHTMLColorHex(color);
   const canAddOrUpdate = name !== "" && slug !== " ";
 
-  function toggleColorPickerVisible() {
-    setColorPickerVisible(!colorPickerVisible);
-  }
-
   async function onFetch() {
-    const resp = await fetchApi("tags");
-    if (resp.success) { setTags(resp.data); }
+    const resp = await fetchApi("categories");
+    if (resp.success) { setCategories(resp.data); }
   }
   useAsyncEffect(onFetch, []);
 
   async function onAdd() {
     if (!modified) { return; }
-    if (!isColorValid) {
-      Toast.error(t("pages.tags.invalid-color-format"));
-      return;
-    }
     if (!canAddOrUpdate) {
       // TODO: i18n
       Toast.error("required");
@@ -51,10 +38,9 @@ const Tags: FC = () => {
       name,
       slug,
       description,
-      color,
     };
     try {
-      await fetchApi("tags", {
+      await fetchApi("categories", {
         method: "POST",
         body,
       });
@@ -68,10 +54,6 @@ const Tags: FC = () => {
 
   async function onUpdate() {
     if (!modified) { return; }
-    if (!isColorValid) {
-      Toast.error(t("pages.tags.invalid-color-format"));
-      return;
-    }
     if (!canAddOrUpdate) {
       // TODO
       Toast.error("required");
@@ -81,10 +63,9 @@ const Tags: FC = () => {
       name,
       slug,
       description,
-      color,
     };
     try {
-      await fetchApi(`tags/${origSlug}`, {
+      await fetchApi(`categories/${origSlug}`, {
         method: "PUT",
         body,
       });
@@ -96,26 +77,25 @@ const Tags: FC = () => {
     onFetch();
   }
 
-  async function onTagDelete() {
+  async function onCategoryDelete() {
     setLoading(true);
-    await fetchApi<DolanTag>(`tags/${origSlug}`, {
+    await fetchApi<Category>(`categories/${origSlug}`, {
       method: "DELETE",
     });
     setLoading(false);
     onFetch();
   }
 
-  async function onTagClick({ slug: requestSlug }: Omit<DolanTag, "description">) {
+  async function onCategoryClick({ slug: requestSlug }: Category) {
     if (slug === requestSlug || loading) { return; }
     setIsEdit(true);
     setLoading(true);
-    const resp = await fetchApi<DolanTag>(`tags/${requestSlug}`);
+    const resp = await fetchApi<Category>(`categories/${requestSlug}`);
     if (resp.success) {
-      const { slug, name, description, color } = resp.data;
+      const { slug, name, description } = resp.data;
       setOrigSlug(slug);
       setSlug(slug);
       setName(name);
-      setColor(color);
       setDescription(description);
     }
     setLoading(false);
@@ -136,20 +116,12 @@ const Tags: FC = () => {
     };
   }
 
-  const NewTag = (
-    <Card title={t(isEdit ? "pages.tags.edit-tag" : "pages.tags.new-tag")}>
+  const NewCategory = (
+    <Card title={t(isEdit ? "pages.categories.edit-category" : "pages.categories.new-category")}>
       <Loading loading={loading}>
-        <SemiInput value={name} placeholder={t("pages.tags.name")} label={t("pages.tags.name")} onChange={withSetModified(setName)} />
-        <SemiInput value={slug} placeholder={t("pages.tags.slug")} label={t("pages.tags.slug")} onChange={withSetModified(setSlug)} />
-        <SemiTextArea value={description} placeholder={t("pages.tags.description")} label={t("pages.tags.description")} onChange={withSetModified(setDescription)} />
-        <SemiInput
-          value={color}
-          validateStatus={isColorValid ? "default" : "error"}
-          placeholder={t("pages.tags.color")}
-          label={t("pages.tags.color")}
-          suffix={<div className="i-carbon:color-palette pr-2" style={{ color }} onClick={toggleColorPickerVisible} />}
-          onChange={withSetModified(setColor)}
-        />
+        <SemiInput value={name} placeholder={t("pages.categories.name")} label={t("pages.categories.name")} onChange={withSetModified(setName)} />
+        <SemiInput value={slug} placeholder={t("pages.categories.slug")} label={t("pages.categories.slug")} onChange={withSetModified(setSlug)} />
+        <SemiTextArea value={description} placeholder={t("pages.categories.description")} label={t("pages.categories.description")} onChange={withSetModified(setDescription)} />
         <div className="flex gap-2 justify-between">
           <SplitButtonGroup>
             <Button theme="solid" disabled={!modified} onClick={isEdit ? onUpdate : onAdd}>
@@ -162,7 +134,7 @@ const Tags: FC = () => {
             )}
           </SplitButtonGroup>
           {isEdit && (
-            <Popconfirm title={t("common.confirm-delete")} onConfirm={onTagDelete}>
+            <Popconfirm title={t("common.confirm-delete")} onConfirm={onCategoryDelete}>
               <Button type="danger">
                 {t("common.delete")}
               </Button>
@@ -172,15 +144,15 @@ const Tags: FC = () => {
       </Loading>
     </Card>
   );
-  const TagList = (
-    <Card title={t("pages.tags.tag-list")}>
-      {tags.length === 0
+  const LazyCategoryList = (
+    <Card title={t("pages.categories.category-list")}>
+      {categories.length === 0
         ? (
           <div className="flex justify-center">
             <Spin />
           </div>
           )
-        : <TagCloud tags={tags} onTagClick={onTagClick} />}
+        : <CategoryList categories={categories} onEdit={onCategoryClick} />}
     </Card>
   );
 
@@ -189,37 +161,21 @@ const Tags: FC = () => {
       <div className="hidden! md:display-block!">
         <Row>
           <Col span={13}>
-            {NewTag}
+            {NewCategory}
           </Col>
           <Col span={1} />
           <Col span={10}>
-            {TagList}
+            {LazyCategoryList}
           </Col>
         </Row>
       </div>
       <div className="display-block md:hidden">
-        {NewTag}
+        {NewCategory}
         <Space />
-        {TagList}
+        {LazyCategoryList}
       </div>
-      <Modal
-        closeOnEsc
-        closable={false}
-        title={t("pages.tags.color")}
-        visible={colorPickerVisible}
-        footer={(
-          <Button type="primary" onClick={toggleColorPickerVisible}>
-            OK
-          </Button>
-        )}
-        onOk={toggleColorPickerVisible}
-      >
-        <div className="flex justify-center">
-          <HexColorPicker color={color} onChange={withSetModified(setColor)} />
-        </div>
-      </Modal>
     </div>
   );
 };
 
-export default Tags;
+export default Categories;

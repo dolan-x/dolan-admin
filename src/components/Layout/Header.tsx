@@ -43,12 +43,12 @@ const Sidebar: FC = () => {
                   <Button onClick={onLogout}>
                     {t("login.logout")}
                   </Button>
-                )
+                  )
                 : (
                   <Button theme="solid" type="primary">
                     {t("login.login")}
                   </Button>
-                )}
+                  )}
             </Link>
           </div>
         )}

@@ -13,7 +13,7 @@ const Categories: FC = () => {
   const [saving, setSaving] = useState(false);
   const [maxPageSize, setMaxPageSize] = useState(10);
 
-  async function onFetch () {
+  async function onFetch() {
     let resp;
     try {
       resp = await fetchApi<ConfigCategories>("config/categories");
@@ -33,7 +33,7 @@ const Categories: FC = () => {
   }
   useAsyncEffect(onFetch, []);
 
-  async function onSave () {
+  async function onSave() {
     setSaving(true);
     const body = {
       maxPageSize,

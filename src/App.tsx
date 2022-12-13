@@ -15,7 +15,7 @@ const langs = {
   "zh-CN": zh_CN,
 };
 
-function App () {
+function App() {
   const appStore = useAppStore();
 
   const Loading = <Spin />;

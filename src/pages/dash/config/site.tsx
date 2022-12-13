@@ -15,7 +15,7 @@ const Site: FC = () => {
   const [description, setDescription] = useState("");
   const [keywords, setKeywords] = useState<string[]>([]);
 
-  async function onFetch () {
+  async function onFetch() {
     let resp;
     try {
       resp = await fetchApi<ConfigSite>("config/site");
@@ -39,7 +39,7 @@ const Site: FC = () => {
   }
   useAsyncEffect(onFetch, []);
 
-  async function onSave () {
+  async function onSave() {
     setSaving(true);
     const body = {
       name,

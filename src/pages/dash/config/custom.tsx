@@ -22,7 +22,7 @@ const Custom: FC = () => {
     onJSONChange,
   } = useMonacoJSON();
 
-  async function onFetch () {
+  async function onFetch() {
     let resp;
     try {
       resp = await fetchApi<ConfigPosts>("config/custom");
@@ -39,7 +39,7 @@ const Custom: FC = () => {
   }
   useAsyncEffect(onFetch, []);
 
-  async function onSave () {
+  async function onSave() {
     setSaving(true);
 
     if (badJSON) {

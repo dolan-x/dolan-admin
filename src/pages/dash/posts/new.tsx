@@ -7,6 +7,7 @@ import type { ConfigPosts, Post } from "@dolan-x/shared";
 import MarkdownEditor from "~/components/MarkdownEditor";
 import MetaEditor from "~/components/Dash/MetaEditor";
 import TagSelect from "~/components/Dash/Posts/TagSelect";
+import CategorySelect from "~/components/Dash/Posts/CategorySelect";
 import ResponsiveView from "~/components/Dash/Responsive";
 import { Loading, SemiDatepicker, SemiInput, SemiSelect, SemiSwitch, SemiTextArea } from "~/components/Dash/Common";
 import { fetchApi, useMonacoJSON } from "~/lib";
@@ -29,6 +30,7 @@ const NewPost: FC = () => {
   const [created, setCreated] = useState(new Date());
   const [updated, setUpdated] = useState(new Date());
   const [selectedTagSlugs, setSelectedTagSlugs] = useState<string[]>([]);
+  const [selectedCategory, setSelectedCategory] = useState<string>("");
   const [sticky, setSticky] = useState(false);
   const [status, setStatus] = useState("published");
 
@@ -39,7 +41,7 @@ const NewPost: FC = () => {
     onJSONChange,
   } = useMonacoJSON();
 
-  async function onFetch () {
+  async function onFetch() {
     const resp = await fetchApi<ConfigPosts>("config/posts");
     if (resp.success) {
       setContent(resp.data.defaultContent);
@@ -48,7 +50,7 @@ const NewPost: FC = () => {
   }
   useAsyncEffect(onFetch, []);
 
-  async function onSave () {
+  async function onSave() {
     setSaving(true);
     if (badJSON) {
       Toast.error(t("pages.posts.metas-bad-json-format"));
@@ -65,7 +67,7 @@ const NewPost: FC = () => {
       sticky,
       status,
       tags: selectedTagSlugs,
-      categories: [],
+      category: selectedCategory,
       metas: parsedJSON,
     };
     try {
@@ -103,6 +105,7 @@ const NewPost: FC = () => {
         <SemiDatepicker className="w-full" type="dateTime" value={created} label={t("pages.posts.created")} onChange={setCreated as any} />
         <SemiDatepicker className="w-full" type="dateTime" value={updated} label={t("pages.posts.updated")} onChange={setUpdated as any} />
         <TagSelect slugs={selectedTagSlugs} label={t("pages.posts.tags")} onChange={setSelectedTagSlugs} />
+        <CategorySelect slug={selectedCategory} label={t("pages.posts.category")} onChange={setSelectedCategory} />
         <SemiSwitch checked={sticky} label={t("pages.posts.sticky")} onChange={setSticky} />
         <SemiSelect value={status} className="w-full" label={t("pages.posts.status.label")} onChange={setStatus as any}>
           <Select.Option value="published">

@@ -1,9 +1,9 @@
-export function useMonacoJSON () {
+export function useMonacoJSON() {
   const [stringJSON, setStringJSON] = useState("{}");
   const [parsedJSON, setParsedJSON] = useState({});
   const [badJSON, setBadJSON] = useState(false);
 
-  function onJSONChange (value: string | undefined) {
+  function onJSONChange(value: string | undefined) {
     setStringJSON(value || "");
     if (value === "" || value === undefined) {
       setParsedJSON({});

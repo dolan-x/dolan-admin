@@ -7,7 +7,7 @@ import type { Page } from "@dolan-x/shared";
 import { fetchApi } from "~/lib";
 import { Loading } from "~/components/Dash/Common";
 
-function processPages (pages: Page[]) {
+function processPages(pages: Page[]) {
   return pages.map(p => ({
     ...p,
     key: p.slug,
@@ -27,7 +27,7 @@ const Pages: FC = () => {
 
   const toggleShowBatchOperationMenu = () => { setShowBatchOperationMenu(!showBatchOperationMenu); };
 
-  async function onFetch () {
+  async function onFetch() {
     const resp = await fetchApi<Page[]>("pages", {
       params: {
         page: currentPage,
@@ -46,13 +46,13 @@ const Pages: FC = () => {
   // Batch Operations
   // TODO: use PATCH
 
-  async function deletePages () {
+  async function deletePages() {
     setLoading(true);
     Toast.info({
       content: "Deleting...",
     });
     await Promise.allSettled(
-      selectedPageSlugs.map(async (s) => {
+      selectedPageSlugs.map(async(s) => {
         fetchApi(`pages/${s}`, {
           method: "DELETE",
         });
@@ -62,17 +62,17 @@ const Pages: FC = () => {
     setTimeout(() => onFetch(), 1000);
   }
 
-  function onPageChange (currentPage: number) {
+  function onPageChange(currentPage: number) {
     setCurrentPage(currentPage);
     setLoading(true);
   }
 
-  function onRowSelectionChange (selectedRowKeys: string[] | undefined) {
+  function onRowSelectionChange(selectedRowKeys: string[] | undefined) {
     setEnableBatchOperation(selectedRowKeys?.length !== 0);
     setSelectedPageSlugs(selectedRowKeys || []);
   }
 
-  function renderTitle (title: string, item: Page) {
+  function renderTitle(title: string, item: Page) {
     return (
       <div className="text-blue-400">
         <Link to={`./edit/${item.slug}`}>
@@ -83,7 +83,7 @@ const Pages: FC = () => {
     );
   }
 
-  function renderHidden (hidden: boolean) {
+  function renderHidden(hidden: boolean) {
     return (
       <div>
         {

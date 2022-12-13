@@ -1,6 +1,6 @@
 import path from "node:path";
 import { defineConfig } from "vite";
-import React from "@vitejs/plugin-react";
+import React from "@vitejs/plugin-react-swc";
 import Pages from "vite-plugin-pages";
 import AutoImport from "unplugin-auto-import/vite";
 import { VitePluginFonts } from "vite-plugin-fonts";

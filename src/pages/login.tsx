@@ -18,7 +18,7 @@ const Login: FC = () => {
   const [loading, setLoading] = useState(false);
 
   if (loginStore.token) { navigate("/dash"); }
-  async function onLogin (data: LoginData) {
+  async function onLogin(data: LoginData) {
     setLoading(true);
     let resp;
     try {

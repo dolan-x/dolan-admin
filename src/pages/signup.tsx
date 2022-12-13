@@ -15,7 +15,7 @@ const Login: FC = () => {
 
   const [loading, setLoading] = useState(false);
 
-  async function onSignup (data: SignupData) {
+  async function onSignup(data: SignupData) {
     setLoading(true);
     let resp;
     try {

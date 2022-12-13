@@ -7,8 +7,16 @@ common:
   save-success: Saved successfully!
   confirm-delete: Comfirm deleting?
   delete: Delete
-  yes: 是
-  no: 否
+  add-success: Added successfully!
+  add-failed: Add failed!
+  update-success: Updated successfully!
+  update-failed: Update failed!
+  add: Add
+  update: Update
+  clear: Clear
+  edit: Edit
+  yes: Yes
+  no: No
 pages:
   dashboard:
     label: Dashboard
@@ -40,6 +48,7 @@ pages:
       published: Published
       draft: Draft
     tags: Tags
+    category: Category
     created: Created At
     updated: Updated At
     slug: Slug
@@ -69,23 +78,21 @@ pages:
   tags:
     label: Tags
     new-tag: New Tag
+    edit-tag: Edit Tag
     tag-list: Tag List
     name: Name
     slug: Slug
     color: Color
     invalid-color-format: Invalid color format!
     description: Description
-    add-success: Added successfully!
-    add-failed: Add failed!
-    update-success: Updated successfully!
-    update-failed: Update failed!
-    add: Add
-    update: Update
-    clear: Clear
-    confirm-delete: Comfirm deleting?
-    delete: Delete
   categories:
     label: Categories
+    new-category: New Category
+    edit-category: Edit Category
+    category-list: Category List
+    name: Name
+    slug: Slug
+    description: Description
   config:
     label: Config
     site:

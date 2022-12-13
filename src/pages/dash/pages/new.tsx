@@ -33,7 +33,7 @@ const NewPage: FC = () => {
     onJSONChange,
   } = useMonacoJSON();
 
-  async function onFetch () {
+  async function onFetch() {
     const resp = await fetchApi<ConfigPages>("config/pages");
     if (resp.success) {
       setContent(resp.data.defaultContent);
@@ -42,7 +42,7 @@ const NewPage: FC = () => {
   }
   useAsyncEffect(onFetch, []);
 
-  async function onSave () {
+  async function onSave() {
     setSaving(true);
     if (badJSON) {
       Toast.error(t("pages.pages.metas-bad-json-format"));
