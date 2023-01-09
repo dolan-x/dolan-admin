@@ -2,7 +2,7 @@ lockfileVersion: 5.4
 
 specifiers:
   '@dolan-x/milkdown-plugins': ^0.0.43
-  '@dolan-x/shared': ^0.0.44
+  '@dolan-x/shared': ^0.0.46
   '@douyinfe/semi-ui': ^2.27.0
   '@iconify-json/carbon': ^1.1.13
   '@iconify-json/ep': ^1.1.8
@@ -56,7 +56,7 @@ specifiers:
 
 dependencies:
   '@dolan-x/milkdown-plugins': 0.0.43_@milkdown+core@6.5.4
-  '@dolan-x/shared': 0.0.44
+  '@dolan-x/shared': 0.0.46
   '@douyinfe/semi-ui': 2.27.0_biqbaboplfbrettd7655fr4n2y
   '@iconify-json/carbon': 1.1.13
   '@iconify-json/ep': 1.1.8
@@ -241,8 +241,8 @@ packages:
       - supports-color
     dev: false
 
-  /@dolan-x/shared/0.0.44:
-    resolution: {integrity: sha512-welFuZbrhfpU+3jIWDHwo7SktlEup0vYLEY3TM+t59r4cr3fBgT3al4jRAX3WIc44IZioXdzOayKrqmk77goqg==}
+  /@dolan-x/shared/0.0.46:
+    resolution: {integrity: sha512-/9aCnNp9VL+rT80lAZzz3kqQ0Njvjxs4XlP1jJvxRHzz2YnqqeArCOR2ShqANJ6RLYN7E70a/k5vHohCrdTmmA==}
     dev: false
 
   /@douyinfe/semi-animation-react/2.27.0:

@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "@dolan-x/milkdown-plugins": "^0.0.43",
-    "@dolan-x/shared": "^0.0.44",
+    "@dolan-x/shared": "^0.0.46",
     "@douyinfe/semi-ui": "^2.27.0",
     "@iconify-json/carbon": "^1.1.13",
     "@iconify-json/ep": "^1.1.8",

@@ -101,6 +101,10 @@ pages:
       description: Description
       keywords: Keywords
       url: URL
+      posts-baseurl: Sitemap Posts BaseURL
+      categories-baseurl: Sitemap Categories BaseURL
+      tags-baseurl: Sitemap Tags BaseURL
+      pages-baseurl: Sitemap Pages BaseURL
     posts:
       label: Posts
       max-page-size: Max post size per page
@@ -120,10 +124,6 @@ pages:
     functions:
       label: Functions
       sitemap:
-        posts-baseurl: Sitemap Posts BaseURL
-        categories-baseurl: Sitemap Categories BaseURL
-        tags-baseurl: Sitemap Tags BaseURL
-        pages-baseurl: Sitemap Pages BaseURL
     custom:
       label: Custom
       bad-json-format: Bad JSON format!
