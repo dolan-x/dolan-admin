@@ -1,13 +1,19 @@
 import type { FC } from "react";
+import type { EditorProps } from "@monaco-editor/react";
 import Editor, { useMonaco } from "@monaco-editor/react";
 import { Spin } from "@douyinfe/semi-ui";
 
-interface MonacoEditorProps {
+interface Props {
   language?: string
   value?: string
   onChange?: (s: string) => void
 }
-const MonacoEditor: FC<MonacoEditorProps> = ({ language, value, onChange }) => {
+type MonacoEditorProps = Props & Omit<
+  EditorProps,
+  keyof Props
+>;
+
+const MonacoEditor: FC<MonacoEditorProps> = ({ language, value, onChange, ...props }) => {
   const monaco = useMonaco();
 
   const internalOnChange = (s?: string) => { onChange?.(s ?? ""); };
@@ -31,6 +37,7 @@ const MonacoEditor: FC<MonacoEditorProps> = ({ language, value, onChange }) => {
         loading={<Spin />}
         value={value}
         onChange={internalOnChange}
+        {...props}
       />
     </div>
   );

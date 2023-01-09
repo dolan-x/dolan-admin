@@ -14,6 +14,7 @@ const Site: FC = () => {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [keywords, setKeywords] = useState<string[]>([]);
+  const [url, setUrl] = useState("");
 
   async function onFetch() {
     let resp;
@@ -28,10 +29,12 @@ const Site: FC = () => {
         name,
         description,
         keywords,
+        url,
       } = resp.data;
       setName(name);
       setDescription(description);
       setKeywords(keywords);
+      setUrl(url);
       setLoading(false);
     } else {
       // Toast.error
@@ -45,6 +48,7 @@ const Site: FC = () => {
       name,
       description,
       keywords,
+      url,
     };
     try {
       await fetchApi("config/site", {
@@ -64,6 +68,7 @@ const Site: FC = () => {
         <SemiInput label={t("pages.config.site.name")} value={name} onChange={setName} />
         <SemiTextArea label={t("pages.config.site.description")} value={description} onChange={setDescription} />
         <SemiTagInput label={t("pages.config.site.keywords")} value={keywords} onChange={setKeywords} />
+        <SemiInput label={t("pages.config.site.url")} value={url} onChange={setUrl} />
         <Button theme="solid" disabled={loading} loading={saving} onClick={onSave}>
           {t("common.save")}
         </Button>

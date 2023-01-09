@@ -101,6 +101,7 @@ pages:
       name: 名称
       description: 简介
       keywords: 关键词
+      url: 站点地址
     posts:
       label: 文章配置
       max-page-size: 每页最大文章数
@@ -123,6 +124,7 @@ pages:
         posts-baseurl: 站点地图文章 BaseURL
         categories-baseurl: 站点地图分类 BaseURL
         tags-baseurl: 站点地图标签 BaseURL
+        pages-baseurl: 站点地图页面 BaseURL
     custom:
       label: 自定义配置
       bad-json-format: 错误的JSON格式!

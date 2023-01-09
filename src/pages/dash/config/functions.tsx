@@ -14,6 +14,7 @@ const Functions: FC = () => {
   const [sitemapPostsBaseUrl, setSitemapPostsBaseUrl] = useState("");
   const [sitemapCategoriesBaseUrl, setSitemapCategoriesBaseUrl] = useState("");
   const [sitemapTagsBaseUrl, setSitemapTagsBaseUrl] = useState("");
+  const [sitemapPagesBaseUrl, setSitemapPagesBaseUrl] = useState("");
 
   async function onFetch() {
     let resp;
@@ -29,11 +30,13 @@ const Functions: FC = () => {
           postsBaseUrl,
           categoriesBaseUrl,
           tagsBaseUrl,
+          pagesBaseUrl,
         },
       } = resp.data;
       setSitemapPostsBaseUrl(postsBaseUrl);
       setSitemapCategoriesBaseUrl(categoriesBaseUrl);
       setSitemapTagsBaseUrl(tagsBaseUrl);
+      setSitemapPagesBaseUrl(pagesBaseUrl);
       setLoading(false);
     } else {
       // Toast.error
@@ -48,6 +51,7 @@ const Functions: FC = () => {
         postsBaseUrl: sitemapPostsBaseUrl,
         categoriesBaseUrl: sitemapCategoriesBaseUrl,
         tagsBaseUrl: sitemapTagsBaseUrl,
+        pagesBaseUrl: sitemapPagesBaseUrl,
       },
     };
     try {
@@ -68,6 +72,7 @@ const Functions: FC = () => {
         <SemiInput label={t("pages.config.functions.sitemap.posts-baseurl")} value={sitemapPostsBaseUrl} onChange={setSitemapPostsBaseUrl} />
         <SemiInput label={t("pages.config.functions.sitemap.categories-baseurl")} value={sitemapCategoriesBaseUrl} onChange={setSitemapCategoriesBaseUrl} />
         <SemiInput label={t("pages.config.functions.sitemap.tags-baseurl")} value={sitemapTagsBaseUrl} onChange={setSitemapTagsBaseUrl} />
+        <SemiInput label={t("pages.config.functions.sitemap.pages-baseurl")} value={sitemapPagesBaseUrl} onChange={setSitemapPagesBaseUrl} />
         <Button theme="solid" disabled={loading} loading={saving} onClick={onSave}>
           {t("common.save")}
         </Button>
