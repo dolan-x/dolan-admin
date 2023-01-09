@@ -85,10 +85,10 @@ const Site: FC = () => {
         <SemiTextArea label={t("pages.config.site.description")} value={description} onChange={setDescription} />
         <SemiTagInput label={t("pages.config.site.keywords")} value={keywords} onChange={setKeywords} />
         <SemiInput label={t("pages.config.site.url")} value={url} onChange={setUrl} />
-        <SemiInput label={t("pages.config.site.postsBaseUrl")} value={postsBaseUrl} onChange={setPostsBaseUrl} />
-        <SemiInput label={t("pages.config.site.pagesBaseUrl")} value={pagesBaseUrl} onChange={setPagesBaseUrl} />
-        <SemiInput label={t("pages.config.site.tagsBaseUrl")} value={tagsBaseUrl} onChange={setTagsBaseUrl} />
-        <SemiInput label={t("pages.config.site.categoriesBaseUrl")} value={categoriesBaseUrl} onChange={setCategoriesBaseUrl} />
+        <SemiInput label={t("pages.config.site.posts-baseurl")} value={postsBaseUrl} onChange={setPostsBaseUrl} />
+        <SemiInput label={t("pages.config.site.pages-baseurl")} value={pagesBaseUrl} onChange={setPagesBaseUrl} />
+        <SemiInput label={t("pages.config.site.tags-baseurl")} value={tagsBaseUrl} onChange={setTagsBaseUrl} />
+        <SemiInput label={t("pages.config.site.categories-baseurl")} value={categoriesBaseUrl} onChange={setCategoriesBaseUrl} />
         <Button theme="solid" disabled={loading} loading={saving} onClick={onSave}>
           {t("common.save")}
         </Button>
